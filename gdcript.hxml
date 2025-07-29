@@ -1,0 +1,5 @@
+-p src
+-lib gdscript
+-D gdscript-output=out
+
+src
