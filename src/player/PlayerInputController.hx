@@ -81,6 +81,7 @@ class PlayerInputController extends Node {
 	// ================================
 	// Override Functions
 	// ================================
+
 	public override function _ready():Void {
 		_instance = this;
 	}
@@ -111,6 +112,7 @@ class PlayerInputController extends Node {
 	// ================================
 	// Public Functions
 	// ================================
+
 	public function SetMouseMode(capture:Bool) {
 		Input.set_mouse_mode(capture ? Input_MouseMode.MOUSE_MODE_CAPTURED : Input_MouseMode.MOUSE_MODE_VISIBLE);
 	}
@@ -118,6 +120,7 @@ class PlayerInputController extends Node {
 	// ================================
 	// Private Functions
 	// ================================
+
 	private function _resetInputs() {
 		_jumpPressed = false;
 	}
