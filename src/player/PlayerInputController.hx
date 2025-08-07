@@ -1,6 +1,7 @@
 package src.player;
 
 import godot.*;
+import src.helpers.MathUtils;
 
 // This is an input based Event Processor
 class PlayerInputController extends Node {
@@ -87,6 +88,8 @@ class PlayerInputController extends Node {
 	}
 
 	public override function _input(event:InputEvent):Void {
+		_resetInputs();
+
 		if (event.is_action_pressed(JUMP_EVENT)) {
 			_jumpPressed = true;
 		}
@@ -95,10 +98,6 @@ class PlayerInputController extends Node {
 			var inputMouseMotion:InputEventMouseMotion = cast event;
 			_mouseInput = inputMouseMotion.relative;
 		}
-	}
-
-	public override function _process(delta:Float):Void {
-		_resetInputs();
 	}
 
 	public override function _physics_process(delta:Float):Void {
@@ -115,6 +114,11 @@ class PlayerInputController extends Node {
 
 	public function SetMouseMode(capture:Bool) {
 		Input.set_mouse_mode(capture ? Input_MouseMode.MOUSE_MODE_CAPTURED : Input_MouseMode.MOUSE_MODE_VISIBLE);
+	}
+
+	public function HasNoDirectionalInput() {
+		return MathUtils.IsNearlyZero(_movementInput.x) && MathUtils.IsNearlyZero(_movementInput.y);
+
 	}
 
 	// ================================
