@@ -28,6 +28,7 @@ class PlayerInputController extends Node {
 	// Data
 	private var _mouseInput:Vector2;
 	private var _movementInput:Vector2;
+	private var _lastNonZeroMovementInput:Vector2;
 	private var _jumpPressed:Bool;
 	private var _ability1Pressed:Bool;
 	private var _ability2Pressed:Bool;
@@ -49,10 +50,18 @@ class PlayerInputController extends Node {
 		return _movementInput;
 	}
 
+	public var lastNonZeroMovementInput(get, never):Vector2;
+
+	private function get_lastNonZeroMovementInput():Vector2 {
+		return _lastNonZeroMovementInput;
+	}
+
 	public var jumpPressed(get, never):Bool;
 
 	private function get_jumpPressed():Bool {
-		return _jumpPressed;
+		var jump:Bool = _jumpPressed;
+		_jumpPressed = false;
+		return jump;
 	}
 
 	public var ability1Pressed(get, never):Bool;
@@ -106,6 +115,10 @@ class PlayerInputController extends Node {
 		_ability2Pressed = Input.is_action_pressed(ABILITY_2_EVENT);
 		_ability3Pressed = Input.is_action_pressed(ABILITY_3_EVENT);
 		_ability4Pressed = Input.is_action_pressed(ABILITY_4_EVENT);
+
+		if (!MathUtils.IsNearlyZero(_movementInput.x) || !MathUtils.IsNearlyZero(_movementInput.y)) {
+			_lastNonZeroMovementInput = _movementInput;
+		}
 	}
 
 	// ================================
@@ -118,7 +131,6 @@ class PlayerInputController extends Node {
 
 	public function HasNoDirectionalInput() {
 		return MathUtils.IsNearlyZero(_movementInput.x) && MathUtils.IsNearlyZero(_movementInput.y);
-
 	}
 
 	// ================================

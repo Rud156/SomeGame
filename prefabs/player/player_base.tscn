@@ -10,14 +10,14 @@
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_hq7tu")
-groundedAcceleration = 500.0
-groundedDeceleration = 1000.0
-maxGroundedSpeed = 5000.0
-airAcceleration = 100.0
-maxAirSpeed = 1500.0
-jumpVelocity = 15000.0
+groundedAcceleration = 10000.0
+groundedDeceleration = 15000.0
+maxGroundedSpeed = 4000.0
+airAcceleration = 1000.0
+maxAirSpeed = 5000.0
+jumpVelocity = 7500.0
 maxJumpCount = 2
-gravityMultiplier = 40.0
+gravityMultiplier = 11.0
 
 [node name="Collision Body" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_3khpg")
@@ -25,6 +25,7 @@ shape = SubResource("CapsuleShape3D_3khpg")
 [node name="Body" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_hq7tu")
 
-[node name="Head" type="MeshInstance3D" parent="."]
+[node name="Head" type="MeshInstance3D" parent="Body"]
 transform = Transform3D(0.5, 0, 0, 0, 0.1, 0, 0, 0, 0.5, 0.75, 0.45, 0)
 mesh = SubResource("BoxMesh_0oxmf")
+skeleton = NodePath("../..")

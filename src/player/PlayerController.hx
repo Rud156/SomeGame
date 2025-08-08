@@ -88,14 +88,14 @@ class PlayerController extends CharacterBody3D {
 		} else {
 			_currentMovementSpeed += groundedAcceleration * delta;
 		}
-		_currentMovementSpeed = MathUtils.clampf(_currentMovementSpeed, 0, maxGroundedSpeed);
+		_currentMovementSpeed = Godot.clampf(_currentMovementSpeed, 0, maxGroundedSpeed);
 
-		var playerInput:Vector2 = PlayerInputController.instance.movementInput;
+		var lastPlayerInput:Vector2 = PlayerInputController.instance.lastNonZeroMovementInput;
 		var basis:Basis = get_global_basis();
 		var forward:Vector3 = basis.z;
 		var right:Vector3 = basis.x;
 
-		var mappedMovement:Vector3 = Vector3.add(Vector3.mult2(forward, playerInput.x), Vector3.mult2(right, playerInput.y));
+		var mappedMovement:Vector3 = Vector3.add(Vector3.mult2(forward, lastPlayerInput.x), Vector3.mult2(right, lastPlayerInput.y));
 		mappedMovement.y = 0;
 		mappedMovement = mappedMovement.normalized() * _currentMovementSpeed;
 
@@ -107,19 +107,19 @@ class PlayerController extends CharacterBody3D {
 		if (!PlayerInputController.instance.HasNoDirectionalInput()) {
 			_currentMovementSpeed += airAcceleration * delta;
 		}
-		_currentMovementSpeed = MathUtils.clampf(_currentMovementSpeed, 0, maxAirSpeed);
+		_currentMovementSpeed = Godot.clampf(_currentMovementSpeed, 0, maxAirSpeed);
 
-		var playerInput:Vector2 = PlayerInputController.instance.movementInput;
+		var lastPlayerInput:Vector2 = PlayerInputController.instance.lastNonZeroMovementInput;
 		var basis:Basis = get_global_basis();
 		var forward:Vector3 = basis.z;
 		var right:Vector3 = basis.x;
 
-		var mappedMovement:Vector3 = Vector3.add(Vector3.mult2(forward, playerInput.x), Vector3.mult2(right, playerInput.y));
+		var mappedMovement:Vector3 = Vector3.add(Vector3.mult2(forward, lastPlayerInput.x), Vector3.mult2(right, lastPlayerInput.y));
 		mappedMovement.y = 0;
 		mappedMovement = mappedMovement.normalized() * _currentMovementSpeed;
 
-		_movementVelocity.x = MathUtils.clampf(_movementVelocity.x + mappedMovement.x, -maxAirSpeed, maxAirSpeed);
-		_movementVelocity.z = MathUtils.clampf(_movementVelocity.z + mappedMovement.z, -maxAirSpeed, maxAirSpeed);
+		_movementVelocity.x = Godot.clampf(_movementVelocity.x + mappedMovement.x, -maxAirSpeed, maxAirSpeed);
+		_movementVelocity.z = Godot.clampf(_movementVelocity.z + mappedMovement.z, -maxAirSpeed, maxAirSpeed);
 
 		if (is_on_floor()) {
 			_resetFallingStateData();
@@ -151,7 +151,6 @@ class PlayerController extends CharacterBody3D {
 	}
 
 	private function _applyMovement(delta:Float):Void {
-		trace("Velocity: " + _movementVelocity);
 		velocity = _movementVelocity * delta;
 		move_and_slide();
 	}
