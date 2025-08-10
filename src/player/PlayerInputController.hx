@@ -4,7 +4,7 @@ import godot.*;
 import src.helpers.MathUtils;
 
 // This is an input based Event Processor
-class PlayerInputController extends Node {
+class PlayerInputController extends Node3D {
 	private static var _instance:PlayerInputController;
 	public static var instance(get, never):PlayerInputController;
 
@@ -25,8 +25,12 @@ class PlayerInputController extends Node {
 	private static final ABILITY_3_EVENT:String = "ABILITY_3";
 	private static final ABILITY_4_EVENT:String = "ABILITY_4";
 
+	// Mouse 
+	private static final MOUSE_RAYCAST_DISTANCE:Int = 2000;
+
 	// Data
 	private var _mouseInput:Vector2;
+	private var _mousePosition:Vector3;
 	private var _movementInput:Vector2;
 	private var _lastNonZeroMovementInput:Vector2;
 	private var _jumpPressed:Bool;
@@ -42,6 +46,12 @@ class PlayerInputController extends Node {
 
 	private function get_mouseInput():Vector2 {
 		return _mouseInput;
+	}
+
+	public var mousePosition(get, never):Vector3;
+
+	private function get_mousePosition():Vector3 {
+		return _mousePosition;
 	}
 
 	public var movementInput(get, never):Vector2;
@@ -110,6 +120,7 @@ class PlayerInputController extends Node {
 	}
 
 	public override function _physics_process(delta:Float):Void {
+		_mousePosition = _screenPointToRay();
 		_movementInput = Input.get_vector(LEFT_EVENT, RIGHT_EVENT, BACKWARD_EVENT, FORWARD_EVENT);
 		_ability1Pressed = Input.is_action_pressed(ABILITY_1_EVENT);
 		_ability2Pressed = Input.is_action_pressed(ABILITY_2_EVENT);
@@ -139,5 +150,20 @@ class PlayerInputController extends Node {
 
 	private function _resetInputs() {
 		_jumpPressed = false;
+	}
+
+	private function _screenPointToRay():Vector3 {
+		var spaceState:PhysicsDirectSpaceState3D = get_world_3d().direct_space_state;
+		var mousePosition = get_viewport().get_mouse_position();
+		var camera:Camera3D = get_viewport().get_camera_3d();
+		
+		var rayOrigin:Vector3 = camera.project_ray_origin(mousePosition);
+		var rayEnd:Vector3 = rayOrigin + camera.project_ray_normal(mousePosition) * MOUSE_RAYCAST_DISTANCE;
+		var rayArray:Dictionary = spaceState.intersect_ray(PhysicsRayQueryParameters3D.create(rayOrigin, rayEnd));
+		if (rayArray.has("position")) {
+			return cast rayArray.get("position");
+		}
+
+		return Vector3.ZERO;
 	}
 }

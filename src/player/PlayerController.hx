@@ -1,7 +1,7 @@
 package src.player;
 
+import haxe.ds.Vector;
 import godot.*;
-import src.helpers.MathUtils;
 import src.player.PlayerInputController;
 
 class PlayerController extends CharacterBody3D {
@@ -24,6 +24,8 @@ class PlayerController extends CharacterBody3D {
 	var maxJumpCount:Int;
 	@:export
 	var gravityMultiplier:Float;
+	@:export
+	var playerMesh:Node3D;
 
 	// ================================
 	// Constants
@@ -38,7 +40,6 @@ class PlayerController extends CharacterBody3D {
 	private var _currentJumpCount:Int;
 	private var _currentMovementSpeed:Float;
 
-	// https://github.com/KenneyNL/Starter-Kit-3D-Platformer/blob/main/scripts/player.gd
 	// ================================
 	// Override Functions
 	// ================================
@@ -56,6 +57,8 @@ class PlayerController extends CharacterBody3D {
 
 		_handleJumpPressed();
 		_applyMovement(delta);
+
+		_updateMeshRotation();
 	}
 
 	// ================================
@@ -153,6 +156,12 @@ class PlayerController extends CharacterBody3D {
 	private function _applyMovement(delta:Float):Void {
 		velocity = _movementVelocity * delta;
 		move_and_slide();
+	}
+
+	private function _updateMeshRotation():Void {
+		var mousePosition:Vector3 = PlayerInputController.instance.mousePosition;
+		var playerPosition:Vector3 = get_global_position();
+		playerMesh.look_at(new Vector3(mousePosition.x, playerPosition.y, mousePosition.z), Vector3.UP);
 	}
 
 	private function _pushMovementState(movementState:PlayerMovementState) {
