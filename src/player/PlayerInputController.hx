@@ -121,7 +121,7 @@ class PlayerInputController extends Node3D {
 
 	public override function _physics_process(delta:Float):Void {
 		_mousePosition = _screenPointToRay();
-		_movementInput = Input.get_vector(LEFT_EVENT, RIGHT_EVENT, BACKWARD_EVENT, FORWARD_EVENT);
+		_movementInput = Input.get_vector(FORWARD_EVENT, BACKWARD_EVENT, RIGHT_EVENT, LEFT_EVENT);
 		_ability1Pressed = Input.is_action_pressed(ABILITY_1_EVENT);
 		_ability2Pressed = Input.is_action_pressed(ABILITY_2_EVENT);
 		_ability3Pressed = Input.is_action_pressed(ABILITY_3_EVENT);

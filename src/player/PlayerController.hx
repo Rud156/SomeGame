@@ -24,8 +24,6 @@ class PlayerController extends CharacterBody3D {
 	var maxJumpCount:Int;
 	@:export
 	var gravityMultiplier:Float;
-	@:export
-	var playerMesh:Node3D;
 
 	// ================================
 	// Constants
@@ -161,7 +159,7 @@ class PlayerController extends CharacterBody3D {
 	private function _updateMeshRotation():Void {
 		var mousePosition:Vector3 = PlayerInputController.instance.mousePosition;
 		var playerPosition:Vector3 = get_global_position();
-		playerMesh.look_at(new Vector3(mousePosition.x, playerPosition.y, mousePosition.z), Vector3.UP);
+		look_at(new Vector3(mousePosition.x, playerPosition.y, mousePosition.z), Vector3.UP);
 	}
 
 	private function _pushMovementState(movementState:PlayerMovementState) {
