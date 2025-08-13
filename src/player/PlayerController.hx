@@ -1,7 +1,8 @@
 package src.player;
 
-import haxe.ds.Vector;
+import gdscript.ObjectEx;
 import godot.*;
+import src.camera.CameraController;
 import src.player.PlayerInputController;
 
 class PlayerController extends CharacterBody3D {
@@ -35,6 +36,7 @@ class PlayerController extends CharacterBody3D {
 
 	// State
 	private var _movementStack:Array<PlayerMovementState>;
+	private var _jumpPressed:Bool;
 	private var _currentJumpCount:Int;
 	private var _currentMovementSpeed:Float;
 
@@ -46,16 +48,18 @@ class PlayerController extends CharacterBody3D {
 		_movementVelocity = Vector3.ZERO;
 		_pushMovementState(PlayerMovementState.NORMAL);
 		_resetFallingStateData();
+
+		untyped __gdscript__("PlayerInputController.get_instance().onJumpPressed.connect({0})", _handleJumpPressed);
 	}
 
 	public override function _process(delta:Float):Void {
 		_updateGroundedState();
 		_handleMovement(delta);
+
 		_processGravity();
+		_applyJump();
 
-		_handleJumpPressed();
 		_applyMovement(delta);
-
 		_updateMeshRotation();
 	}
 
@@ -63,7 +67,7 @@ class PlayerController extends CharacterBody3D {
 	// Private Functions
 	// ================================
 
-	private function _updateGroundedState() {
+	private function _updateGroundedState():Void {
 		var movementState:PlayerMovementState = _peekMovementState();
 		if (!is_on_floor() && movementState != PlayerMovementState.FALLING && movementState != PlayerMovementState.CUSTOM_MOVEMENT) {
 			_pushMovementState(PlayerMovementState.FALLING);
@@ -84,7 +88,7 @@ class PlayerController extends CharacterBody3D {
 	}
 
 	private function _updateNormalState(delta:Float):Void {
-		if (PlayerInputController.instance.HasNoDirectionalInput()) {
+		if (PlayerInputController.instance.hasNoDirectionalInput()) {
 			_currentMovementSpeed -= groundedDeceleration * delta;
 		} else {
 			_currentMovementSpeed += groundedAcceleration * delta;
@@ -105,7 +109,7 @@ class PlayerController extends CharacterBody3D {
 	}
 
 	private function _updateFallingState(delta:Float):Void {
-		if (!PlayerInputController.instance.HasNoDirectionalInput()) {
+		if (!PlayerInputController.instance.hasNoDirectionalInput()) {
 			_currentMovementSpeed += airAcceleration * delta;
 		}
 		_currentMovementSpeed = Godot.clampf(_currentMovementSpeed, 0, maxAirSpeed);
@@ -128,7 +132,7 @@ class PlayerController extends CharacterBody3D {
 		}
 	}
 
-	private function _resetFallingStateData() {
+	private function _resetFallingStateData():Void {
 		_currentJumpCount = 0;
 	}
 
@@ -144,9 +148,16 @@ class PlayerController extends CharacterBody3D {
 		}
 	}
 
-	private function _handleJumpPressed() {
-		if (PlayerInputController.instance.jumpPressed && _currentJumpCount < maxJumpCount) {
+	private function _applyJump():Void {
+		if (_jumpPressed) {
 			_movementVelocity.y = jumpVelocity;
+			_jumpPressed = false;
+		}
+	}
+
+	private function _handleJumpPressed():Void {
+		if (_currentJumpCount < maxJumpCount) {
+			_jumpPressed = true;
 			_currentJumpCount += 1;
 		}
 	}
@@ -159,14 +170,17 @@ class PlayerController extends CharacterBody3D {
 	private function _updateMeshRotation():Void {
 		var mousePosition:Vector3 = PlayerInputController.instance.mousePosition;
 		var playerPosition:Vector3 = get_global_position();
-		look_at(new Vector3(mousePosition.x, playerPosition.y, mousePosition.z), Vector3.UP);
+		var targetPosition:Vector3 = new Vector3(mousePosition.x, playerPosition.y, mousePosition.z);
+		if (!playerPosition.is_equal_approx(targetPosition)) {
+			look_at(targetPosition, Vector3.UP);
+		}
 	}
 
-	private function _pushMovementState(movementState:PlayerMovementState) {
+	private function _pushMovementState(movementState:PlayerMovementState):Void {
 		_movementStack.push(movementState);
 	}
 
-	private function _popMovementState() {
+	private function _popMovementState():Void {
 		_movementStack.pop();
 	}
 

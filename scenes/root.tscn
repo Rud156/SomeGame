@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://bgnguke0yisax"]
+[gd_scene load_steps=9 format=3 uid="uid://bgnguke0yisax"]
 
+[ext_resource type="Script" uid="uid://d0u7mrkg6ohk1" path="res://out/src_CameraController.gd" id="2_lrqlo"]
 [ext_resource type="PackedScene" uid="uid://dc31drmlrfvh5" path="res://prefabs/player/player_base.tscn" id="2_twpsu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j5px3"]
@@ -35,9 +36,6 @@ shadow_enabled = true
 [node name="Player" parent="." instance=ExtResource("2_twpsu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.27143, 0)
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 12.6842, 0)
-
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0397463, 0)
 
@@ -48,3 +46,10 @@ surface_material_override/0 = SubResource("StandardMaterial3D_jh1ax")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 shape = SubResource("BoxShape3D_j5px3")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.6842, 6.72017)
+script = ExtResource("2_lrqlo")
+
+[node name="Camera3D" type="Camera3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0.772889, 0.634542, 0, -0.634542, 0.772889, 0, 0, 0)

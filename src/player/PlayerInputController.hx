@@ -1,5 +1,6 @@
 package src.player;
 
+import gdscript.ObjectEx;
 import godot.*;
 import src.helpers.MathUtils;
 
@@ -25,7 +26,12 @@ class PlayerInputController extends Node3D {
 	private static final ABILITY_3_EVENT:String = "ABILITY_3";
 	private static final ABILITY_4_EVENT:String = "ABILITY_4";
 
-	// Mouse 
+	// Signals
+
+	@:signal
+	public function onJumpPressed() {}
+
+	// Mouse
 	private static final MOUSE_RAYCAST_DISTANCE:Int = 2000;
 
 	// Data
@@ -33,7 +39,6 @@ class PlayerInputController extends Node3D {
 	private var _mousePosition:Vector3;
 	private var _movementInput:Vector2;
 	private var _lastNonZeroMovementInput:Vector2;
-	private var _jumpPressed:Bool;
 	private var _ability1Pressed:Bool;
 	private var _ability2Pressed:Bool;
 	private var _ability3Pressed:Bool;
@@ -64,14 +69,6 @@ class PlayerInputController extends Node3D {
 
 	private function get_lastNonZeroMovementInput():Vector2 {
 		return _lastNonZeroMovementInput;
-	}
-
-	public var jumpPressed(get, never):Bool;
-
-	private function get_jumpPressed():Bool {
-		var jump:Bool = _jumpPressed;
-		_jumpPressed = false;
-		return jump;
 	}
 
 	public var ability1Pressed(get, never):Bool;
@@ -107,10 +104,8 @@ class PlayerInputController extends Node3D {
 	}
 
 	public override function _input(event:InputEvent):Void {
-		_resetInputs();
-
 		if (event.is_action_pressed(JUMP_EVENT)) {
-			_jumpPressed = true;
+			ObjectEx.emit_signal("onJumpPressed");
 		}
 
 		if (event is InputEventMouseMotion) {
@@ -136,11 +131,11 @@ class PlayerInputController extends Node3D {
 	// Public Functions
 	// ================================
 
-	public function SetMouseMode(capture:Bool) {
+	public function setMouseMode(capture:Bool):Void {
 		Input.set_mouse_mode(capture ? Input_MouseMode.MOUSE_MODE_CAPTURED : Input_MouseMode.MOUSE_MODE_VISIBLE);
 	}
 
-	public function HasNoDirectionalInput() {
+	public function hasNoDirectionalInput():Bool {
 		return MathUtils.IsNearlyZero(_movementInput.x) && MathUtils.IsNearlyZero(_movementInput.y);
 	}
 
@@ -148,15 +143,11 @@ class PlayerInputController extends Node3D {
 	// Private Functions
 	// ================================
 
-	private function _resetInputs() {
-		_jumpPressed = false;
-	}
-
 	private function _screenPointToRay():Vector3 {
 		var spaceState:PhysicsDirectSpaceState3D = get_world_3d().direct_space_state;
 		var mousePosition = get_viewport().get_mouse_position();
 		var camera:Camera3D = get_viewport().get_camera_3d();
-		
+
 		var rayOrigin:Vector3 = camera.project_ray_origin(mousePosition);
 		var rayEnd:Vector3 = rayOrigin + camera.project_ray_normal(mousePosition) * MOUSE_RAYCAST_DISTANCE;
 		var rayArray:Dictionary = spaceState.intersect_ray(PhysicsRayQueryParameters3D.create(rayOrigin, rayEnd));
