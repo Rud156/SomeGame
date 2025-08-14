@@ -6,6 +6,7 @@ class CameraShaker {
 	// ================================
 	// Constants
 	// ================================
+	@:const
 	private static final CAMERA_ORIGIN_THRESHOLD:Float = 0.05;
 
 	var _mainCamera:Camera3D;

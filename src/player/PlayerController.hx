@@ -29,6 +29,7 @@ class PlayerController extends CharacterBody3D {
 	// ================================
 	// Constants
 	// ================================
+	@:const
 	private static final GRAVITY:Float = -9.8;
 
 	// Movement Modifiers
@@ -40,6 +41,9 @@ class PlayerController extends CharacterBody3D {
 	private var _currentJumpCount:Int;
 	private var _currentMovementSpeed:Float;
 
+	// Events
+	private var _handleJumpPressedCallable:Callable;
+
 	// ================================
 	// Override Functions
 	// ================================
@@ -49,7 +53,12 @@ class PlayerController extends CharacterBody3D {
 		_pushMovementState(PlayerMovementState.NORMAL);
 		_resetFallingStateData();
 
-		untyped __gdscript__("PlayerInputController.get_instance().onJumpPressed.connect({0})", _handleJumpPressed);
+		_handleJumpPressedCallable = new Callable(this, "_handleJumpPressed");
+		PlayerInputController.instance.connect(PlayerInputController.ON_JUMP_PRESSED, _handleJumpPressedCallable);
+	}
+
+	public override function _exit_tree():Void {
+		PlayerInputController.instance.disconnect(PlayerInputController.ON_JUMP_PRESSED, _handleJumpPressedCallable);
 	}
 
 	public override function _process(delta:Float):Void {

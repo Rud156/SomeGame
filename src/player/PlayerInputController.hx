@@ -14,24 +14,36 @@ class PlayerInputController extends Node3D {
 	}
 
 	// Basic Movement
+	@:const
 	private static final FORWARD_EVENT:String = "FORWARD";
+	@:const
 	private static final BACKWARD_EVENT:String = "BACKWARD";
+	@:const
 	private static final LEFT_EVENT:String = "LEFT";
+	@:const
 	private static final RIGHT_EVENT:String = "RIGHT";
+	@:const
 	private static final JUMP_EVENT:String = "JUMP";
 
 	// Ability Inputs
+	@:const
 	private static final ABILITY_1_EVENT:String = "ABILITY_1";
+	@:const
 	private static final ABILITY_2_EVENT:String = "ABILITY_2";
+	@:const
 	private static final ABILITY_3_EVENT:String = "ABILITY_3";
+	@:const
 	private static final ABILITY_4_EVENT:String = "ABILITY_4";
 
 	// Signals
 
 	@:signal
-	public function onJumpPressed() {}
+	function onJumpPressed() {}
+
+	public static final ON_JUMP_PRESSED:String = "onJumpPressed";
 
 	// Mouse
+	@:const
 	private static final MOUSE_RAYCAST_DISTANCE:Int = 2000;
 
 	// Data
@@ -105,7 +117,7 @@ class PlayerInputController extends Node3D {
 
 	public override function _input(event:InputEvent):Void {
 		if (event.is_action_pressed(JUMP_EVENT)) {
-			ObjectEx.emit_signal("onJumpPressed");
+			ObjectEx.emit_signal(ON_JUMP_PRESSED);
 		}
 
 		if (event is InputEventMouseMotion) {
