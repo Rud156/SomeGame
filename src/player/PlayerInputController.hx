@@ -111,7 +111,8 @@ class PlayerInputController extends Node3D {
 	// Override Functions
 	// ================================
 
-	public override function _ready():Void {
+	public function new() {
+		super();
 		_instance = this;
 	}
 

@@ -1,6 +1,5 @@
 package src.player;
 
-import gdscript.ObjectEx;
 import godot.*;
 import src.camera.CameraController;
 import src.player.PlayerInputController;
@@ -53,8 +52,10 @@ class PlayerController extends CharacterBody3D {
 		_pushMovementState(PlayerMovementState.NORMAL);
 		_resetFallingStateData();
 
-		_handleJumpPressedCallable = new Callable(this, "_handleJumpPressed");
+		_handleJumpPressedCallable = Callable.create(this, "_handleJumpPressed");
 		PlayerInputController.instance.connect(PlayerInputController.ON_JUMP_PRESSED, _handleJumpPressedCallable);
+
+		CameraController.instance.setTargetObject(this);
 	}
 
 	public override function _exit_tree():Void {
@@ -106,8 +107,8 @@ class PlayerController extends CharacterBody3D {
 
 		var lastPlayerInput:Vector2 = PlayerInputController.instance.lastNonZeroMovementInput;
 		var basis:Basis = get_global_basis();
-		var forward:Vector3 = basis.z;
-		var right:Vector3 = basis.x;
+		var forward:Vector3 = -Vector3.FORWARD;
+		var right:Vector3 = -Vector3.RIGHT;
 
 		var mappedMovement:Vector3 = Vector3.add(Vector3.mult2(forward, lastPlayerInput.x), Vector3.mult2(right, lastPlayerInput.y));
 		mappedMovement.y = 0;
@@ -125,8 +126,8 @@ class PlayerController extends CharacterBody3D {
 
 		var lastPlayerInput:Vector2 = PlayerInputController.instance.lastNonZeroMovementInput;
 		var basis:Basis = get_global_basis();
-		var forward:Vector3 = basis.z;
-		var right:Vector3 = basis.x;
+		var forward:Vector3 = -Vector3.FORWARD;
+		var right:Vector3 = -Vector3.RIGHT;
 
 		var mappedMovement:Vector3 = Vector3.add(Vector3.mult2(forward, lastPlayerInput.x), Vector3.mult2(right, lastPlayerInput.y));
 		mappedMovement.y = 0;

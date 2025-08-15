@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://bgnguke0yisax"]
+[gd_scene load_steps=11 format=3 uid="uid://bgnguke0yisax"]
 
 [ext_resource type="Script" uid="uid://d0u7mrkg6ohk1" path="res://out/src_CameraController.gd" id="2_lrqlo"]
 [ext_resource type="PackedScene" uid="uid://dc31drmlrfvh5" path="res://prefabs/player/player_base.tscn" id="2_twpsu"]
+[ext_resource type="Script" uid="uid://cklb7t5ac0si5" path="res://out/src_PlayerInputController.gd" id="3_lrqlo"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j5px3"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -15,6 +16,12 @@ background_mode = 2
 sky = SubResource("Sky_twpsu")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="Curve" id="Curve_twpsu"]
+_data = [Vector2(0, 0), 0.0, 1.68166, 0, 0, Vector2(1, 1), -3.18761, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+metadata/_snap_count = 8
 
 [sub_resource type="BoxMesh" id="BoxMesh_sqa0i"]
 
@@ -33,8 +40,17 @@ environment = SubResource("Environment_lrqlo")
 transform = Transform3D(-0.996779, 0.0724465, -0.0344001, 0, 0.428935, 0.903335, 0.0801989, 0.900426, -0.427554, 0, 0, 0)
 shadow_enabled = true
 
+[node name="Camera Holder" type="Node3D" parent="."]
+script = ExtResource("2_lrqlo")
+followDistance = Vector3(0, 15, 15)
+followSpeed = 5.0
+followLerpCurve = SubResource("Curve_twpsu")
+lookRotationSpeed = 10.0
+
+[node name="Main Camera" type="Camera3D" parent="Camera Holder"]
+
 [node name="Player" parent="." instance=ExtResource("2_twpsu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.27143, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.27143, -2.7826)
 
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0397463, 0)
@@ -47,9 +63,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_jh1ax")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 shape = SubResource("BoxShape3D_j5px3")
 
-[node name="Node3D" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.6842, 6.72017)
-script = ExtResource("2_lrqlo")
+[node name="Global Controllers" type="Node3D" parent="."]
 
-[node name="Camera3D" type="Camera3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 0.772889, 0.634542, 0, -0.634542, 0.772889, 0, 0, 0)
+[node name="Player Input Controller" type="Node3D" parent="Global Controllers"]
+script = ExtResource("3_lrqlo")

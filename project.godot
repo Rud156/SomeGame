@@ -15,10 +15,6 @@ run/main_scene="uid://bgnguke0yisax"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
-[autoload]
-
-SrcPlayerInputController="*res://out/src_PlayerInputController.gd"
-
 [input]
 
 FORWARD={
