@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dk3gyajrel754"]
+
+[ext_resource type="PackedScene" uid="uid://dptqf2vgdgvli" path="res://assets/kenney_mini_characters/character-female-d.fbx" id="1_nja2h"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_nja2h"]
+states/Start/position = Vector2(199, 100)
+
+[node name="Player Character 1" instance=ExtResource("1_nja2h")]
+
+[node name="Skeleton3D" parent="character-female-d" index="0"]
+bones/1/position = Vector3(0.083571, 0.17625, -0.02875)
+bones/2/position = Vector3(-0.082296, 0.17625, -0.02875)
+bones/3/position = Vector3(0, 0.17625, -0.02875)
+bones/4/position = Vector3(0.0998968, 0.1115, 0.0115)
+bones/5/position = Vector3(-0.0998968, 0.1115, 0.0115)
+bones/6/position = Vector3(0, 0.167, 0.0263888)
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2"]
+tree_root = SubResource("AnimationNodeStateMachine_nja2h")
+anim_player = NodePath("../AnimationPlayer")
