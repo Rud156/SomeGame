@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/wakatime/plugin.cfg")
+enabled=PackedStringArray("res://addons/mixamo_animation_retargeter/plugin.cfg", "res://addons/wakatime/plugin.cfg")
 
 [input]
 

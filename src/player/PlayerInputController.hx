@@ -13,6 +13,16 @@ class PlayerInputController extends Node3D {
 		return _instance;
 	}
 
+	// ================================
+	// Export
+	// ================================
+	// Signals
+
+	@:signal
+	function onJumpPressed() {}
+
+	public static final ON_JUMP_PRESSED:String = "onJumpPressed";
+
 	// Basic Movement
 	@:const
 	private static final FORWARD_EVENT:String = "FORWARD";
@@ -34,13 +44,6 @@ class PlayerInputController extends Node3D {
 	private static final ABILITY_3_EVENT:String = "ABILITY_3";
 	@:const
 	private static final ABILITY_4_EVENT:String = "ABILITY_4";
-
-	// Signals
-
-	@:signal
-	function onJumpPressed() {}
-
-	public static final ON_JUMP_PRESSED:String = "onJumpPressed";
 
 	// Mouse
 	@:const

@@ -1,5 +1,6 @@
 package src.player;
 
+import gdscript.ObjectEx;
 import godot.*;
 import src.camera.CameraController;
 import src.player.PlayerInputController;
@@ -24,6 +25,18 @@ class PlayerController extends CharacterBody3D {
 	var maxJumpCount:Int;
 	@:export
 	var gravityMultiplier:Float;
+
+	// Signals
+
+	@:signal
+	function onJumpTriggered() {}
+
+	public static final ON_JUMP_TRIGGERED = "onJumpTriggered";
+
+	@:signal
+	function onPlayerStateChanged(movementState:PlayerMovementState) {}
+
+	public static final ON_PLAYER_STATE_CHANGED = "onPlayerStateChanged";
 
 	// ================================
 	// Constants
@@ -162,6 +175,7 @@ class PlayerController extends CharacterBody3D {
 		if (_jumpPressed) {
 			_movementVelocity.y = jumpVelocity;
 			_jumpPressed = false;
+			ObjectEx.emit_signal(ON_JUMP_TRIGGERED);
 		}
 	}
 
@@ -188,10 +202,12 @@ class PlayerController extends CharacterBody3D {
 
 	private function _pushMovementState(movementState:PlayerMovementState):Void {
 		_movementStack.push(movementState);
+		ObjectEx.emit_signal(ON_PLAYER_STATE_CHANGED, movementState);
 	}
 
 	private function _popMovementState():Void {
 		_movementStack.pop();
+		ObjectEx.emit_signal(ON_PLAYER_STATE_CHANGED, _peekMovementState());
 	}
 
 	private function _peekMovementState():PlayerMovementState {
