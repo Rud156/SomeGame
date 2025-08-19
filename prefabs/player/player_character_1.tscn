@@ -2261,7 +2261,7 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 filter_enabled = true
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_1ewo7"]
-graph_offset = Vector2(-289.547, 5.35922)
+graph_offset = Vector2(-386.103, 109.22)
 nodes/GroundedBSP/node = SubResource("AnimationNodeBlendSpace2D_ae7ab")
 nodes/GroundedBSP/position = Vector2(20, 60)
 nodes/JumpSM/node = SubResource("AnimationNodeStateMachine_cjqtt")
@@ -2271,13 +2271,16 @@ nodes/Lowerbody/position = Vector2(300, 140)
 nodes/output/position = Vector2(620, 100)
 node_connections = [&"Lowerbody", 0, &"GroundedBSP", &"Lowerbody", 1, &"JumpSM", &"output", 0, &"Lowerbody"]
 
-[node name="player_character_1" instance=ExtResource("1_k6ocp")]
+[node name="player_character_1" node_paths=PackedStringArray("animationController") instance=ExtResource("1_k6ocp")]
 script = ExtResource("2_hirwg")
+animationController = NodePath("AnimationTree")
 
 [node name="Skeleton" parent="character-female-d" index="0"]
 bones/3/position = Vector3(-1.44382e-15, 0.17625, -0.0287501)
-bones/4/rotation = Quaternion(0.653281, 0.270598, 0.653281, -0.270598)
-bones/5/rotation = Quaternion(0.653281, -0.270598, -0.653281, -0.270598)
+bones/3/rotation = Quaternion(-0.0224811, 0, 0, 0.999747)
+bones/4/rotation = Quaternion(0.639257, 0.302242, 0.639257, -0.302242)
+bones/5/rotation = Quaternion(0.639257, -0.302242, -0.639257, -0.302242)
+bones/6/rotation = Quaternion(0, 0.0224811, 0, 0.999747)
 
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {

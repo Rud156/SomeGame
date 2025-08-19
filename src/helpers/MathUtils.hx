@@ -14,4 +14,16 @@ class MathUtils {
 	public static inline function IsNearlyEqualTol(a:Float, b:Float, tolerance:Float) {
 		return Math.abs(a - b) <= tolerance;
 	}
+
+	public static inline function To360Angle(angle:Float):Float {
+		while (angle < 0) {
+			angle += 360.0;
+		}
+
+		while (angle >= 360.0) {
+			angle -= 360.0;
+		}
+
+		return angle;
+	}
 }

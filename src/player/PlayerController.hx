@@ -87,11 +87,19 @@ class PlayerController extends CharacterBody3D {
 	}
 
 	// ================================
+	// Public Functions
+	// ================================
+
+	public function peekMovementState():PlayerMovementState {
+		return _movementStack[_movementStack.length - 1];
+	}
+
+	// ================================
 	// Private Functions
 	// ================================
 
 	private function _updateGroundedState():Void {
-		var movementState:PlayerMovementState = _peekMovementState();
+		var movementState:PlayerMovementState = peekMovementState();
 		if (!is_on_floor() && movementState != PlayerMovementState.FALLING && movementState != PlayerMovementState.CUSTOM_MOVEMENT) {
 			_pushMovementState(PlayerMovementState.FALLING);
 		}
@@ -207,11 +215,7 @@ class PlayerController extends CharacterBody3D {
 
 	private function _popMovementState():Void {
 		_movementStack.pop();
-		ObjectEx.emit_signal(ON_PLAYER_STATE_CHANGED, _peekMovementState());
-	}
-
-	private function _peekMovementState():PlayerMovementState {
-		return _movementStack[_movementStack.length - 1];
+		ObjectEx.emit_signal(ON_PLAYER_STATE_CHANGED, peekMovementState());
 	}
 }
 
