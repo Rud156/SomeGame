@@ -79,3 +79,7 @@ ABILITY_4={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":2,"pressure":0.0,"pressed":false,"script":null)
 ]
 }
+
+[physics]
+
+3d/physics_engine="Jolt Physics"

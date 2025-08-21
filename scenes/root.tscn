@@ -31,7 +31,7 @@ albedo_color = Color(0.286275, 0, 0.396078, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_j5px3"]
 size = Vector3(50, 1, 50)
 
-[node name="Root" type="Node3D"]
+[node name="Root" type="Node"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_lrqlo")
@@ -48,6 +48,7 @@ followLerpCurve = SubResource("Curve_twpsu")
 lookRotationSpeed = 10.0
 
 [node name="Main Camera" type="Camera3D" parent="Camera Holder"]
+current = true
 
 [node name="Player" parent="." instance=ExtResource("2_twpsu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.27143, -2.7826)
@@ -63,7 +64,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_jh1ax")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 shape = SubResource("BoxShape3D_j5px3")
 
-[node name="Global Controllers" type="Node3D" parent="."]
+[node name="Global Controllers" type="Node" parent="."]
 
 [node name="Player Input Controller" type="Node3D" parent="Global Controllers"]
 script = ExtResource("3_lrqlo")

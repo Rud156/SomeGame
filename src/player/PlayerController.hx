@@ -127,7 +127,6 @@ class PlayerController extends CharacterBody3D {
 		_currentMovementSpeed = Godot.clampf(_currentMovementSpeed, 0, maxGroundedSpeed);
 
 		var lastPlayerInput:Vector2 = PlayerInputController.instance.lastNonZeroMovementInput;
-		var basis:Basis = get_global_basis();
 		var forward:Vector3 = -Vector3.FORWARD;
 		var right:Vector3 = -Vector3.RIGHT;
 
@@ -146,7 +145,6 @@ class PlayerController extends CharacterBody3D {
 		_currentMovementSpeed = Godot.clampf(_currentMovementSpeed, 0, maxAirSpeed);
 
 		var lastPlayerInput:Vector2 = PlayerInputController.instance.lastNonZeroMovementInput;
-		var basis:Basis = get_global_basis();
 		var forward:Vector3 = -Vector3.FORWARD;
 		var right:Vector3 = -Vector3.RIGHT;
 
@@ -167,7 +165,7 @@ class PlayerController extends CharacterBody3D {
 		_currentJumpCount = 0;
 	}
 
-	private function _updateCustomMovement(delta:Float):Void {}
+	private function _updateCustomMovement(_):Void {}
 
 	private function _processGravity():Void {
 		if (!is_on_floor()) {

@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://dsscliltfgdp4"]
+[gd_scene load_steps=54 format=3 uid="uid://dsscliltfgdp4"]
 
 [ext_resource type="PackedScene" uid="uid://dl75wp2x42pwm" path="res://models/player/player_character_1.fbx" id="1_k6ocp"]
 [ext_resource type="Script" uid="uid://dx5jcxlacvq57" path="res://out/src_PlayerAnimationController.gd" id="2_hirwg"]
@@ -2200,10 +2200,10 @@ animation = &"sprint"
 animation = &"running_backward"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hirwg"]
-animation = &"left_strafe"
+animation = &"right_strafe"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dgpqs"]
-animation = &"right_strafe"
+animation = &"left_strafe"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_16ydg"]
 animation = &"idle"
@@ -2223,45 +2223,40 @@ blend_point_4/pos = Vector2(0, 0)
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ae7ab"]
 animation = &"fall"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1ewo7"]
-animation = &"idle"
-
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d8l8e"]
 animation = &"jump"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y0cw7"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_delj4"]
-advance_mode = 2
-advance_condition = &"jump_triggered"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_41v37"]
-advance_mode = 2
-advance_condition = &"is_falling"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jlxd1"]
 switch_mode = 2
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m86cs"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vmbtg"]
+advance_mode = 2
+advance_condition = &"jump_triggered"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hirwg"]
+advance_mode = 2
+advance_condition = &"is_falling"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dgpqs"]
 advance_mode = 2
 advance_condition = &"is_grounded"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_cjqtt"]
+states/End/position = Vector2(528, 100)
 states/fall/node = SubResource("AnimationNodeAnimation_ae7ab")
-states/fall/position = Vector2(469, 230)
-states/idle/node = SubResource("AnimationNodeAnimation_1ewo7")
-states/idle/position = Vector2(369, 100)
+states/fall/position = Vector2(356, 209)
 states/jump/node = SubResource("AnimationNodeAnimation_d8l8e")
-states/jump/position = Vector2(302, 230)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_y0cw7"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_delj4"), "idle", "fall", SubResource("AnimationNodeStateMachineTransition_41v37"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_jlxd1"), "fall", "idle", SubResource("AnimationNodeStateMachineTransition_m86cs")]
+states/jump/position = Vector2(356, 100)
+transitions = ["jump", "fall", SubResource("AnimationNodeStateMachineTransition_jlxd1"), "Start", "jump", SubResource("AnimationNodeStateMachineTransition_vmbtg"), "Start", "fall", SubResource("AnimationNodeStateMachineTransition_hirwg"), "fall", "End", SubResource("AnimationNodeStateMachineTransition_dgpqs")]
+graph_offset = Vector2(-67, 34)
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_k6ocp"]
 filter_enabled = true
+filters = ["%Skeleton:Head", "%Skeleton:Hips", "%Skeleton:LeftShoulder", "%Skeleton:LeftUpperLeg", "%Skeleton:RightShoulder", "%Skeleton:RightUpperLeg", "%Skeleton:Root"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_1ewo7"]
-graph_offset = Vector2(-386.103, 109.22)
+graph_offset = Vector2(-386.119, 73.4351)
 nodes/GroundedBSP/node = SubResource("AnimationNodeBlendSpace2D_ae7ab")
 nodes/GroundedBSP/position = Vector2(20, 60)
 nodes/JumpSM/node = SubResource("AnimationNodeStateMachine_cjqtt")
@@ -2275,12 +2270,18 @@ node_connections = [&"Lowerbody", 0, &"GroundedBSP", &"Lowerbody", 1, &"JumpSM",
 script = ExtResource("2_hirwg")
 animationController = NodePath("AnimationTree")
 
+[node name="character-female-d" parent="." index="0"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
 [node name="Skeleton" parent="character-female-d" index="0"]
-bones/3/position = Vector3(-1.44382e-15, 0.17625, -0.0287501)
-bones/3/rotation = Quaternion(-0.0224811, 0, 0, 0.999747)
-bones/4/rotation = Quaternion(0.639257, 0.302242, 0.639257, -0.302242)
-bones/5/rotation = Quaternion(0.639257, -0.302242, -0.639257, -0.302242)
-bones/6/rotation = Quaternion(0, 0.0224811, 0, 0.999747)
+bones/0/position = Vector3(0, 0.000881017, 0)
+bones/1/rotation = Quaternion(0.000881323, 0.0149831, 0.999884, 0.00273804)
+bones/2/rotation = Quaternion(-0.00564872, 0.00500329, 0.999971, 0.00110208)
+bones/3/position = Vector3(-0.000279653, 0.175603, -0.0278448)
+bones/3/rotation = Quaternion(-0.0353021, -0.0174139, 0.00370977, 0.999218)
+bones/4/rotation = Quaternion(0.614884, 0.350115, 0.613693, -0.350312)
+bones/5/rotation = Quaternion(0.61072, -0.352, -0.617017, -0.349866)
+bones/6/rotation = Quaternion(-0.00642826, 0.0500767, -0.00552064, 0.998709)
 
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {
@@ -2290,7 +2291,7 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="." index="2"]
 tree_root = SubResource("AnimationNodeBlendTree_1ewo7")
 anim_player = NodePath("../AnimationPlayer")
-parameters/GroundedBSP/blend_position = Vector2(0, 0)
+parameters/GroundedBSP/blend_position = Vector2(-0.0278527, 0.021978)
 parameters/JumpSM/conditions/is_falling = false
 parameters/JumpSM/conditions/is_grounded = false
 parameters/JumpSM/conditions/jump_triggered = false

@@ -8,6 +8,20 @@ import src.player.PlayerInputController;
 
 class PlayerAnimationController extends Node3D {
 	// ================================
+	// Constants
+	// ================================
+	@:const
+	private static final GROUNDED_ANIM_PARAM:String = "parameters/GroundedBSP/blend_position";
+	@:const
+	private static final JUMP_TRIGGER_MAIN:String = "parameters/Lowerbody/blend_amount";
+	@:const
+	private static final JUMP_TRIGGER_SECONDARY:String = "parameters/Lowerbody/blend_amount";
+	@:const
+	private static final JUMP_IS_FALLING:String = "parameters/JumpSM/conditions/is_falling";
+	@:const
+	private static final JUMP_IS_GROUNDED:String = "parameters/JumpSM/conditions/is_grounded";
+
+	// ================================
 	// Export
 	// ================================
 	@:export
@@ -36,7 +50,7 @@ class PlayerAnimationController extends Node3D {
 		playerController.disconnect(PlayerController.ON_PLAYER_STATE_CHANGED, _handleOnPlayerStateChangedCallable);
 	}
 
-	public override function _process(delta:Float):Void {
+	public override function _process(_):Void {
 		// Handle Grounded Motion...
 		switch (playerController.peekMovementState()) {
 			case PlayerMovementState.NORMAL:
@@ -52,31 +66,46 @@ class PlayerAnimationController extends Node3D {
 	// ================================
 
 	private function _setGroundedAnimation():Void {
-		var moveZ:Float = PlayerInputController.instance.movementInput.y;
-		var moveX:Float = PlayerInputController.instance.movementInput.x;
+		var moveZ:Float = -PlayerInputController.instance.movementInput.x;
+		var moveX:Float = PlayerInputController.instance.movementInput.y;
 
-		var yRotation:Float = MathUtils.To360Angle(playerController.rotation.y);
+		var yRotation:Float = playerController.global_rotation.y;
 
-		var vAxisVMovement:Float = moveZ * Godot.cos(Godot.deg_to_rad(yRotation));
-		var vAxisHMovement:Float = moveZ * Godot.sin(Godot.deg_to_rad(yRotation));
+		var vAxisVMovement:Float = moveZ * Godot.cos(yRotation);
+		var vAxisHMovement:Float = moveZ * Godot.sin(yRotation);
 
-		var hAxisVMovement:Float = moveX * Godot.sin(Godot.deg_to_rad(yRotation));
-		var hAxisHMovement:Float = moveX * Godot.cos(Godot.deg_to_rad(yRotation));
+		var hAxisVMovement:Float = moveX * Godot.sin(yRotation);
+		var hAxisHMovement:Float = moveX * Godot.cos(yRotation);
 
 		var vMovement:Float = vAxisVMovement + hAxisVMovement;
 		var hMovement:Float = vAxisHMovement + hAxisHMovement;
 
-		animationController.set("parameters/GroundedBSP/blend_position", new Vector2(hMovement, vMovement));
+		animationController.set(GROUNDED_ANIM_PARAM, new Vector2(hMovement, vMovement));
 	}
 
-	private function _handleOnJumpTriggered():Void {}
+	private function _handleOnJumpTriggered():Void {
+		animationController.set(JUMP_TRIGGER_MAIN, 1);
+		animationController.set(JUMP_TRIGGER_SECONDARY, true);
+		animationController.set(JUMP_IS_GROUNDED, false);
+	}
 
 	private function _handleOnPlayerStateChanged(currentState:PlayerMovementState):Void {
 		switch (currentState) {
 			case PlayerMovementState.NORMAL:
-			case PlayerMovementState.FALLING:
+				_resetJumpAnimation();
 
 			case PlayerMovementState.CUSTOM_MOVEMENT:
+				_resetJumpAnimation();
+
+			case PlayerMovementState.FALLING:
+				animationController.set(JUMP_IS_FALLING, true);
 		}
+	}
+
+	private function _resetJumpAnimation():Void {
+		animationController.set(JUMP_TRIGGER_MAIN, 0);
+		animationController.set(JUMP_TRIGGER_SECONDARY, false);
+		animationController.set(JUMP_IS_FALLING, false);
+		animationController.set(JUMP_IS_GROUNDED, true);
 	}
 }
