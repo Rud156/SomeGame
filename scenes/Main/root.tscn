@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://bgnguke0yisax"]
+[gd_scene load_steps=12 format=3 uid="uid://bgnguke0yisax"]
 
-[ext_resource type="Script" uid="uid://d0u7mrkg6ohk1" path="res://out/src_CameraController.gd" id="2_lrqlo"]
-[ext_resource type="PackedScene" uid="uid://dc31drmlrfvh5" path="res://prefabs/player/player_base.tscn" id="2_twpsu"]
-[ext_resource type="Script" uid="uid://cklb7t5ac0si5" path="res://out/src_PlayerInputController.gd" id="3_lrqlo"]
+[ext_resource type="Script" uid="uid://d0u7mrkg6ohk1" path="res://out/src_CameraController.gd" id="1_wk0fx"]
+[ext_resource type="PackedScene" uid="uid://dc31drmlrfvh5" path="res://prefabs/player/player_base.tscn" id="2_mb4n0"]
+[ext_resource type="Script" uid="uid://cklb7t5ac0si5" path="res://out/src_PlayerInputController.gd" id="3_8orni"]
+[ext_resource type="PackedScene" uid="uid://bn3d7gutc3bln" path="res://scenes/UI/abilities_display.tscn" id="4_wk0fx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j5px3"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -41,7 +42,7 @@ transform = Transform3D(-0.996779, 0.0724465, -0.0344001, 0, 0.428935, 0.903335,
 shadow_enabled = true
 
 [node name="Camera Holder" type="Node3D" parent="."]
-script = ExtResource("2_lrqlo")
+script = ExtResource("1_wk0fx")
 followDistance = Vector3(0, 15, 15)
 followSpeed = 5.0
 followLerpCurve = SubResource("Curve_twpsu")
@@ -50,21 +51,43 @@ lookRotationSpeed = 10.0
 [node name="Main Camera" type="Camera3D" parent="Camera Holder"]
 current = true
 
-[node name="Player" parent="." instance=ExtResource("2_twpsu")]
+[node name="Player" parent="." instance=ExtResource("2_mb4n0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.27143, -2.7826)
 
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0397463, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+[node name="Ground Mesh" type="MeshInstance3D" parent="Ground"]
 transform = Transform3D(50, 0, 0, 0, 1, 0, 0, 0, 50, 0, 0, 0)
 mesh = SubResource("BoxMesh_sqa0i")
 surface_material_override/0 = SubResource("StandardMaterial3D_jh1ax")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+[node name="Ground Collider" type="CollisionShape3D" parent="Ground"]
 shape = SubResource("BoxShape3D_j5px3")
 
 [node name="Global Controllers" type="Node" parent="."]
 
 [node name="Player Input Controller" type="Node3D" parent="Global Controllers"]
-script = ExtResource("3_lrqlo")
+script = ExtResource("3_8orni")
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AbilitiesDisplay" parent="HUD" instance=ExtResource("4_wk0fx")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -234.0
+offset_top = -139.0
+offset_right = -234.0
+offset_bottom = -139.0
+grow_horizontal = 0
+grow_vertical = 0

@@ -16,7 +16,7 @@ jumpVelocity = 7500.0
 maxJumpCount = 2
 gravityMultiplier = 11.0
 
-[node name="Collision Body" type="CollisionShape3D" parent="."]
+[node name="Player Collision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_3khpg")
 
 [node name="Player Mesh" type="Node3D" parent="."]
