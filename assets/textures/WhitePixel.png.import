@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://fneu63d1jhui"
-path.s3tc="res://.godot/imported/WhitePixel.png-4b83c1dd6f6f1acbb11426c15b272b00.s3tc.ctex"
+path.s3tc="res://.godot/imported/WhitePixel.png-d5540c23b29e5a36f81b2af914cbea61.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/kenney_ui-pack-adventure/WhitePixel.png"
-dest_files=["res://.godot/imported/WhitePixel.png-4b83c1dd6f6f1acbb11426c15b272b00.s3tc.ctex"]
+source_file="res://assets/textures/WhitePixel.png"
+dest_files=["res://.godot/imported/WhitePixel.png-d5540c23b29e5a36f81b2af914cbea61.s3tc.ctex"]
 
 [params]
 

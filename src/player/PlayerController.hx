@@ -31,12 +31,12 @@ class PlayerController extends CharacterBody3D {
 	@:signal
 	function onJumpTriggered() {}
 
-	public static final ON_JUMP_TRIGGERED = "onJumpTriggered";
+	public static inline var ON_JUMP_TRIGGERED:String = "onJumpTriggered";
 
 	@:signal
 	function onPlayerStateChanged(movementState:PlayerMovementState) {}
 
-	public static final ON_PLAYER_STATE_CHANGED = "onPlayerStateChanged";
+	public static inline var ON_PLAYER_STATE_CHANGED:String = "onPlayerStateChanged";
 
 	// ================================
 	// Constants

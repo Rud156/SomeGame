@@ -10,16 +10,11 @@ class PlayerAnimationController extends Node3D {
 	// ================================
 	// Constants
 	// ================================
-	@:const
-	private static final GROUNDED_ANIM_PARAM:String = "parameters/GroundedBSP/blend_position";
-	@:const
-	private static final JUMP_TRIGGER_MAIN:String = "parameters/Lowerbody/blend_amount";
-	@:const
-	private static final JUMP_TRIGGER_SECONDARY:String = "parameters/Lowerbody/blend_amount";
-	@:const
-	private static final JUMP_IS_FALLING:String = "parameters/JumpSM/conditions/is_falling";
-	@:const
-	private static final JUMP_IS_GROUNDED:String = "parameters/JumpSM/conditions/is_grounded";
+	private static inline var GROUNDED_ANIM_PARAM:String = "parameters/GroundedBSP/blend_position";
+	private static inline var JUMP_TRIGGER_MAIN:String = "parameters/Lowerbody/blend_amount";
+	private static inline var JUMP_TRIGGER_SECONDARY:String = "parameters/Lowerbody/blend_amount";
+	private static inline var JUMP_IS_FALLING:String = "parameters/JumpSM/conditions/is_falling";
+	private static inline var JUMP_IS_GROUNDED:String = "parameters/JumpSM/conditions/is_grounded";
 
 	// ================================
 	// Export

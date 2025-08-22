@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhwsltjqeqih2"]
+
+[ext_resource type="Texture2D" uid="uid://lxfw56vesney" path="res://assets/kenney_ui-pack-adventure/button_red.png" id="1_c13u7"]
+[ext_resource type="Texture2D" uid="uid://fneu63d1jhui" path="res://assets/textures/WhitePixel.png" id="2_bplnx"]
+
+[node name="PlayerHealth" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="TextureRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+offset_right = 347.0
+offset_bottom = 33.0
+texture = ExtResource("1_c13u7")
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 50.0
+nine_patch_stretch = true
+texture_under = ExtResource("2_bplnx")
+texture_progress = ExtResource("2_bplnx")
+tint_under = Color(0, 0, 0, 0.784314)
+tint_progress = Color(0, 1, 0, 1)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dt461eb8bp8j2"
-path="res://.godot/imported/Smoke26.png-2e45a43fbbe06d2bd10a0573ca074d1a.ctex"
+uid="uid://dyqnoxap2kqiy"
+path="res://.godot/imported/ParticleCloudWhite.png-511f6cb1c4d11d27bee17a85f95e774b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/kenney_ui-pack-adventure/Smoke26.png"
-dest_files=["res://.godot/imported/Smoke26.png-2e45a43fbbe06d2bd10a0573ca074d1a.ctex"]
+source_file="res://assets/textures/ParticleCloudWhite.png"
+dest_files=["res://.godot/imported/ParticleCloudWhite.png-511f6cb1c4d11d27bee17a85f95e774b.ctex"]
 
 [params]
 

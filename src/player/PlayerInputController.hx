@@ -21,29 +21,18 @@ class PlayerInputController extends Node3D {
 	@:signal
 	function onJumpPressed() {}
 
-	public static final ON_JUMP_PRESSED:String = "onJumpPressed";
+	public static inline var ON_JUMP_PRESSED:String = "onJumpPressed";
 
 	// Basic Movement
-	@:const
-	private static final FORWARD_EVENT:String = "FORWARD";
-	@:const
-	private static final BACKWARD_EVENT:String = "BACKWARD";
-	@:const
-	private static final LEFT_EVENT:String = "LEFT";
-	@:const
-	private static final RIGHT_EVENT:String = "RIGHT";
-	@:const
-	private static final JUMP_EVENT:String = "JUMP";
+	private static inline var FORWARD_EVENT:String = "FORWARD";
+	private static inline var BACKWARD_EVENT:String = "BACKWARD";
+	private static inline var LEFT_EVENT:String = "LEFT";
+	private static inline var RIGHT_EVENT:String = "RIGHT";
+	private static inline var JUMP_EVENT:String = "JUMP";
 
 	// Ability Inputs
-	@:const
-	private static final ABILITY_1_EVENT:String = "ABILITY_1";
-	@:const
-	private static final ABILITY_2_EVENT:String = "ABILITY_2";
-	@:const
-	private static final ABILITY_3_EVENT:String = "ABILITY_3";
-	@:const
-	private static final ABILITY_4_EVENT:String = "ABILITY_4";
+	private static inline var ABILITY_1_EVENT:String = "ABILITY_1";
+	private static inline var ABILITY_2_EVENT:String = "ABILITY_2";
 
 	// Mouse
 	@:const
@@ -56,8 +45,6 @@ class PlayerInputController extends Node3D {
 	private var _lastNonZeroMovementInput:Vector2;
 	private var _ability1Pressed:Bool;
 	private var _ability2Pressed:Bool;
-	private var _ability3Pressed:Bool;
-	private var _ability4Pressed:Bool;
 
 	// ================================
 	// Properties
@@ -98,18 +85,6 @@ class PlayerInputController extends Node3D {
 		return _ability2Pressed;
 	}
 
-	public var ability3Pressed(get, never):Bool;
-
-	private function get_ability3Pressed():Bool {
-		return _ability3Pressed;
-	}
-
-	public var ability4Pressed(get, never):Bool;
-
-	private function get_ability4Pressed():Bool {
-		return _ability4Pressed;
-	}
-
 	// ================================
 	// Override Functions
 	// ================================
@@ -135,8 +110,6 @@ class PlayerInputController extends Node3D {
 		_movementInput = Input.get_vector(FORWARD_EVENT, BACKWARD_EVENT, RIGHT_EVENT, LEFT_EVENT);
 		_ability1Pressed = Input.is_action_pressed(ABILITY_1_EVENT);
 		_ability2Pressed = Input.is_action_pressed(ABILITY_2_EVENT);
-		_ability3Pressed = Input.is_action_pressed(ABILITY_3_EVENT);
-		_ability4Pressed = Input.is_action_pressed(ABILITY_4_EVENT);
 
 		if (!MathUtils.IsNearlyZero(_movementInput.x) || !MathUtils.IsNearlyZero(_movementInput.y)) {
 			_lastNonZeroMovementInput = _movementInput;
