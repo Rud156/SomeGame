@@ -61,8 +61,8 @@ class PlayerAnimationController extends Node3D {
 	// ================================
 
 	private function _setGroundedAnimation():Void {
-		var moveZ:Float = -PlayerInputController.instance.movementInput.x;
-		var moveX:Float = PlayerInputController.instance.movementInput.y;
+		var moveZ:Float = -PlayerInputController.instance.movementInput.y;
+		var moveX:Float = PlayerInputController.instance.movementInput.x;
 
 		var yRotation:Float = playerController.global_rotation.y;
 

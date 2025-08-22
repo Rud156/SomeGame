@@ -130,7 +130,7 @@ class PlayerController extends CharacterBody3D {
 		var forward:Vector3 = -Vector3.FORWARD;
 		var right:Vector3 = -Vector3.RIGHT;
 
-		var mappedMovement:Vector3 = Vector3.add(Vector3.mult2(forward, lastPlayerInput.x), Vector3.mult2(right, lastPlayerInput.y));
+		var mappedMovement:Vector3 = Vector3.add(Vector3.mult2(forward, lastPlayerInput.y), Vector3.mult2(right, lastPlayerInput.x));
 		mappedMovement.y = 0;
 		mappedMovement = mappedMovement.normalized() * _currentMovementSpeed;
 
@@ -148,7 +148,7 @@ class PlayerController extends CharacterBody3D {
 		var forward:Vector3 = -Vector3.FORWARD;
 		var right:Vector3 = -Vector3.RIGHT;
 
-		var mappedMovement:Vector3 = Vector3.add(Vector3.mult2(forward, lastPlayerInput.x), Vector3.mult2(right, lastPlayerInput.y));
+		var mappedMovement:Vector3 = Vector3.add(Vector3.mult2(forward, lastPlayerInput.y), Vector3.mult2(right, lastPlayerInput.x));
 		mappedMovement.y = 0;
 		mappedMovement = mappedMovement.normalized() * _currentMovementSpeed;
 
