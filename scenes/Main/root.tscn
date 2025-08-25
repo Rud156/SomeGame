@@ -1,8 +1,8 @@
 [gd_scene load_steps=13 format=3 uid="uid://bgnguke0yisax"]
 
-[ext_resource type="Script" uid="uid://d0u7mrkg6ohk1" path="res://out/src_CameraController.gd" id="1_wk0fx"]
+[ext_resource type="Script" uid="uid://bb826p4qtvvx6" path="res://out/src_CameraController.gd" id="1_wk0fx"]
 [ext_resource type="PackedScene" uid="uid://dc31drmlrfvh5" path="res://prefabs/player/player_base.tscn" id="2_mb4n0"]
-[ext_resource type="Script" uid="uid://cklb7t5ac0si5" path="res://out/src_PlayerInputController.gd" id="3_8orni"]
+[ext_resource type="Script" uid="uid://bp2y3q46evi73" path="res://out/src_PlayerInputController.gd" id="3_8orni"]
 [ext_resource type="PackedScene" uid="uid://bn3d7gutc3bln" path="res://prefabs/ui/abilities_display.tscn" id="4_wk0fx"]
 [ext_resource type="PackedScene" uid="uid://ufxsbqnfq3wa" path="res://prefabs/ui/player_display.tscn" id="5_mb4n0"]
 

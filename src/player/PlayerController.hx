@@ -2,6 +2,7 @@ package src.player;
 
 import gdscript.ObjectEx;
 import godot.*;
+import src.behaviors.hitstop.HitStopBehavior;
 import src.camera.CameraController;
 import src.player.PlayerInputController;
 
@@ -25,6 +26,8 @@ class PlayerController extends CharacterBody3D {
 	var maxJumpCount:Int;
 	@:export
 	var gravityMultiplier:Float;
+	@:export
+	var hitStopBehavior:HitStopBehavior;
 
 	// Signals
 
@@ -76,14 +79,16 @@ class PlayerController extends CharacterBody3D {
 	}
 
 	public override function _process(delta:Float):Void {
-		_updateGroundedState();
-		_handleMovement(delta);
+		if (!hitStopBehavior.isActive) {
+			_updateGroundedState();
+			_handleMovement(delta);
 
-		_processGravity();
-		_applyJump();
+			_processGravity();
+			_applyJump();
 
-		_applyMovement(delta);
-		_updateMeshRotation();
+			_applyMovement(delta);
+			_updateMeshRotation();
+		}
 	}
 
 	// ================================

@@ -1,11 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://dc31drmlrfvh5"]
+[gd_scene load_steps=6 format=3 uid="uid://dc31drmlrfvh5"]
 
-[ext_resource type="Script" uid="uid://c6e27seyn5j2d" path="res://out/src_PlayerController.gd" id="1_hq7tu"]
+[ext_resource type="Script" uid="uid://cp2pfw3765noe" path="res://out/src_PlayerController.gd" id="1_hq7tu"]
 [ext_resource type="PackedScene" uid="uid://dsscliltfgdp4" path="res://prefabs/player/player_character_1.tscn" id="2_0oxmf"]
+[ext_resource type="Script" uid="uid://dpup68o7ub6v0" path="res://out/src_behaviors_HitStopBehavior.gd" id="2_6o0s6"]
+[ext_resource type="Script" uid="uid://dj5m3kgl0cqxs" path="res://out/src_behaviors_HitStopParticleSystem.gd" id="4_3pifq"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3khpg"]
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("hitStopBehavior")]
 script = ExtResource("1_hq7tu")
 groundedAcceleration = 10000.0
 groundedDeceleration = 15000.0
@@ -15,6 +17,14 @@ maxAirSpeed = 5000.0
 jumpVelocity = 7500.0
 maxJumpCount = 2
 gravityMultiplier = 11.0
+hitStopBehavior = NodePath("HitStopBehavior")
+
+[node name="HitStopBehavior" type="Node3D" parent="."]
+script = ExtResource("2_6o0s6")
+
+[node name="HitStopParticleSystem" type="Node3D" parent="." node_paths=PackedStringArray("hitStopBehavior")]
+script = ExtResource("4_3pifq")
+hitStopBehavior = NodePath("../HitStopBehavior")
 
 [node name="Player Collision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_3khpg")
@@ -24,3 +34,18 @@ shape = SubResource("CapsuleShape3D_3khpg")
 [node name="PlayerCharacter_1" parent="Player Mesh" node_paths=PackedStringArray("playerController") instance=ExtResource("2_0oxmf")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -0.85, 0)
 playerController = NodePath("../..")
+
+[node name="Skeleton" parent="Player Mesh/PlayerCharacter_1/character-female-d" index="0"]
+bones/0/position = Vector3(0, 6.64751e-05, 0)
+bones/1/rotation = Quaternion(0.0025235, -0.00187665, 0.999994, -0.00148265)
+bones/2/rotation = Quaternion(-0.000597283, 0.0175516, 0.999846, -0.00044976)
+bones/3/position = Vector3(-0.00018804, 0.175793, -0.0278982)
+bones/3/rotation = Quaternion(0.0244963, -0.0182819, 0.00350298, 0.999527)
+bones/4/rotation = Quaternion(0.633079, 0.314402, 0.633688, -0.314327)
+bones/5/rotation = Quaternion(0.630943, -0.315397, -0.635637, -0.31369)
+bones/6/rotation = Quaternion(-0.00456188, -0.00614938, -0.00554718, 0.999955)
+
+[node name="HitStopAnimator" parent="Player Mesh/PlayerCharacter_1" index="1" node_paths=PackedStringArray("hitStopBehavior")]
+hitStopBehavior = NodePath("../../../HitStopBehavior")
+
+[editable path="Player Mesh/PlayerCharacter_1"]
