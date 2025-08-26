@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="AbilityDisplay" load_steps=3 format=3 uid="uid://xha8r1llspgb"]
+
+[ext_resource type="Script" uid="uid://dv5qdvvfembvg" path="res://out/src_behaviors_abilities_AbilityDisplay.gd" id="1_hhwri"]
+[ext_resource type="Texture2D" uid="uid://f7wcdqgsy1be" path="res://assets/textures/Abilities/Type_1/Secondary.png" id="1_m3noq"]
+
+[resource]
+script = ExtResource("1_hhwri")
+abilityName = "Dash"
+abilityDescription = "Dash"
+abilityIcon = ExtResource("1_m3noq")
+isMovementAbility = true
+abilityType = 1
+abilityEnum = 0
+cooldownDuration = 5.0
+stackCount = 2
+abilityEffect = Array[PackedScene]([])
+abilitySpawnOffset = Array[Vector3]([])
+disallowedAbilities = Array[int]([])
+metadata/_custom_type_script = "uid://dv5qdvvfembvg"

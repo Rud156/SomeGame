@@ -20,7 +20,7 @@ class HitStopBehavior extends Node3D {
 	// ================================
 	public var isActive(get, never):Bool;
 
-	public function get_isActive():Bool {
+	private function get_isActive():Bool {
 		return _duration > 0;
 	}
 

@@ -2278,18 +2278,17 @@ animationController = NodePath("AnimationTree")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton" parent="character-female-d" index="0"]
-bones/0/position = Vector3(0, 0.00302066, 0)
-bones/1/rotation = Quaternion(0.000127278, -0.0107352, 0.999942, -0.000837392)
-bones/2/rotation = Quaternion(-0.00065684, 0.0264745, 0.999649, -0.00102888)
-bones/3/position = Vector3(-0.000184986, 0.175753, -0.0279072)
-bones/3/rotation = Quaternion(0.0138099, -0.0201166, 0.00352599, 0.999696)
-bones/4/rotation = Quaternion(0.638613, 0.291324, 0.651222, -0.288467)
-bones/5/rotation = Quaternion(0.648535, -0.289255, -0.641304, -0.290624)
-bones/6/rotation = Quaternion(-0.00896895, 0.00715213, -0.00534037, 0.99992)
+bones/0/position = Vector3(0, 0.00115642, 0)
+bones/1/rotation = Quaternion(-0.000564786, 0.0205634, 0.999788, -0.000637319)
+bones/2/rotation = Quaternion(-0.00159333, 0.0028485, 0.999993, -0.00202092)
+bones/3/position = Vector3(-8.25935e-05, 0.175628, -0.027915)
+bones/3/rotation = Quaternion(0.00341791, -0.0192358, 0.00364058, 0.999803)
+bones/4/rotation = Quaternion(0.651321, 0.280347, 0.646512, -0.28144)
+bones/5/rotation = Quaternion(0.644928, -0.2815, -0.653167, -0.279639)
+bones/6/rotation = Quaternion(-0.00677806, 0.0124929, -0.00558299, 0.999883)
 
 [node name="HitStopAnimator" type="Node3D" parent="." index="1" node_paths=PackedStringArray("hitStopAnimator")]
 script = ExtResource("3_dgpqs")
-hitStopBehaviorPath = "../../../HitStopBehavior"
 hitStopAnimator = NodePath("../AnimationTree")
 
 [node name="AnimationPlayer" parent="." index="2"]

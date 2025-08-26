@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="AbilityDisplay" load_steps=3 format=3 uid="uid://1lxi8xrvs5wv"]
+
+[ext_resource type="Texture2D" uid="uid://yw1u3u7djyx7" path="res://assets/textures/Abilities/Type_1/Primary.png" id="1_8m5f4"]
+[ext_resource type="Script" uid="uid://dv5qdvvfembvg" path="res://out/src_behaviors_abilities_AbilityDisplay.gd" id="1_fy1u3"]
+
+[resource]
+script = ExtResource("1_fy1u3")
+abilityName = "Slash Recall"
+abilityDescription = "Throw your weapon towards the target and press recall to get it back"
+abilityIcon = ExtResource("1_8m5f4")
+isMovementAbility = false
+abilityType = 0
+abilityEnum = 0
+cooldownDuration = 0.75
+stackCount = 1
+abilityEffect = Array[PackedScene]([])
+abilitySpawnOffset = Array[Vector3]([])
+disallowedAbilities = Array[int]([])
+metadata/_custom_type_script = "uid://dv5qdvvfembvg"
