@@ -16,7 +16,7 @@ class HitStopBehavior extends Node3D {
 	private var _duration:Float;
 
 	// ================================
-	// Export
+	// Properties
 	// ================================
 	public var isActive(get, never):Bool;
 

@@ -36,14 +36,14 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -0.85, 0)
 playerController = NodePath("../..")
 
 [node name="Skeleton" parent="Player Mesh/PlayerCharacter_1/character-female-d" index="0"]
-bones/0/position = Vector3(0, 2.49565e-06, 0)
-bones/1/rotation = Quaternion(0.000960381, 0.0121788, 0.999921, 0.00281036)
-bones/2/rotation = Quaternion(-0.00591509, 0.00734215, 0.999955, 0.00103907)
-bones/3/position = Vector3(-0.000288335, 0.175608, -0.0278474)
-bones/3/rotation = Quaternion(0.0436543, -0.017386, 0.00512906, 0.998882)
-bones/4/rotation = Quaternion(0.612157, 0.353357, 0.612832, -0.353326)
-bones/5/rotation = Quaternion(0.610022, -0.3549, -0.614212, -0.353077)
-bones/6/rotation = Quaternion(-0.00571365, -0.0300848, -0.00499153, 0.999519)
+bones/0/position = Vector3(0, 0.00415897, 0)
+bones/1/rotation = Quaternion(-0.000838001, 0.0244284, 0.9997, -0.00138677)
+bones/2/rotation = Quaternion(-0.0014968, -0.00384275, 0.99999, -0.00163449)
+bones/3/position = Vector3(-0.000117579, 0.175647, -0.0279174)
+bones/3/rotation = Quaternion(0.00797534, -0.0179497, 0.00260642, 0.999804)
+bones/4/rotation = Quaternion(0.656075, 0.277905, 0.642817, -0.281284)
+bones/5/rotation = Quaternion(0.640366, -0.281726, -0.658612, -0.277114)
+bones/6/rotation = Quaternion(-0.0108402, 0.0134538, -0.00577491, 0.999834)
 
 [node name="HitStopAnimator" parent="Player Mesh/PlayerCharacter_1" index="1" node_paths=PackedStringArray("hitStopBehavior")]
 hitStopBehavior = NodePath("../../../HitStopBehavior")

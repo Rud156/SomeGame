@@ -8,6 +8,12 @@ import src.player.PlayerInputController;
 
 class PlayerController extends CharacterBody3D {
 	// ================================
+	// Constants
+	// ================================
+	@:const
+	private static final GRAVITY:Float = -9.8;
+
+	// ================================
 	// Export
 	// ================================
 	@:export
@@ -40,12 +46,6 @@ class PlayerController extends CharacterBody3D {
 	function onPlayerStateChanged(movementState:PlayerMovementState) {}
 
 	public static inline var ON_PLAYER_STATE_CHANGED:String = "onPlayerStateChanged";
-
-	// ================================
-	// Constants
-	// ================================
-	@:const
-	private static final GRAVITY:Float = -9.8;
 
 	// Movement Modifiers
 	private var _movementVelocity:Vector3;

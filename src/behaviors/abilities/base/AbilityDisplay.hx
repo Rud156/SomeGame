@@ -5,26 +5,31 @@ import src.behaviors.abilities.base.AbilityEnum;
 import src.behaviors.abilities.base.AbilityType;
 
 class AbilityDisplay extends Resource {
+	// ================================
+	// Export
+	// ================================
 	@:export
-	var abilityName:String;
+	public var abilityName:String;
 	@:export
-	var abilityDescription:String;
+	public var abilityDescription:String;
 	@:export
-	var abilityIcon:Texture2D;
+	public var abilityIcon:Texture2D;
 	@:export
-	var isMovementAbility:Bool;
+	public var isMovementAbility:Bool;
 	@:export
-	var abilityType:AbilityType;
+	public var abilityType:AbilityType;
 	@:export
-	var abilityEnum:AbilityEnum;
+	public var abilityEnum:AbilityEnum;
 	@:export
-	var cooldownDuration:Float;
+	public var abilitySortIndex:Int;
 	@:export
-	var stackCount:Int;
+	public var cooldownDuration:Float;
 	@:export
-	var abilityEffect:Array<PackedScene>;
+	public var stackCount:Int;
 	@:export
-	var abilitySpawnOffset:Array<Vector3>;
+	public var abilityEffect:Array<PackedScene>;
 	@:export
-	var disallowedAbilities:Array<AbilityEnum>;
+	public var abilityEffectOffset:Array<Vector3>;
+	@:export
+	public var disallowedAbilities:Array<AbilityEnum>;
 }
