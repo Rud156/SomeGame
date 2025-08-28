@@ -1,12 +1,17 @@
 package src.player;
 
+import src.behaviors.abilities.base.AbilityDisplay;
+import src.behaviors.abilities.base.AbilityBase;
+import src.player.abilities.PlayerMovementAbilityBase;
+import src.behaviors.abilities.base.MovementAbilityBase;
 import gdscript.ObjectEx;
 import godot.*;
+import src.behaviors.abilities.base.AbilityProcessor;
 import src.behaviors.hitstop.HitStopBehavior;
 import src.camera.CameraController;
 import src.player.PlayerInputController;
 
-class PlayerController extends CharacterBody3D {
+class PlayerController extends AbilityProcessor {
 	// ================================
 	// Constants
 	// ================================
@@ -97,6 +102,42 @@ class PlayerController extends CharacterBody3D {
 
 	public function peekMovementState():PlayerMovementState {
 		return _movementStack[_movementStack.length - 1];
+	}
+
+	// ================================
+	// Ability Processing
+	// ================================
+
+	private override function _checkAndActivateAbilities():Void {
+		// TODO: Complete this function...
+	}
+
+	private override function _processNextFrameAbilities():Void {
+		for (ability in _abilitiesToAddNextFrame) {
+			var abilityDisplay:AbilityDisplay = ability.getAbilityDisplay();
+
+			if (abilityDisplay.isMovementAbility) {
+				if (peekMovementState() == PlayerMovementState.CUSTOM_MOVEMENT) {
+					_checkAndRemoveExistingMovementAbility();
+				} else {
+					_pushMovementState(PlayerMovementState.CUSTOM_MOVEMENT);
+				}
+			}
+
+			for (i in 0...activeAbilities.length) {
+				var activeAbility:AbilityBase = activeAbilities[i];
+				var activeAbilityDisplay:AbilityDisplay = activeAbility.getAbilityDisplay();
+				if (abilityDisplay.disallowedAbilities.contains(activeAbilityDisplay.abilityEnum)
+					&& abilityDisplay.abilityPriorityIndex > activeAbilityDisplay.abilityPriorityIndex) {
+					activeAbility.abilityEnd();
+					// TODO: Complete this function...
+				}
+			}
+		}
+	}
+
+	private function _checkAndRemoveExistingMovementAbility():Void {
+		// TODO: Complete this function...
 	}
 
 	// ================================

@@ -21,7 +21,7 @@ class AbilityDisplay extends Resource {
 	@:export
 	public var abilityEnum:AbilityEnum;
 	@:export
-	public var abilitySortIndex:Int;
+	public var abilityPriorityIndex:Int;
 	@:export
 	public var cooldownDuration:Float;
 	@:export

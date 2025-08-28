@@ -34,9 +34,15 @@ abstract class AbilityBase extends Node3D {
 
 	public static inline var ON_ABILITY_COOLDOWN_COMPLETE:String = "onAbilityCooldownComplete";
 
+	@:signal
+	function onAbilityStackUpdated(ability:AbilityBase) {}
+
+	public static inline var ON_ABILITY_STACK_UPDATED:String = "onAbilityStackUpdated";
+
 	// Data
 	private var _abilityActive:Bool;
 	private var _currentCooldownDuration:Float;
+	private var _currentStackCount:Int;
 	private var _cooldownMultiplier:Float;
 
 	// ================================
@@ -46,6 +52,18 @@ abstract class AbilityBase extends Node3D {
 
 	private function get_abilityActive():Bool {
 		return _abilityActive;
+	}
+
+	public var currentCooldownDuration(get, never):Float;
+
+	private function get_currentCooldownDuration():Float {
+		return _currentCooldownDuration;
+	}
+
+	public var currentStackCount(get, never):Int;
+
+	private function get_currentStackCount():Int {
+		return _currentStackCount;
 	}
 
 	public var cooldownMultiplier(get, set):Float;
@@ -76,15 +94,13 @@ abstract class AbilityBase extends Node3D {
 		ObjectEx.emit_signal(ON_ABILITY_STARTED, this);
 	}
 
-	public function abilityUpdate(_):Void {}
-
 	public function abilityEnd():Void {
 		_abilityActive = false;
 		ObjectEx.emit_signal(ON_ABILITY_ENDED, this);
 	}
 
 	public function abilityCanStart(activeAbilities:Array<AbilityBase>):Bool {
-		if (_currentCooldownDuration > 0) {
+		if (_currentCooldownDuration > 0 && _currentStackCount <= 0) {
 			return false;
 		}
 
@@ -104,7 +120,7 @@ abstract class AbilityBase extends Node3D {
 	}
 
 	public function abilityNeedsToEnd():Bool {
-		return false;
+		return true;
 	}
 
 	// ================================
@@ -114,9 +130,16 @@ abstract class AbilityBase extends Node3D {
 	public override function _process(delta:Float):Void {
 		if (_currentCooldownDuration > 0) {
 			_currentCooldownDuration -= delta * _cooldownMultiplier;
+
 			if (_currentCooldownDuration <= 0) {
-				_currentCooldownDuration = 0;
-				ObjectEx.emit_signal(ON_ABILITY_COOLDOWN_COMPLETE, this);
+				if (_currentStackCount < abilityDisplay.stackCount) {
+					_currentStackCount += 1;
+					_currentCooldownDuration = abilityDisplay.cooldownDuration;
+					ObjectEx.emit_signal(ON_ABILITY_STACK_UPDATED, this);
+				} else {
+					_currentCooldownDuration = 0;
+					ObjectEx.emit_signal(ON_ABILITY_COOLDOWN_COMPLETE, this);
+				}
 			}
 		}
 	}
