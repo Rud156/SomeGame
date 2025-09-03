@@ -1,17 +1,17 @@
 [gd_resource type="Resource" script_class="AbilityDisplay" load_steps=3 format=3 uid="uid://xha8r1llspgb"]
 
-[ext_resource type="Script" uid="uid://dv5qdvvfembvg" path="res://out/src_behaviors_abilities_AbilityDisplay.gd" id="1_hhwri"]
-[ext_resource type="Texture2D" uid="uid://f7wcdqgsy1be" path="res://assets/textures/Abilities/Type_1/Secondary.png" id="1_m3noq"]
+[ext_resource type="Texture2D" uid="uid://f7wcdqgsy1be" path="res://assets/textures/Abilities/Type_1/Secondary.png" id="1_h4myx"]
+[ext_resource type="Script" uid="uid://dv5qdvvfembvg" path="res://out/src_behaviors_abilities_AbilityDisplay.gd" id="2_xrw1g"]
 
 [resource]
-script = ExtResource("1_hhwri")
+script = ExtResource("2_xrw1g")
 abilityName = "Dash"
 abilityDescription = "Dash"
-abilityIcon = ExtResource("1_m3noq")
+abilityIcon = ExtResource("1_h4myx")
 isMovementAbility = true
 abilityType = 1
-abilityEnum = 0
-abilitySortIndex = 0
+abilityEnum = 1
+abilityPriorityIndex = 0
 cooldownDuration = 5.0
 stackCount = 2
 abilityEffect = Array[PackedScene]([])

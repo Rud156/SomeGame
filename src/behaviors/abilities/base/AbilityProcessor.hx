@@ -10,7 +10,7 @@ abstract class AbilityProcessor extends Node3D {
 	// Export
 	// ================================
 	@:export
-	var abilities:Array<Node3D>;
+	var abilities:Array<PackedScene>;
 
 	@:signal
 	function onAbilityStarted(ability:AbilityBase) {}
@@ -24,6 +24,7 @@ abstract class AbilityProcessor extends Node3D {
 
 	// Data
 	private var _activeAbilities:Array<AbilityBase>;
+	private var _abilities:Array<AbilityBase>;
 
 	// These are abilities that will be added next frame and also are always added externally
 	// So like effects like Knockback, Stun etc.
@@ -46,14 +47,22 @@ abstract class AbilityProcessor extends Node3D {
 	public override function _ready():Void {
 		_activeAbilities = [];
 		_abilitiesToAddNextFrame = [];
+
+		for (i in 0...abilities.length) {
+			var ability:AbilityBase = cast(abilities[i].instantiate(), AbilityBase);
+			ability.initialize();
+			
+			_abilities.push(ability);
+			add_child(ability, Node_InternalMode.INTERNAL_MODE_BACK);
+		}
 	}
 
 	public override function _process(delta:Float):Void {
 		var index:Int = _activeAbilities.length - 1;
 		while (index >= 0) {
 			var ability:AbilityBase = _activeAbilities[index];
-			if (ability.abilityNeedsToEnd()) {
-				ability.abilityEnd();
+			if (ability.needsToEnd()) {
+				ability.end();
 				_activeAbilities.splice(index, 1);
 				ObjectEx.emit_signal(ON_ABILITY_ENDED, ability);
 			}
@@ -75,10 +84,10 @@ abstract class AbilityProcessor extends Node3D {
 	// ================================
 
 	private function _checkAndActivateAbilities():Void {
-		for (i in 0...abilities.length) {
-			var abilityBase:AbilityBase = cast(abilities[i], AbilityBase);
-			if (abilityBase.abilityCanStart(_activeAbilities)) {
-				abilityBase.abilityStart();
+		for (i in 0..._abilities.length) {
+			var abilityBase:AbilityBase = _abilities[i];
+			if (abilityBase.canStart(_activeAbilities)) {
+				abilityBase.start();
 				_activeAbilities.push(abilityBase);
 				ObjectEx.emit_signal(ON_ABILITY_STARTED, abilityBase);
 			}
@@ -99,7 +108,7 @@ abstract class AbilityProcessor extends Node3D {
 					// This means that the new ability is more important
 					// So we need to kill the existing invalid one and then start the new one
 					if (newAbilityDisplay.abilityPriorityIndex > activeAbilityDisplay.abilityPriorityIndex) {
-						activeAbility.abilityEnd();
+						activeAbility.end();
 						_activeAbilities.splice(index, 1);
 						ObjectEx.emit_signal(ON_ABILITY_ENDED, activeAbility);
 					}
@@ -111,7 +120,7 @@ abstract class AbilityProcessor extends Node3D {
 			}
 
 			if (canStartNewAbility) {
-				newAbility.abilityStart();
+				newAbility.start();
 				_activeAbilities.push(newAbility);
 				ObjectEx.emit_signal(ON_ABILITY_STARTED, newAbility);
 			}

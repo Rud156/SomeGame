@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bc7kng21yxc72"]
+
+[ext_resource type="Script" uid="uid://bsyhc4e6bw2jn" path="res://out/src_player_AbilityDashType1.gd" id="1_uguty"]
+[ext_resource type="Resource" uid="uid://xha8r1llspgb" path="res://prefabs/player/Type_1/dash_data.tres" id="2_3q2qt"]
+
+[node name="AbilityDash" type="Node3D"]
+script = ExtResource("1_uguty")
+abilityDisplay = ExtResource("2_3q2qt")

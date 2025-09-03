@@ -89,27 +89,25 @@ abstract class AbilityBase extends Node3D {
 	// Ability Functions
 	// ================================
 
-	public function abilityStart():Void {
+	public function initialize():Void {}
+
+	public function start():Void {
 		_abilityActive = true;
 		ObjectEx.emit_signal(ON_ABILITY_STARTED, this);
 	}
 
-	public function abilityEnd():Void {
+	public function end():Void {
 		_abilityActive = false;
 		ObjectEx.emit_signal(ON_ABILITY_ENDED, this);
 	}
 
-	public function abilityCanStart(activeAbilities:Array<AbilityBase>):Bool {
+	public function canStart(activeAbilities:Array<AbilityBase>):Bool {
 		if (_currentCooldownDuration > 0 && _currentStackCount <= 0) {
 			return false;
 		}
 
 		for (ability in activeAbilities) {
 			var display:AbilityDisplay = ability.getAbilityDisplay();
-
-			if (abilityDisplay.isMovementAbility && display.isMovementAbility) {
-				return false;
-			}
 
 			if (abilityDisplay.disallowedAbilities.contains(display.abilityEnum)) {
 				return false;
@@ -119,7 +117,7 @@ abstract class AbilityBase extends Node3D {
 		return true;
 	}
 
-	public function abilityNeedsToEnd():Bool {
+	public function needsToEnd():Bool {
 		return true;
 	}
 
