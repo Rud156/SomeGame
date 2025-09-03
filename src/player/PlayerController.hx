@@ -2,8 +2,6 @@ package src.player;
 
 import src.behaviors.abilities.base.AbilityDisplay;
 import src.behaviors.abilities.base.AbilityBase;
-import src.player.abilities.PlayerMovementAbilityBase;
-import src.behaviors.abilities.base.MovementAbilityBase;
 import gdscript.ObjectEx;
 import godot.*;
 import src.behaviors.abilities.base.AbilityProcessor;
@@ -11,7 +9,7 @@ import src.behaviors.hitstop.HitStopBehavior;
 import src.camera.CameraController;
 import src.player.PlayerInputController;
 
-class PlayerController extends AbilityProcessor {
+class PlayerController extends CharacterBody3D {
 	// ================================
 	// Constants
 	// ================================
@@ -39,6 +37,8 @@ class PlayerController extends AbilityProcessor {
 	var gravityMultiplier:Float;
 	@:export
 	var hitStopBehavior:HitStopBehavior;
+	@:export
+	var abilityProcessor:AbilityProcessor;
 
 	// Signals
 
@@ -63,6 +63,8 @@ class PlayerController extends AbilityProcessor {
 
 	// Events
 	private var _handleJumpPressedCallable:Callable;
+	private var _handleAbilityStartedCallable:Callable;
+	private var _handleAbilityEndedCallable:Callable;
 
 	// ================================
 	// Override Functions
@@ -74,13 +76,20 @@ class PlayerController extends AbilityProcessor {
 		_resetFallingStateData();
 
 		_handleJumpPressedCallable = Callable.create(this, "_handleJumpPressed");
+		_handleAbilityStartedCallable = Callable.create(this, "_handleAbilityStarted");
+		_handleAbilityEndedCallable = Callable.create(this, "_handleAbilityEnded");
+
 		PlayerInputController.instance.connect(PlayerInputController.ON_JUMP_PRESSED, _handleJumpPressedCallable);
+		abilityProcessor.connect(AbilityProcessor.ON_ABILITY_STARTED, _handleAbilityStartedCallable);
+		abilityProcessor.connect(AbilityProcessor.ON_ABILITY_ENDED, _handleAbilityEndedCallable);
 
 		CameraController.instance.setTargetObject(this);
 	}
 
 	public override function _exit_tree():Void {
 		PlayerInputController.instance.disconnect(PlayerInputController.ON_JUMP_PRESSED, _handleJumpPressedCallable);
+		abilityProcessor.disconnect(AbilityProcessor.ON_ABILITY_STARTED, _handleAbilityStartedCallable);
+		abilityProcessor.disconnect(AbilityProcessor.ON_ABILITY_ENDED, _handleAbilityEndedCallable);
 	}
 
 	public override function _process(delta:Float):Void {
@@ -105,44 +114,21 @@ class PlayerController extends AbilityProcessor {
 	}
 
 	// ================================
-	// Ability Processing
+	// Private Functions
 	// ================================
 
-	private override function _checkAndActivateAbilities():Void {
-		// TODO: Complete this function...
-	}
-
-	private override function _processNextFrameAbilities():Void {
-		for (ability in _abilitiesToAddNextFrame) {
-			var abilityDisplay:AbilityDisplay = ability.getAbilityDisplay();
-
-			if (abilityDisplay.isMovementAbility) {
-				if (peekMovementState() == PlayerMovementState.CUSTOM_MOVEMENT) {
-					_checkAndRemoveExistingMovementAbility();
-				} else {
-					_pushMovementState(PlayerMovementState.CUSTOM_MOVEMENT);
-				}
-			}
-
-			for (i in 0...activeAbilities.length) {
-				var activeAbility:AbilityBase = activeAbilities[i];
-				var activeAbilityDisplay:AbilityDisplay = activeAbility.getAbilityDisplay();
-				if (abilityDisplay.disallowedAbilities.contains(activeAbilityDisplay.abilityEnum)
-					&& abilityDisplay.abilityPriorityIndex > activeAbilityDisplay.abilityPriorityIndex) {
-					activeAbility.abilityEnd();
-					// TODO: Complete this function...
-				}
+	private function _handleAbilityStarted(ability:AbilityBase):Void {
+		var abilityDisplay:AbilityDisplay = ability.getAbilityDisplay();
+		if (abilityDisplay.isMovementAbility) {
+			if (peekMovementState() != PlayerMovementState.CUSTOM_MOVEMENT) {
+				_pushMovementState(PlayerMovementState.CUSTOM_MOVEMENT);
 			}
 		}
 	}
 
-	private function _checkAndRemoveExistingMovementAbility():Void {
-		// TODO: Complete this function...
+	private function _handleAbilityEnded(ability:AbilityBase):Void {
+		// Nothing to do here for now...
 	}
-
-	// ================================
-	// Private Functions
-	// ================================
 
 	private function _updateGroundedState():Void {
 		var movementState:PlayerMovementState = peekMovementState();
