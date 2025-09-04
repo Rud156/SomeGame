@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b5kbeshxt2d5j"]
 
 [ext_resource type="Script" uid="uid://dl4tnp20678b5" path="res://out/src_player_AbilitySlashRecallType1.gd" id="1_0ou2o"]
-[ext_resource type="Resource" uid="uid://1lxi8xrvs5wv" path="res://prefabs/player/Type_1/slash_recall_data.tres" id="2_e2hdu"]
+[ext_resource type="Resource" uid="uid://1lxi8xrvs5wv" path="res://prefabs/player/Type_1/ability_slash_recall_data.tres" id="2_e2hdu"]
 
 [node name="AblitySlashRecall" type="Node3D"]
 script = ExtResource("1_0ou2o")

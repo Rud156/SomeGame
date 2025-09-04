@@ -23,8 +23,8 @@ abstract class AbilityProcessor extends Node3D {
 	public static inline var ON_ABILITY_ENDED:String = "onAbilityEnded";
 
 	// Data
+	private var _allAbilities:Array<AbilityBase>;
 	private var _activeAbilities:Array<AbilityBase>;
-	private var _abilities:Array<AbilityBase>;
 
 	// These are abilities that will be added next frame and also are always added externally
 	// So like effects like Knockback, Stun etc.
@@ -51,14 +51,15 @@ abstract class AbilityProcessor extends Node3D {
 		for (i in 0...abilities.length) {
 			var ability:AbilityBase = cast(abilities[i].instantiate(), AbilityBase);
 			ability.initialize();
-			
-			_abilities.push(ability);
+
+			_allAbilities.push(ability);
 			add_child(ability, Node_InternalMode.INTERNAL_MODE_BACK);
 		}
 	}
 
-	public override function _process(delta:Float):Void {
+	public override function _process(_):Void {
 		var index:Int = _activeAbilities.length - 1;
+
 		while (index >= 0) {
 			var ability:AbilityBase = _activeAbilities[index];
 			if (ability.needsToEnd()) {
@@ -84,8 +85,8 @@ abstract class AbilityProcessor extends Node3D {
 	// ================================
 
 	private function _checkAndActivateAbilities():Void {
-		for (i in 0..._abilities.length) {
-			var abilityBase:AbilityBase = _abilities[i];
+		for (i in 0..._allAbilities.length) {
+			var abilityBase:AbilityBase = _allAbilities[i];
 			if (abilityBase.canStart(_activeAbilities)) {
 				abilityBase.start();
 				_activeAbilities.push(abilityBase);
@@ -128,6 +129,6 @@ abstract class AbilityProcessor extends Node3D {
 			index -= 1;
 		}
 
-		_abilitiesToAddNextFrame = [];
+		_abilitiesToAddNextFrame.resize(0);
 	}
 }

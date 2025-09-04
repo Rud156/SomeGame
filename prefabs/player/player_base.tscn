@@ -5,8 +5,8 @@
 [ext_resource type="Script" uid="uid://dpup68o7ub6v0" path="res://out/src_behaviors_HitStopBehavior.gd" id="2_6o0s6"]
 [ext_resource type="Script" uid="uid://dj5m3kgl0cqxs" path="res://out/src_behaviors_HitStopParticleSystem.gd" id="4_3pifq"]
 [ext_resource type="Script" uid="uid://c3wtjrddw16if" path="res://out/src_behaviors_abilities_AbilityProcessor.gd" id="4_ao338"]
-[ext_resource type="PackedScene" uid="uid://b5kbeshxt2d5j" path="res://prefabs/player/Type_1/slash_recall.tscn" id="5_8fpqd"]
-[ext_resource type="PackedScene" uid="uid://bc7kng21yxc72" path="res://prefabs/player/Type_1/dash.tscn" id="6_n1uah"]
+[ext_resource type="PackedScene" uid="uid://b5kbeshxt2d5j" path="res://prefabs/player/Type_1/ability_slash_recall.tscn" id="5_8fpqd"]
+[ext_resource type="PackedScene" uid="uid://bc7kng21yxc72" path="res://prefabs/player/Type_1/ability_dash.tscn" id="6_n1uah"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3khpg"]
 
@@ -44,14 +44,14 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -0.85, 0)
 playerController = NodePath("../..")
 
 [node name="Skeleton" parent="Player Mesh/PlayerCharacter_1/character-female-d" index="0"]
-bones/0/position = Vector3(0, 0.000777996, 0)
-bones/1/rotation = Quaternion(0.00142237, 0.00197385, 0.999996, -0.00121422)
-bones/2/rotation = Quaternion(-0.000326165, 0.0124634, 0.999922, -0.00052308)
-bones/3/position = Vector3(-0.000177518, 0.175809, -0.027902)
-bones/3/rotation = Quaternion(-0.0144191, -0.0184494, 0.00290021, 0.999722)
-bones/4/rotation = Quaternion(0.639597, 0.303108, 0.637975, -0.303363)
-bones/5/rotation = Quaternion(0.635261, -0.304329, -0.642158, -0.302423)
-bones/6/rotation = Quaternion(-0.00556684, 0.0334588, -0.00558066, 0.999409)
+bones/0/position = Vector3(0, 0.00231778, 0)
+bones/1/rotation = Quaternion(-0.000914903, -0.0034198, 0.999993, -0.00137609)
+bones/2/rotation = Quaternion(-0.00145412, 0.0241754, 0.999705, -0.00170089)
+bones/3/position = Vector3(-0.000113429, 0.175645, -0.0279174)
+bones/3/rotation = Quaternion(0.00809284, -0.0203947, 0.00324052, 0.999754)
+bones/4/rotation = Quaternion(0.646559, 0.278405, 0.653602, -0.277952)
+bones/5/rotation = Quaternion(0.651204, -0.278415, -0.649111, -0.27762)
+bones/6/rotation = Quaternion(-0.00835611, 0.0108203, -0.00573356, 0.99989)
 
 [node name="HitStopAnimator" parent="Player Mesh/PlayerCharacter_1" index="1" node_paths=PackedStringArray("hitStopBehavior")]
 hitStopBehavior = NodePath("../../../HitStopBehavior")
