@@ -5,7 +5,7 @@
             "label": "Build Haxe",
             "type": "shell",
             // Assign output file name with VSCode inner variables like ${fileBasename}
-            "command": "haxe gdcript.hxml",
+            "command": "haxe gdscript.hxml",
             "options": {
             },
             "group": {
