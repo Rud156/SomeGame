@@ -1,8 +1,8 @@
 [gd_scene load_steps=13 format=3 uid="uid://bgnguke0yisax"]
 
-[ext_resource type="Script" uid="uid://bb826p4qtvvx6" path="res://out/src_CameraController.gd" id="1_wk0fx"]
+[ext_resource type="Script" uid="uid://byjrr28k5r0du" path="res://Src/Camera/CameraController.cs" id="1_mb4n0"]
 [ext_resource type="PackedScene" uid="uid://dc31drmlrfvh5" path="res://prefabs/player/player_base.tscn" id="2_mb4n0"]
-[ext_resource type="Script" uid="uid://bp2y3q46evi73" path="res://out/src_PlayerInputController.gd" id="3_8orni"]
+[ext_resource type="Script" uid="uid://hw6p2ya2w4ns" path="res://Src/Player/PlayerInputController.cs" id="3_8orni"]
 [ext_resource type="PackedScene" uid="uid://bn3d7gutc3bln" path="res://prefabs/ui/abilities_display.tscn" id="4_wk0fx"]
 [ext_resource type="PackedScene" uid="uid://ufxsbqnfq3wa" path="res://prefabs/ui/player_display.tscn" id="5_mb4n0"]
 
@@ -19,11 +19,9 @@ sky = SubResource("Sky_twpsu")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="Curve" id="Curve_twpsu"]
-_data = [Vector2(0, 0), 0.0, 1.68166, 0, 0, Vector2(1, 1), -3.18761, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_ksbpk"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), -3.38709, 0.0, 0, 0]
 point_count = 2
-metadata/_snap_enabled = true
-metadata/_snap_count = 8
 
 [sub_resource type="BoxMesh" id="BoxMesh_sqa0i"]
 
@@ -43,10 +41,10 @@ transform = Transform3D(-0.996779, 0.0724465, -0.0344001, 0, 0.428935, 0.903335,
 shadow_enabled = true
 
 [node name="Camera Holder" type="Node3D" parent="."]
-script = ExtResource("1_wk0fx")
+script = ExtResource("1_mb4n0")
 followDistance = Vector3(0, 15, 15)
 followSpeed = 5.0
-followLerpCurve = SubResource("Curve_twpsu")
+followLerpCurve = SubResource("Curve_ksbpk")
 lookRotationSpeed = 10.0
 
 [node name="Main Camera" type="Camera3D" parent="Camera Holder"]

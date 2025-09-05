@@ -1,9 +1,9 @@
 [gd_scene load_steps=56 format=3 uid="uid://dsscliltfgdp4"]
 
 [ext_resource type="PackedScene" uid="uid://dl75wp2x42pwm" path="res://models/player/player_character_1.fbx" id="1_k6ocp"]
-[ext_resource type="Script" uid="uid://ckhjykrv751f8" path="res://out/src_PlayerAnimationController.gd" id="2_hirwg"]
+[ext_resource type="Script" uid="uid://dsdfgvhotgqt4" path="res://Src/Player/PlayerAnimationController.cs" id="2_dgpqs"]
+[ext_resource type="Script" uid="uid://d3yopcb7mclfe" path="res://Src/Behaviors/HitStop/HitStopAnimator.cs" id="2_hirwg"]
 [ext_resource type="Animation" uid="uid://1o0aypcfobdh" path="res://models/player/animations/left_strafe.res" id="2_vmbtg"]
-[ext_resource type="Script" uid="uid://d0wgwvgjnuac2" path="res://out/src_behaviors_HitStopAnimator.gd" id="3_dgpqs"]
 [ext_resource type="Animation" uid="uid://bajnh3xgrrfeu" path="res://models/player/animations/right_strafe.res" id="3_hirwg"]
 [ext_resource type="Animation" uid="uid://dlg88vtl2ehpv" path="res://models/player/animations/running_backward.res" id="4_dgpqs"]
 
@@ -2270,26 +2270,26 @@ nodes/Lowerbody/position = Vector2(300, 140)
 nodes/output/position = Vector2(860, 140)
 node_connections = [&"AnimatorSpeed", 0, &"Lowerbody", &"Lowerbody", 0, &"GroundedBSP", &"Lowerbody", 1, &"JumpSM", &"output", 0, &"AnimatorSpeed"]
 
-[node name="player_character_1" node_paths=PackedStringArray("animationController") instance=ExtResource("1_k6ocp")]
-script = ExtResource("2_hirwg")
-animationController = NodePath("AnimationTree")
+[node name="player_character_1" node_paths=PackedStringArray("animationTree") instance=ExtResource("1_k6ocp")]
+script = ExtResource("2_dgpqs")
+animationTree = NodePath("AnimationTree")
 
 [node name="character-female-d" parent="." index="0"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton" parent="character-female-d" index="0"]
-bones/0/position = Vector3(0, 0.00268443, 0)
-bones/1/rotation = Quaternion(-0.00104748, -0.00369758, 0.999992, -0.00142024)
-bones/2/rotation = Quaternion(-0.00146503, 0.0250338, 0.999684, -0.00178766)
-bones/3/position = Vector3(-9.92346e-05, 0.175636, -0.0279174)
-bones/3/rotation = Quaternion(0.00580789, -0.0205176, 0.00321764, 0.999768)
-bones/4/rotation = Quaternion(0.646379, 0.278083, 0.654098, -0.277524)
-bones/5/rotation = Quaternion(0.651758, -0.277956, -0.648883, -0.277312)
-bones/6/rotation = Quaternion(-0.00888279, 0.0135074, -0.00581252, 0.999852)
+bones/0/position = Vector3(0, 0.000236172, 0)
+bones/1/rotation = Quaternion(0.000288161, 0.017472, 0.999846, 0.00170402)
+bones/2/rotation = Quaternion(-0.00208072, 0.00182797, 0.999995, -0.00175761)
+bones/3/position = Vector3(-0.000141858, 0.175725, -0.0279182)
+bones/3/rotation = Quaternion(0.0185806, -0.0197833, 0.0049468, 0.999619)
+bones/4/rotation = Quaternion(0.643588, 0.294011, 0.642004, -0.295269)
+bones/5/rotation = Quaternion(0.641586, -0.294458, -0.644921, -0.292812)
+bones/6/rotation = Quaternion(-0.00531922, -0.00582457, -0.00501844, 0.999956)
 
-[node name="HitStopAnimator" type="Node3D" parent="." index="1" node_paths=PackedStringArray("hitStopAnimator")]
-script = ExtResource("3_dgpqs")
-hitStopAnimator = NodePath("../AnimationTree")
+[node name="HitStopAnimator" type="Node3D" parent="." index="1" node_paths=PackedStringArray("animationTree")]
+script = ExtResource("2_hirwg")
+animationTree = NodePath("../AnimationTree")
 
 [node name="AnimationPlayer" parent="." index="2"]
 libraries = {
