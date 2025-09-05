@@ -15,6 +15,10 @@ run/main_scene="uid://bgnguke0yisax"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[dotnet]
+
+project/assembly_name="SomeGame"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/mixamo_animation_retargeter/plugin.cfg", "res://addons/wakatime/plugin.cfg")
