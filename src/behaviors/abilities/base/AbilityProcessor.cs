@@ -65,8 +65,8 @@ namespace SomeGame.Behaviors.Abilities.Base
                 }
             }
 
-            _ProcessNextFrameAbilities();
             _CheckAndActivateAbilities();
+            _ProcessNextFrameAbilities();
         }
 
         // ================================

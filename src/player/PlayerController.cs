@@ -166,10 +166,10 @@ namespace SomeGame.Player
             _currentMovementSpeed = Mathf.Clamp(_currentMovementSpeed, 0, maxGroundedSpeed);
 
             var lastPlayerInput = PlayerInputController.Instance.LastNonZeroMovementInput;
-            var forward = -Transform.Basis.Z;
-            var right = Transform.Basis.X;
+            var forward = Vector3.Forward;
+            var right = Vector3.Right;
 
-            var mappedMovement = (forward * lastPlayerInput.Y) + (right * lastPlayerInput.X);
+            var mappedMovement = forward * lastPlayerInput.Y + right * lastPlayerInput.X;
             mappedMovement.Y = 0;
             mappedMovement = mappedMovement.Normalized() * _currentMovementSpeed;
 
@@ -187,10 +187,10 @@ namespace SomeGame.Player
             _currentMovementSpeed = Mathf.Clamp(_currentMovementSpeed, 0, maxAirSpeed);
 
             var lastPlayerInput = PlayerInputController.Instance.LastNonZeroMovementInput;
-            var forward = -Transform.Basis.Z;
-            var right = Transform.Basis.X;
+            var forward = Vector3.Forward;
+            var right = Vector3.Right;
 
-            var mappedMovement = (forward * lastPlayerInput.Y) + (right * lastPlayerInput.X);
+            var mappedMovement = forward * lastPlayerInput.X + right * lastPlayerInput.Y;
             mappedMovement.Y = 0;
             mappedMovement = mappedMovement.Normalized() * _currentMovementSpeed;
 

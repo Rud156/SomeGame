@@ -2,7 +2,7 @@ using SomeGame.Behaviors.Abilities.Base;
 
 namespace SomeGame.Player.Abilities
 {
-    public partial class PlayerAbilityBase : AbilityBase
+    public abstract partial class PlayerAbilityBase : AbilityBase
     {
     }
 }

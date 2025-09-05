@@ -80,7 +80,7 @@ namespace SomeGame.Player
         public override void _PhysicsProcess(double delta)
         {
             _mousePosition = ScreenPointToRay();
-            _movementInput = Input.GetVector(LeftEvent, RightEvent, ForwardEvent, BackwardEvent);
+            _movementInput = Input.GetVector(LeftEvent, RightEvent, BackwardEvent, ForwardEvent);
             _ability1Pressed = Input.IsActionPressed(Ability1Event);
             _ability2Pressed = Input.IsActionPressed(Ability2Event);
 
@@ -101,7 +101,7 @@ namespace SomeGame.Player
 
         public void SetMouseMode(bool capture)
         {
-            Input.MouseModeEnum mouseMode = capture ? Input.MouseModeEnum.Captured : Input.MouseModeEnum.Visible;
+            var mouseMode = capture ? Input.MouseModeEnum.Captured : Input.MouseModeEnum.Visible;
             Input.MouseMode = mouseMode;
         }
 

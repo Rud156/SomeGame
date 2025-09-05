@@ -3,7 +3,7 @@ using Godot;
 
 namespace SomeGame.Behaviors.Abilities.Base
 {
-    public partial class AbilityBase : Node3D
+    public abstract partial class AbilityBase : Node3D
     {
         // ================================
         // Constants
@@ -54,19 +54,19 @@ namespace SomeGame.Behaviors.Abilities.Base
         {
         }
 
-        public void Start()
+        public virtual void Start()
         {
             _abilityActive = true;
             EmitSignal(SignalName.OnAbilityStarted, this);
         }
 
-        public void End()
+        public virtual void End()
         {
             _abilityActive = false;
             EmitSignal(SignalName.OnAbilityEnded, this);
         }
 
-        public bool CanStart(List<AbilityBase> activeAbilities)
+        public virtual bool CanStart(List<AbilityBase> activeAbilities)
         {
             if (_currentCooldownDuration > 0 && _currentStackCount <= 0)
             {
@@ -86,7 +86,7 @@ namespace SomeGame.Behaviors.Abilities.Base
             return true;
         }
 
-        public bool NeedsToEnd()
+        public virtual bool NeedsToEnd()
         {
             return true;
         }

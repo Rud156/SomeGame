@@ -1,6 +1,6 @@
 using Godot;
 
-namespace SomeGame.src.ui.player
+namespace SomeGame.UI.Player
 {
     public partial class PlayerHealthDisplay : Control
     {

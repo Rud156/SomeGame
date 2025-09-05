@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 namespace SomeGame.Player
@@ -25,22 +26,18 @@ namespace SomeGame.Player
 
         public override void _Ready()
         {
-            // playerController.Jumped += _HandleOnJumpTriggered;
-            // playerController.PlayerStateChanged += _HandleOnPlayerStateChanged;
+            playerController.OnJumpTriggered += _HandleOnJumpTriggered;
+            playerController.OnPlayerStateChanged += _HandleOnPlayerStateChanged;
         }
 
         public override void _ExitTree()
         {
-            // playerController.Jumped -= _HandleOnJumpTriggered;
-            // playerController.PlayerStateChanged -= _HandleOnPlayerStateChanged;
+            playerController.OnJumpTriggered -= _HandleOnJumpTriggered;
+            playerController.OnPlayerStateChanged -= _HandleOnPlayerStateChanged;
         }
 
-        // This method is called every frame.
         public override void _Process(double delta)
         {
-            // Handle grounded motion based on the current movement state.
-            if (playerController == null) return;
-
             switch (playerController.TopMovementState)
             {
                 case PlayerMovementState.Normal:
@@ -48,10 +45,11 @@ namespace SomeGame.Player
                     break;
 
                 case PlayerMovementState.CustomMovement:
-                    break;
-
                 case PlayerMovementState.Falling:
                     break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -59,35 +57,25 @@ namespace SomeGame.Player
         // Private Functions
         // ================================
 
-        // Calculates and sets the blend position for grounded movement animations.
         private void SetGroundedAnimation()
         {
-            // Ensure controllers are valid before proceeding.
-            if (PlayerInputController.Instance == null || animationTree == null) return;
+            var (x, moveZ) = PlayerInputController.Instance.MovementInput;
+            var moveX = -x;
 
-            // Get movement input from the input controller.
-            var movementInput = PlayerInputController.Instance.MovementInput;
-            float moveZ = -movementInput.Y;
-            float moveX = movementInput.X;
+            var yRotation = playerController.GlobalRotation.Y;
 
-            // Get the player's global rotation on the Y-axis.
-            float yRotation = playerController.GlobalRotation.Y;
+            var vAxisVMovement = moveZ * Mathf.Cos(yRotation);
+            var vAxisHMovement = moveZ * Mathf.Sin(yRotation);
 
-            // Calculate vertical and horizontal movement relative to the character's facing direction.
-            float vAxisVMovement = moveZ * Mathf.Cos(yRotation);
-            float vAxisHMovement = moveZ * Mathf.Sin(yRotation);
+            var hAxisVMovement = moveX * Mathf.Sin(yRotation);
+            var hAxisHMovement = moveX * Mathf.Cos(yRotation);
 
-            float hAxisVMovement = moveX * Mathf.Sin(yRotation);
-            float hAxisHMovement = moveX * Mathf.Cos(yRotation);
+            var vMovement = vAxisVMovement + hAxisVMovement;
+            var hMovement = vAxisHMovement + hAxisHMovement;
 
-            float vMovement = vAxisVMovement + hAxisVMovement;
-            float hMovement = vAxisHMovement + hAxisHMovement;
-
-            // Set the blend position on the animation tree.
             animationTree.Set(GroundedAnimParam, new Vector2(hMovement, vMovement));
         }
 
-        // Event handler for when a jump is triggered.
         private void _HandleOnJumpTriggered()
         {
             if (animationTree == null) return;
@@ -97,7 +85,6 @@ namespace SomeGame.Player
             animationTree.Set(JumpIsGrounded, false);
         }
 
-        // Event handler for when the player's movement state changes.
         private void _HandleOnPlayerStateChanged(PlayerMovementState currentState)
         {
             if (animationTree == null) return;
@@ -115,7 +102,6 @@ namespace SomeGame.Player
             }
         }
 
-        // Resets jump-related animation parameters.
         private void ResetJumpAnimation()
         {
             if (animationTree == null) return;
