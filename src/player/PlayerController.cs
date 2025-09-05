@@ -190,7 +190,7 @@ namespace SomeGame.Player
             var forward = Vector3.Forward;
             var right = Vector3.Right;
 
-            var mappedMovement = forward * lastPlayerInput.X + right * lastPlayerInput.Y;
+            var mappedMovement = forward * lastPlayerInput.Y + right * lastPlayerInput.X;
             mappedMovement.Y = 0;
             mappedMovement = mappedMovement.Normalized() * _currentMovementSpeed;
 

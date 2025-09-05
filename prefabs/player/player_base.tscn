@@ -13,11 +13,11 @@
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("hitStopBehavior", "abilityProcessor")]
 script = ExtResource("1_ao338")
 groundedAcceleration = 100.0
-groundedDeceleration = 150.0
-maxGroundedSpeed = 40.0
+groundedDeceleration = 50.0
+maxGroundedSpeed = 25.0
 airAcceleration = 10.0
-maxAirSpeed = 50.0
-jumpVelocity = 75.0
+maxAirSpeed = 25.0
+jumpVelocity = 70.0
 maxJumpCount = 2
 gravityMultiplier = 1.0
 hitStopBehavior = NodePath("HitStopBehavior")
@@ -44,14 +44,13 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -0.85, 0)
 playerController = NodePath("../..")
 
 [node name="Skeleton" parent="Player Mesh/PlayerCharacter_1/character-female-d" index="0"]
-bones/0/position = Vector3(0, 0.00375539, 0)
-bones/1/rotation = Quaternion(0.00269066, 0.0139004, 0.999899, -0.0013559)
-bones/2/rotation = Quaternion(-0.000803106, 0.00234964, 0.999997, -0.000353083)
-bones/3/position = Vector3(-0.00019391, 0.175776, -0.0278942)
-bones/3/rotation = Quaternion(0.0318773, -0.0168223, 0.00307372, 0.999345)
-bones/4/rotation = Quaternion(0.635382, 0.320181, 0.623607, -0.323863)
-bones/5/rotation = Quaternion(0.62078, -0.324977, -0.637937, -0.319466)
-bones/6/rotation = Quaternion(-0.00951007, -0.00872794, -0.00551548, 0.999902)
+bones/1/rotation = Quaternion(0.0668856, 0.050912, 0.991412, 0.100181)
+bones/2/rotation = Quaternion(0.0317, 0.404904, 0.913658, 0.0166355)
+bones/3/position = Vector3(0.00354868, 0.164331, 0.00540192)
+bones/3/rotation = Quaternion(0.0309839, -0.116926, 0.0504815, 0.991373)
+bones/4/rotation = Quaternion(0.544285, 0.446596, 0.543536, -0.457028)
+bones/5/rotation = Quaternion(0.544112, -0.453264, -0.504473, -0.493965)
+bones/6/rotation = Quaternion(-0.055809, 0.130405, -0.0332964, 0.989329)
 
 [node name="HitStopAnimator" parent="Player Mesh/PlayerCharacter_1" index="1" node_paths=PackedStringArray("hitStopBehavior")]
 hitStopBehavior = NodePath("../../../HitStopBehavior")
