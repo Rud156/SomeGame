@@ -1,20 +1,20 @@
-[gd_resource type="Resource" script_class="AbilityDisplay" load_steps=3 format=3 uid="uid://xha8r1llspgb"]
+[gd_resource type="Resource" script_class="AbilityDisplay" load_steps=3 format=3 uid="uid://cenpm8xkqc1d2"]
 
-[ext_resource type="Texture2D" uid="uid://f7wcdqgsy1be" path="res://assets/textures/Abilities/Type_1/Secondary.png" id="1_h4myx"]
-[ext_resource type="Script" uid="uid://dv5qdvvfembvg" path="res://out/src_behaviors_abilities_AbilityDisplay.gd" id="2_xrw1g"]
+[ext_resource type="Texture2D" uid="uid://f7wcdqgsy1be" path="res://assets/textures/Abilities/Type_1/Secondary.png" id="1_gg1tv"]
+[ext_resource type="Script" uid="uid://cf53ld55jq1ue" path="res://Src/Behaviors/Abilities/Base/AbilityDisplay.cs" id="1_l65kq"]
 
 [resource]
-script = ExtResource("2_xrw1g")
+script = ExtResource("1_l65kq")
 abilityName = "Dash"
-abilityDescription = "Dash"
-abilityIcon = ExtResource("1_h4myx")
+abilityDescription = "Move Forward a short distance"
+abilityIcon = ExtResource("1_gg1tv")
 isMovementAbility = true
 abilityType = 1
 abilityEnum = 1
 abilityPriorityIndex = 0
-cooldownDuration = 5.0
+cooldownDuration = 1.0
 stackCount = 2
-abilityEffect = Array[PackedScene]([])
-abilityEffectOffset = Array[Vector3]([])
-disallowedAbilities = Array[int]([])
-metadata/_custom_type_script = "uid://dv5qdvvfembvg"
+abilityEffect = null
+abilityEffectOffset = null
+disallowedAbilities = null
+metadata/_custom_type_script = "uid://cf53ld55jq1ue"

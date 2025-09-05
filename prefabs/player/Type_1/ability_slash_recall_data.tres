@@ -1,19 +1,20 @@
-[gd_resource type="Resource" script_class="AbilityDisplay" load_steps=3 format=3 uid="uid://1lxi8xrvs5wv"]
+[gd_resource type="Resource" script_class="AbilityDisplay" load_steps=3 format=3 uid="uid://sf1j2mnwmwyy"]
 
-[ext_resource type="Texture2D" uid="uid://yw1u3u7djyx7" path="res://assets/textures/Abilities/Type_1/Primary.png" id="1_8m5f4"]
-[ext_resource type="Script" uid="uid://dv5qdvvfembvg" path="res://out/src_behaviors_abilities_AbilityDisplay.gd" id="1_fy1u3"]
+[ext_resource type="Script" uid="uid://cf53ld55jq1ue" path="res://Src/Behaviors/Abilities/Base/AbilityDisplay.cs" id="1_aecn1"]
+[ext_resource type="Texture2D" uid="uid://yw1u3u7djyx7" path="res://assets/textures/Abilities/Type_1/Primary.png" id="1_ahiyt"]
 
 [resource]
-script = ExtResource("1_fy1u3")
+script = ExtResource("1_aecn1")
 abilityName = "Slash Recall"
-abilityDescription = "Throw your weapon towards the target and press recall to get it back"
-abilityIcon = ExtResource("1_8m5f4")
+abilityDescription = "Throw your sword a distance and pull it back"
+abilityIcon = ExtResource("1_ahiyt")
 isMovementAbility = false
 abilityType = 0
 abilityEnum = 0
-cooldownDuration = 0.75
-stackCount = 1
-abilityEffect = Array[PackedScene]([])
-abilitySpawnOffset = Array[Vector3]([])
-disallowedAbilities = Array[int]([])
-metadata/_custom_type_script = "uid://dv5qdvvfembvg"
+abilityPriorityIndex = 0
+cooldownDuration = 0.5
+stackCount = 0
+abilityEffect = null
+abilityEffectOffset = null
+disallowedAbilities = null
+metadata/_custom_type_script = "uid://cf53ld55jq1ue"
