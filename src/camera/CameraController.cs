@@ -25,7 +25,7 @@ namespace SomeGame.Camera
         // ================================
         // Override Functions
         // ================================
-        
+
         public override void _EnterTree()
         {
             if (_instance != null)

@@ -19,31 +19,23 @@ namespace SomeGame.Player
         // Export
         // ================================
 
-        [Export] public PlayerController playerController;
         [Export] public AnimationTree animationTree;
+
+        // Data
+        private PlayerController _playerController;
 
         // ================================
         // Override Functions
         // ================================
 
-        public override void _Ready()
-        {
-            playerController.OnJumpTriggered += _HandleOnJumpTriggered;
-            playerController.OnPlayerStateChanged += _HandleOnPlayerStateChanged;
-        }
-
-        public override void _ExitTree()
-        {
-            playerController.OnJumpTriggered -= _HandleOnJumpTriggered;
-            playerController.OnPlayerStateChanged -= _HandleOnPlayerStateChanged;
-        }
+        public override void _ExitTree() => _ResetPlayerControllerSignals();
 
         public override void _Process(double delta)
         {
-            switch (playerController.TopMovementState)
+            switch (_playerController.TopMovementState)
             {
                 case PlayerMovementState.Normal:
-                    SetGroundedAnimation();
+                    _SetGroundedAnimation();
                     break;
 
                 case PlayerMovementState.CustomMovement:
@@ -56,13 +48,26 @@ namespace SomeGame.Player
         }
 
         // ================================
+        // Public Functions
+        // ================================
+
+        public void SetPlayerController(PlayerController playerController)
+        {
+            _ResetPlayerControllerSignals();
+
+            _playerController = playerController;
+            _playerController.OnJumpTriggered += _HandleOnJumpTriggered;
+            _playerController.OnPlayerStateChanged += _HandleOnPlayerStateChanged;
+        }
+
+        // ================================
         // Private Functions
         // ================================
 
-        private void SetGroundedAnimation()
+        private void _SetGroundedAnimation()
         {
             var (moveX, moveZ) = PlayerInputController.Instance.MovementInput;
-            var yRotation = playerController.GlobalRotation.Y;
+            var yRotation = _playerController.GlobalRotation.Y;
 
             var vAxisVMovement = moveZ * Mathf.Cos(yRotation);
             var vAxisHMovement = moveZ * Mathf.Sin(yRotation);
@@ -93,7 +98,7 @@ namespace SomeGame.Player
             {
                 case PlayerMovementState.Normal:
                 case PlayerMovementState.CustomMovement:
-                    ResetJumpAnimation();
+                    _ResetJumpAnimation();
                     break;
 
                 case PlayerMovementState.Falling:
@@ -105,7 +110,7 @@ namespace SomeGame.Player
             }
         }
 
-        private void ResetJumpAnimation()
+        private void _ResetJumpAnimation()
         {
             if (animationTree == null) return;
 
@@ -113,6 +118,15 @@ namespace SomeGame.Player
             animationTree.Set(JumpTriggerSecondary, false);
             animationTree.Set(JumpIsFalling, false);
             animationTree.Set(JumpIsGrounded, true);
+        }
+
+        private void _ResetPlayerControllerSignals()
+        {
+            if (_playerController != null)
+            {
+                _playerController.OnJumpTriggered -= _HandleOnJumpTriggered;
+                _playerController.OnPlayerStateChanged -= _HandleOnPlayerStateChanged;
+            }
         }
     }
 }

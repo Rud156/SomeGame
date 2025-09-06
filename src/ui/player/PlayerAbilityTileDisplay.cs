@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
 
@@ -10,21 +11,20 @@ namespace SomeGame.UI.Player
         // Export
         // ================================
 
-        [ExportGroup("Components")] [Export] public TextureRect abilityIcon;
+        [ExportGroup("Components")]
+        [Export] public TextureRect abilityIcon;
         [Export] public TextureRect abilityFlasher;
         [Export] public Label abilityTimer;
         [Export] public TextureProgressBar abilityProgressBar;
         [Export] public Label abilityName;
 
-        [ExportGroup("Ability Flasher")] [Export]
-        private int flashCount;
-
+        [ExportGroup("Ability Flasher")]
+        [Export] private int flashCount;
         [Export] private float flashOnDuration;
         [Export] private float flashOffDuration;
 
-        [ExportGroup("Ability Scaler")] [Export]
-        private int scaleCount;
-
+        [ExportGroup("Ability Scaler")]
+        [Export] private int scaleCount;
         [Export] private float defaultScale;
         [Export] private float biggerScale;
         [Export] private float scaleChangeDuration;
@@ -53,22 +53,29 @@ namespace SomeGame.UI.Player
 
         public async void TriggerAbilityFx()
         {
-            if (!_flasherActive)
+            try
             {
-                foreach (var delayAmount in FlashCoroutine())
+                if (!_flasherActive)
                 {
-                    var delay = Mathf.FloorToInt(delayAmount * 1000);
-                    await Task.Delay(delay);
+                    foreach (var delayAmount in FlashCoroutine())
+                    {
+                        var delay = Mathf.FloorToInt(delayAmount * 1000);
+                        await Task.Delay(delay);
+                    }
+                }
+
+                if (!_scalerActive)
+                {
+                    foreach (var delayAmount in ScaleCoroutine())
+                    {
+                        var delay = Mathf.FloorToInt(delayAmount * 1000);
+                        await Task.Delay(delay);
+                    }
                 }
             }
-
-            if (!_scalerActive)
+            catch (Exception e)
             {
-                foreach (var delayAmount in ScaleCoroutine())
-                {
-                    var delay = Mathf.FloorToInt(delayAmount * 1000);
-                    await Task.Delay(delay);
-                }
+                GD.Print($"Unable to run async TriggerAbilityFx: {e.Message}");
             }
         }
 

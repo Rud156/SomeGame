@@ -11,7 +11,8 @@ namespace SomeGame.UI.Player
         // Exports
         // ================================
 
-        [ExportGroup("Components")] [Export] public Label playerNameLabel;
+        [ExportGroup("Components")]
+        [Export] public Label playerNameLabel;
         [Export] public TextureRect playerIcon;
 
         // ================================

@@ -1,8 +1,7 @@
-[gd_scene load_steps=56 format=3 uid="uid://dsscliltfgdp4"]
+[gd_scene load_steps=55 format=3 uid="uid://dsscliltfgdp4"]
 
 [ext_resource type="PackedScene" uid="uid://dl75wp2x42pwm" path="res://models/player/player_character_1.fbx" id="1_k6ocp"]
 [ext_resource type="Script" uid="uid://dsdfgvhotgqt4" path="res://Src/Player/PlayerAnimationController.cs" id="2_dgpqs"]
-[ext_resource type="Script" uid="uid://d3yopcb7mclfe" path="res://Src/Behaviors/HitStop/HitStopAnimator.cs" id="2_hirwg"]
 [ext_resource type="Animation" uid="uid://1o0aypcfobdh" path="res://models/player/animations/left_strafe.res" id="2_vmbtg"]
 [ext_resource type="Animation" uid="uid://bajnh3xgrrfeu" path="res://models/player/animations/right_strafe.res" id="3_hirwg"]
 [ext_resource type="Animation" uid="uid://dlg88vtl2ehpv" path="res://models/player/animations/running_backward.res" id="4_dgpqs"]
@@ -2279,24 +2278,20 @@ animationTree = NodePath("AnimationTree")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton" parent="character-female-d" index="0"]
-bones/1/rotation = Quaternion(0.0632397, 0.0118619, 0.992519, 0.103757)
-bones/2/rotation = Quaternion(0.0193564, 0.399301, 0.916539, 0.0118652)
-bones/3/position = Vector3(0.00299905, 0.166224, 0.00653433)
-bones/3/rotation = Quaternion(0.0260954, -0.104833, 0.0577823, 0.992467)
-bones/4/rotation = Quaternion(0.537837, 0.453871, 0.541079, -0.460399)
-bones/5/rotation = Quaternion(0.539986, -0.459526, -0.485504, -0.511407)
-bones/6/rotation = Quaternion(-0.0483455, 0.138392, -0.0340982, 0.988609)
+bones/1/rotation = Quaternion(0.056151, 0.191148, 0.976846, 0.0779858)
+bones/2/rotation = Quaternion(0.0255776, 0.270148, 0.959798, 0.0717849)
+bones/3/position = Vector3(0.00448658, 0.160481, 0.00467865)
+bones/3/rotation = Quaternion(0.0211834, -0.106973, 0.0431516, 0.993099)
+bones/4/rotation = Quaternion(0.551275, 0.441105, 0.533643, -0.465561)
+bones/5/rotation = Quaternion(0.536351, -0.457061, -0.532834, -0.468519)
+bones/6/rotation = Quaternion(-0.0785083, 0.0776017, -0.0251833, 0.993569)
 
-[node name="HitStopAnimator" type="Node3D" parent="." index="1" node_paths=PackedStringArray("animationTree")]
-script = ExtResource("2_hirwg")
-animationTree = NodePath("../AnimationTree")
-
-[node name="AnimationPlayer" parent="." index="2"]
+[node name="AnimationPlayer" parent="." index="1"]
 libraries = {
 &"": SubResource("AnimationLibrary_mjbt8")
 }
 
-[node name="AnimationTree" type="AnimationTree" parent="." index="3"]
+[node name="AnimationTree" type="AnimationTree" parent="." index="2"]
 tree_root = SubResource("AnimationNodeBlendTree_1ewo7")
 anim_player = NodePath("../AnimationPlayer")
 parameters/AnimatorSpeed/scale = 1.0

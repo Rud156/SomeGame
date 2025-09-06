@@ -25,6 +25,13 @@ abilityFlasher = NodePath("AbilityFlasher")
 abilityTimer = NodePath("Background/Timer")
 abilityProgressBar = NodePath("Background/TextureProgressBar")
 abilityName = NodePath("Background/TitleBackground/Label")
+flashCount = 2
+flashOnDuration = 0.1
+flashOffDuration = 0.05
+scaleCount = 2
+defaultScale = 1.0
+biggerScale = 1.5
+scaleChangeDuration = 0.1
 
 [node name="AbilityIcon" type="TextureRect" parent="."]
 layout_mode = 1

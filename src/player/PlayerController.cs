@@ -19,7 +19,8 @@ namespace SomeGame.Player
         // Export
         // ================================
 
-        [ExportGroup("Movement")] [Export] public float groundedAcceleration;
+        [ExportGroup("Movement")]
+        [Export] public float groundedAcceleration;
         [Export] public float groundedDeceleration;
         [Export] public float maxGroundedSpeed;
         [Export] public float airAcceleration;
@@ -28,8 +29,10 @@ namespace SomeGame.Player
         [Export] public int maxJumpCount;
         [Export] public float gravityMultiplier;
 
-        [ExportGroup("Components")] [Export] public HitStopBehavior hitStopBehavior;
+        [ExportGroup("Components")]
+        [Export] public HitStopBehavior hitStopBehavior;
         [Export] public AbilityProcessor abilityProcessor;
+        [Export] public PlayerAnimationController playerAnimationController;
 
         // ================================
         // Signals
@@ -73,6 +76,7 @@ namespace SomeGame.Player
             abilityProcessor.OnAbilityEnded += _HandleAbilityEnded;
 
             CameraController.Instance.SetTargetObject(this);
+            playerAnimationController.SetPlayerController(this);
         }
 
         public override void _ExitTree()

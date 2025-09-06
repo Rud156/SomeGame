@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Godot;
 using SomeGame.Behaviors.Abilities.Base;
 
@@ -13,7 +14,8 @@ namespace SomeGame.UI.Player
         // Export
         // ================================
 
-        [ExportGroup("Components")] [Export] public PlayerAbilityTileDisplay primaryTile;
+        [ExportGroup("Components")]
+        [Export] public PlayerAbilityTileDisplay primaryTile;
         [Export] public PlayerAbilityTileDisplay secondaryTile;
 
         // ================================

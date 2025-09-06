@@ -24,7 +24,7 @@ namespace SomeGame.Behaviors.HitStop
 
         public override void _Process(double delta)
         {
-            float deltaTime = (float)delta;
+            var deltaTime = (float)delta;
 
             if (!IsActive)
             {

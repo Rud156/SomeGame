@@ -13,6 +13,9 @@ namespace SomeGame.Behaviors.HealthSystem
         [Signal]
         public delegate void OnHealthChangedEventHandler(float oldHealth, float newHealth, float maxHealth);
 
+        [Signal]
+        public delegate void OnDiedEventHandler(float maxHealth);
+
         // Data
         private float _currentHealth;
 
@@ -28,10 +31,7 @@ namespace SomeGame.Behaviors.HealthSystem
         // Override Functions
         // ================================
 
-        public override void _Ready()
-        {
-            _currentHealth = maxHealth;
-        }
+        public override void _Ready() => _currentHealth = maxHealth;
 
         // ================================
         // Public Functions
@@ -45,6 +45,10 @@ namespace SomeGame.Behaviors.HealthSystem
             _currentHealth = Mathf.Clamp(_currentHealth, 0, maxHealth);
 
             EmitSignal(SignalName.OnHealthChanged, oldHealth, _currentHealth, maxHealth);
+            if (_currentHealth <= 0)
+            {
+                EmitSignal(SignalName.OnDied, maxHealth);
+            }
         }
 
         public void Heal(float heal)
@@ -55,6 +59,10 @@ namespace SomeGame.Behaviors.HealthSystem
             _currentHealth = Mathf.Clamp(_currentHealth, 0, maxHealth);
 
             EmitSignal(SignalName.OnHealthChanged, oldHealth, _currentHealth, maxHealth);
+            if (_currentHealth <= 0)
+            {
+                EmitSignal(SignalName.OnDied, maxHealth);
+            }
         }
     }
 }
