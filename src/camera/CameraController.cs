@@ -25,12 +25,23 @@ namespace SomeGame.Camera
         // ================================
         // Override Functions
         // ================================
+        
+        public override void _EnterTree()
+        {
+            if (_instance != null)
+            {
+                QueueFree();
+                return;
+            }
+
+            _instance = this;
+        }
 
         public override void _Ready()
         {
             base._Ready();
             _instance = this;
-            Camera3D camera = GetViewport().GetCamera3D();
+            var camera = GetViewport().GetCamera3D();
             _cameraShaker = new CameraShaker(camera);
 
             _startPosition = GlobalPosition;
@@ -73,13 +84,13 @@ namespace SomeGame.Camera
 
         private void _LookAtTargetPosition(float delta)
         {
-            Vector3 targetPosition = _target != null ? _target.GlobalPosition : _targetPosition;
-            Transform3D cameraTransform = GlobalTransform;
-            Transform3D lookAtTransform = cameraTransform.LookingAt(targetPosition, Vector3.Up);
+            var targetPosition = _target != null ? _target.GlobalPosition : _targetPosition;
+            var cameraTransform = GlobalTransform;
+            var lookAtTransform = cameraTransform.LookingAt(targetPosition, Vector3.Up);
 
-            Vector3 x = cameraTransform.Basis.X.Lerp(lookAtTransform.Basis.X, lookRotationSpeed * delta);
-            Vector3 y = cameraTransform.Basis.Y.Lerp(lookAtTransform.Basis.Y, lookRotationSpeed * delta);
-            Vector3 z = cameraTransform.Basis.Z.Lerp(lookAtTransform.Basis.Z, lookRotationSpeed * delta);
+            var x = cameraTransform.Basis.X.Lerp(lookAtTransform.Basis.X, lookRotationSpeed * delta);
+            var y = cameraTransform.Basis.Y.Lerp(lookAtTransform.Basis.Y, lookRotationSpeed * delta);
+            var z = cameraTransform.Basis.Z.Lerp(lookAtTransform.Basis.Z, lookRotationSpeed * delta);
             GlobalBasis = new Basis(x, y, z);
         }
 
@@ -92,9 +103,9 @@ namespace SomeGame.Camera
 
             _lerpAmount += followSpeed * delta;
 
-            float lerpValue = followLerpCurve.Sample(_lerpAmount);
+            var lerpValue = followLerpCurve.Sample(_lerpAmount);
 
-            Vector3 mappedPosition = _startPosition.Lerp(_targetPosition, lerpValue);
+            var mappedPosition = _startPosition.Lerp(_targetPosition, lerpValue);
             Position = mappedPosition;
         }
 
@@ -102,7 +113,7 @@ namespace SomeGame.Camera
         {
             if (_target != null)
             {
-                Vector3 targetPosition = _target.GlobalPosition;
+                var targetPosition = _target.GlobalPosition;
                 targetPosition += followDistance;
 
                 if (!targetPosition.IsEqualApprox(_targetPosition))

@@ -8,7 +8,7 @@
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[node name="PlayerHealth" type="Control"]
+[node name="PlayerHealth" type="Control" node_paths=PackedStringArray("progressBar")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_bplnx")
@@ -25,6 +25,7 @@ defaultScale = 1.0
 biggerScale = 1.5
 scaleCount = 2
 scaleChangeDuration = 0.1
+progressBar = NodePath("TextureRect/TextureProgressBar")
 
 [node name="TextureRect" type="NinePatchRect" parent="."]
 layout_mode = 1

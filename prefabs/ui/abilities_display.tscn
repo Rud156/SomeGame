@@ -1,10 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://bn3d7gutc3bln"]
+[gd_scene load_steps=3 format=3 uid="uid://bn3d7gutc3bln"]
 
+[ext_resource type="Script" uid="uid://cw22osrik8bkb" path="res://Src/UI/Player/PlayerAbilityDisplay.cs" id="1_hmeop"]
 [ext_resource type="PackedScene" uid="uid://cs6ugiohry21e" path="res://prefabs/ui/ability_tile.tscn" id="1_wsyri"]
 
-[node name="AbilitiesDisplay" type="Control"]
+[node name="AbilitiesDisplay" type="Control" node_paths=PackedStringArray("primaryTile", "secondaryTile")]
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("1_hmeop")
+primaryTile = NodePath("AbilityTile_1")
+secondaryTile = NodePath("AbilityTile_2")
 
 [node name="AbilityTile_1" parent="." instance=ExtResource("1_wsyri")]
 layout_mode = 1
@@ -14,6 +18,13 @@ offset_right = 25.0
 offset_bottom = -64.0
 rotation = -0.261799
 scale = Vector2(1.5, 1.5)
+flashCount = 2
+flashOnDuration = 0.25
+flashOffDuration = 0.15
+scaleCount = 2
+defaultScale = 1.0
+biggerScale = 1.5
+scaleChangeDuration = 0.15
 
 [node name="AbilityTile_2" parent="." instance=ExtResource("1_wsyri")]
 layout_mode = 1

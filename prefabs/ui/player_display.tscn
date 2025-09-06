@@ -5,10 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://buya53n6n28wy" path="res://assets/textures/Character_1.png" id="2_utg14"]
 [ext_resource type="Texture2D" uid="uid://bktyrciq6n0u7" path="res://assets/kenney_ui-pack-adventure/panel_border_brown_detail.png" id="3_o4wlo"]
 
-[node name="PlayerDisplay" type="Control"]
+[node name="PlayerDisplay" type="Control" node_paths=PackedStringArray("playerNameLabel", "playerIcon")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_l4md7")
+playerNameLabel = NodePath("PlayerName")
+playerIcon = NodePath("PlayerBackground/PlayerIcon")
 
 [node name="PlayerHealth" parent="." instance=ExtResource("1_kasli")]
 layout_mode = 1
@@ -45,3 +47,12 @@ grow_vertical = 2
 pivot_offset = Vector2(27, 27)
 texture = ExtResource("2_utg14")
 expand_mode = 1
+
+[node name="PlayerName" type="Label" parent="."]
+layout_mode = 1
+offset_left = 78.0
+offset_top = 37.0
+offset_right = 125.0
+offset_bottom = 60.0
+rotation = -0.0523599
+text = "NAME"
