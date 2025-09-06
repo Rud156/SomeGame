@@ -4,5 +4,49 @@ namespace SomeGame.Behaviors.HealthSystem
 {
     public partial class HealthAndDamage : Node3D
     {
+        // ================================
+        // Exports
+        // ================================
+        [Export] public float maxHealth;
+
+        // Signals
+        [Signal]
+        public delegate void OnHealthChangedEventHandler(float oldHealth, float newHealth);
+
+        // Data
+        private float _currentHealth;
+
+        // ================================
+        // Override Functions
+        // ================================
+
+        public override void _Ready()
+        {
+            _currentHealth = maxHealth;
+        }
+
+        // ================================
+        // Public Functions
+        // ================================
+
+        public void TakeDamage(float damage)
+        {
+            var oldHealth = _currentHealth;
+
+            _currentHealth -= damage;
+            _currentHealth = Mathf.Clamp(_currentHealth, 0, maxHealth);
+
+            EmitSignal(SignalName.OnHealthChanged, oldHealth, _currentHealth);
+        }
+
+        public void Heal(float heal)
+        {
+            var oldHealth = _currentHealth;
+
+            _currentHealth += heal;
+            _currentHealth = Mathf.Clamp(_currentHealth, 0, maxHealth);
+
+            EmitSignal(SignalName.OnHealthChanged, oldHealth, _currentHealth);
+        }
     }
 }

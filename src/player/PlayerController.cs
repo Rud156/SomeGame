@@ -12,12 +12,14 @@ namespace SomeGame.Player
         // ================================
         // Constants
         // ================================
+
         private const float Gravity = -9.8f;
 
         // ================================
         // Export
         // ================================
-        [Export] public float groundedAcceleration;
+
+        [ExportGroup("Movement")] [Export] public float groundedAcceleration;
         [Export] public float groundedDeceleration;
         [Export] public float maxGroundedSpeed;
         [Export] public float airAcceleration;
@@ -25,12 +27,14 @@ namespace SomeGame.Player
         [Export] public float jumpVelocity;
         [Export] public int maxJumpCount;
         [Export] public float gravityMultiplier;
-        [Export] public HitStopBehavior hitStopBehavior;
+
+        [ExportGroup("Components")] [Export] public HitStopBehavior hitStopBehavior;
         [Export] public AbilityProcessor abilityProcessor;
 
         // ================================
         // Signals
         // ================================
+
         [Signal]
         public delegate void OnJumpTriggeredEventHandler();
 
@@ -40,11 +44,13 @@ namespace SomeGame.Player
         // ================================
         // Movement Modifiers
         // ================================
+
         private Vector3 _movementVelocity;
 
         // ================================
         // State
         // ================================
+
         private List<PlayerMovementState> _movementStack;
         private bool _jumpPressed;
         private int _currentJumpCount;

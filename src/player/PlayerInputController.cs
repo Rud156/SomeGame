@@ -29,13 +29,11 @@ namespace SomeGame.Player
         private const string Ability1Event = "ABILITY_1";
         private const string Ability2Event = "ABILITY_2";
 
-        // Distance for the mouse raycast.
         private const int MouseRaycastDistance = 2000;
 
         // ================================
         // Data
         // ================================
-        // Private fields to store input data.
         private Vector2 _mouseInput;
         private Vector3 _mousePosition;
         private Vector2 _movementInput;

@@ -1,11 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://bhwsltjqeqih2"]
+[gd_scene load_steps=5 format=3 uid="uid://bhwsltjqeqih2"]
 
+[ext_resource type="Script" uid="uid://bsviwwfffljwd" path="res://Src/UI/Player/PlayerHealthDisplay.cs" id="1_bplnx"]
 [ext_resource type="Texture2D" uid="uid://lxfw56vesney" path="res://assets/kenney_ui-pack-adventure/button_red.png" id="1_c13u7"]
 [ext_resource type="Texture2D" uid="uid://fneu63d1jhui" path="res://assets/textures/WhitePixel.png" id="2_bplnx"]
+
+[sub_resource type="Curve" id="Curve_bplnx"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="PlayerHealth" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("1_bplnx")
+displayLerpSpeed = 7.0
+lerpCurve = SubResource("Curve_bplnx")
+lowHealthColor = Color(1, 0, 0, 1)
+midHealthColor = Color(1, 1, 0, 1)
+fullHealthColor = Color(0, 1, 0, 1)
+flashColor = Color(1, 1, 1, 1)
+flashCount = 2
+flashOnDuration = 0.1
+flashOffDuration = 0.05
+defaultScale = 1.0
+biggerScale = 1.5
+scaleCount = 2
+scaleChangeDuration = 0.1
 
 [node name="TextureRect" type="NinePatchRect" parent="."]
 layout_mode = 1

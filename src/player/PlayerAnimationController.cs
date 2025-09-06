@@ -8,6 +8,7 @@ namespace SomeGame.Player
         // ================================
         // Constants
         // ================================
+
         private const string GroundedAnimParam = "parameters/GroundedBSP/blend_position";
         private const string JumpTriggerMain = "parameters/Lowerbody/blend_amount";
         private const string JumpTriggerSecondary = "parameters/Lowerbody/blend_amount"; // This appears to be a duplicate constant, kept for direct conversion.
@@ -17,6 +18,7 @@ namespace SomeGame.Player
         // ================================
         // Export
         // ================================
+
         [Export] public PlayerController playerController;
         [Export] public AnimationTree animationTree;
 
@@ -97,6 +99,9 @@ namespace SomeGame.Player
                 case PlayerMovementState.Falling:
                     animationTree.Set(JumpIsFalling, true);
                     break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(currentState), currentState, null);
             }
         }
 

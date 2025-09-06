@@ -20,12 +20,12 @@ namespace SomeGame.Behaviors.HitStop
         public override void _Ready()
         {
             _activeParticleSystems = [];
-            hitStopBehavior.HitStopStateChanged += _HandleHitStopBehaviorChanged;
+            hitStopBehavior.OnHitStopStateChanged += _HandleHitStopBehaviorChanged;
         }
 
         public override void _ExitTree()
         {
-            hitStopBehavior.HitStopStateChanged -= _HandleHitStopBehaviorChanged;
+            hitStopBehavior.OnHitStopStateChanged -= _HandleHitStopBehaviorChanged;
         }
 
         public override void _Process(double delta)

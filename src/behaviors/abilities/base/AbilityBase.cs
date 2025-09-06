@@ -8,11 +8,13 @@ namespace SomeGame.Behaviors.Abilities.Base
         // ================================
         // Constants
         // ================================
+
         public const float DEFAULT_COOLDOWN_MULTIPLIER = 1f;
 
         // ================================
         // Export
         // ================================
+
         [Export] public AbilityDisplay abilityDisplay;
 
         // Signals
@@ -37,6 +39,7 @@ namespace SomeGame.Behaviors.Abilities.Base
         // ================================
         // Properties
         // ================================
+
         public bool AbilityActive => _abilityActive;
         public float CurrentCooldownDuration => _currentCooldownDuration;
         public int CurrentStackCount => _currentStackCount;
@@ -50,6 +53,7 @@ namespace SomeGame.Behaviors.Abilities.Base
         // ================================
         // Ability Functions
         // ================================
+
         public virtual void Initialize()
         {
         }
@@ -94,6 +98,7 @@ namespace SomeGame.Behaviors.Abilities.Base
         // ================================
         // Override Functions
         // ================================
+
         public override void _Process(double delta)
         {
             if (_currentCooldownDuration > 0)
@@ -120,6 +125,7 @@ namespace SomeGame.Behaviors.Abilities.Base
         // ================================
         // Cooldown Functions
         // ================================
+
         public void FixedCooldownReduction(float amount)
         {
             _currentCooldownDuration -= amount;

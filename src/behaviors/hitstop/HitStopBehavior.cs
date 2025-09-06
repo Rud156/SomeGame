@@ -8,7 +8,7 @@ namespace SomeGame.Behaviors.HitStop
         // Export
         // ================================
         [Signal]
-        public delegate void HitStopStateChangedEventHandler(bool active);
+        public delegate void OnHitStopStateChangedEventHandler(bool active);
 
         // Data
         private float _duration;
@@ -45,13 +45,13 @@ namespace SomeGame.Behaviors.HitStop
         public void EnableHitStop(float duration)
         {
             _duration = duration;
-            EmitSignal(SignalName.HitStopStateChanged, true);
+            EmitSignal(SignalName.OnHitStopStateChanged, true);
         }
 
         public void DisableHitStop()
         {
             _duration = 0;
-            EmitSignal(SignalName.HitStopStateChanged, false);
+            EmitSignal(SignalName.OnHitStopStateChanged, false);
         }
     }
 }
