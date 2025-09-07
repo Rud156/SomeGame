@@ -58,12 +58,12 @@ shape = SubResource("CapsuleShape3D_3khpg")
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -0.85, 0)
 
 [node name="Skeleton" parent="Player Mesh/PlayerCharacter_1/character-female-d" index="0"]
-bones/1/rotation = Quaternion(0.0651082, 0.121563, 0.986574, 0.0874977)
-bones/2/rotation = Quaternion(0.028821, 0.368088, 0.928612, 0.036886)
-bones/3/position = Vector3(0.00412333, 0.162004, 0.00451277)
-bones/3/rotation = Quaternion(0.0297041, -0.115545, 0.0439978, 0.991883)
-bones/4/rotation = Quaternion(0.549166, 0.441574, 0.54283, -0.456907)
-bones/5/rotation = Quaternion(0.545193, -0.449563, -0.522847, -0.476747)
-bones/6/rotation = Quaternion(-0.0663831, 0.112774, -0.0320283, 0.990883)
+bones/1/rotation = Quaternion(0.0104661, 0.392436, 0.919717, 0.00218241)
+bones/2/rotation = Quaternion(0.00827564, -0.006113, 0.999897, 0.0100558)
+bones/3/position = Vector3(0.00212542, 0.164399, 0.00542097)
+bones/3/rotation = Quaternion(0.0348438, -0.0386814, 0.0179067, 0.998483)
+bones/4/rotation = Quaternion(0.525832, 0.472074, 0.503999, -0.496621)
+bones/5/rotation = Quaternion(0.522493, -0.466611, -0.555639, -0.447817)
+bones/6/rotation = Quaternion(-0.0549509, -0.0894719, -0.00729031, 0.994446)
 
 [editable path="Player Mesh/PlayerCharacter_1"]

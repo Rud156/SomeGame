@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="AbilityDisplay" load_steps=3 format=3 uid="uid://sf1j2mnwmwyy"]
 
 [ext_resource type="Script" uid="uid://cf53ld55jq1ue" path="res://Src/Behaviors/Abilities/Base/AbilityDisplay.cs" id="1_aecn1"]
-[ext_resource type="Texture2D" uid="uid://yw1u3u7djyx7" path="res://assets/textures/Abilities/Type_1/Primary.png" id="1_ahiyt"]
+[ext_resource type="Texture2D" uid="uid://yw1u3u7djyx7" path="res://assets/textures/Abilities/Player/Type_1/Primary.png" id="1_ahiyt"]
 
 [resource]
 script = ExtResource("1_aecn1")

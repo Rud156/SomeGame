@@ -80,7 +80,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PlayerAbilitiesDisplay" parent="HUD" instance=ExtResource("4_wk0fx")]
+[node name="PlayerDisplay" type="Control" parent="HUD"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerAbilitiesDisplay" parent="HUD/PlayerDisplay" instance=ExtResource("4_wk0fx")]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -94,7 +102,7 @@ offset_bottom = -89.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="PlayerDisplay" parent="HUD" instance=ExtResource("5_mb4n0")]
+[node name="PlayerInfoDisplay" parent="HUD/PlayerDisplay" instance=ExtResource("5_mb4n0")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -105,8 +113,12 @@ offset_right = -1.0
 offset_bottom = -63.0
 grow_vertical = 0
 
-[node name="PlayerHealthDisplay" type="Control" parent="HUD"]
-anchors_preset = 0
+[node name="PlayerHealthDisplay" type="Control" parent="HUD/PlayerDisplay"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
 offset_right = 40.0
-offset_bottom = 40.0
+grow_vertical = 0
 script = ExtResource("6_7yhar")

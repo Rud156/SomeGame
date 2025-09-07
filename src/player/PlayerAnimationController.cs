@@ -67,16 +67,11 @@ namespace SomeGame.Player
         private void _SetGroundedAnimation()
         {
             var (moveX, moveZ) = PlayerInputController.Instance.MovementInput;
+            moveX = -moveX;
             var yRotation = _playerController.GlobalRotation.Y;
 
-            var vAxisVMovement = moveZ * Mathf.Cos(yRotation);
-            var vAxisHMovement = moveZ * Mathf.Sin(yRotation);
-
-            var hAxisVMovement = moveX * Mathf.Sin(yRotation);
-            var hAxisHMovement = moveX * Mathf.Cos(yRotation);
-
-            var vMovement = vAxisVMovement + hAxisVMovement;
-            var hMovement = vAxisHMovement + hAxisHMovement;
+            var hMovement = moveX * Mathf.Cos(yRotation) - moveZ * Mathf.Sin(yRotation);
+            var vMovement = moveX * Mathf.Sin(yRotation) + moveZ * Mathf.Cos(yRotation);
 
             animationTree.Set(GroundedAnimParam, new Vector2(hMovement, vMovement));
         }

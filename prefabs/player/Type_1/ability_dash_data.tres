@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="AbilityDisplay" load_steps=3 format=3 uid="uid://cenpm8xkqc1d2"]
 
-[ext_resource type="Texture2D" uid="uid://f7wcdqgsy1be" path="res://assets/textures/Abilities/Type_1/Secondary.png" id="1_gg1tv"]
+[ext_resource type="Texture2D" uid="uid://f7wcdqgsy1be" path="res://assets/textures/Abilities/Player/Type_1/Secondary.png" id="1_gg1tv"]
 [ext_resource type="Script" uid="uid://cf53ld55jq1ue" path="res://Src/Behaviors/Abilities/Base/AbilityDisplay.cs" id="1_l65kq"]
 
 [resource]
