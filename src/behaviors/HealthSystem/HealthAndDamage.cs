@@ -7,6 +7,7 @@ namespace SomeGame.Behaviors.HealthSystem
         // ================================
         // Exports
         // ================================
+
         [Export] public float maxHealth;
 
         // Signals

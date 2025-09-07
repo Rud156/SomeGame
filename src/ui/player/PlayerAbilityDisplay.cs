@@ -14,7 +14,6 @@ namespace SomeGame.UI.Player
         // Export
         // ================================
 
-        [ExportGroup("Components")]
         [Export] public PlayerAbilityTileDisplay primaryTile;
         [Export] public PlayerAbilityTileDisplay secondaryTile;
 
