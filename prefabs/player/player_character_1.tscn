@@ -1,7 +1,7 @@
 [gd_scene load_steps=55 format=3 uid="uid://dsscliltfgdp4"]
 
 [ext_resource type="PackedScene" uid="uid://dl75wp2x42pwm" path="res://models/player/player_character_1.fbx" id="1_k6ocp"]
-[ext_resource type="Script" uid="uid://dsdfgvhotgqt4" path="res://src/player/PlayerAnimationController.cs" id="2_dgpqs"]
+[ext_resource type="Script" uid="uid://dsdfgvhotgqt4" path="res://Src/Player/PlayerAnimationController.cs" id="2_dgpqs"]
 [ext_resource type="Animation" uid="uid://1o0aypcfobdh" path="res://models/player/animations/left_strafe.res" id="2_vmbtg"]
 [ext_resource type="Animation" uid="uid://bajnh3xgrrfeu" path="res://models/player/animations/right_strafe.res" id="3_hirwg"]
 [ext_resource type="Animation" uid="uid://dlg88vtl2ehpv" path="res://models/player/animations/running_backward.res" id="4_dgpqs"]
