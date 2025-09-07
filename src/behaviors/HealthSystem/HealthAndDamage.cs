@@ -31,7 +31,11 @@ namespace SomeGame.Behaviors.HealthSystem
         // Override Functions
         // ================================
 
-        public override void _Ready() => _currentHealth = maxHealth;
+        public override void _Ready()
+        {
+            _currentHealth = maxHealth;
+            EmitSignal(SignalName.OnHealthChanged, 0, _currentHealth, maxHealth);
+        }
 
         // ================================
         // Public Functions

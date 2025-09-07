@@ -19,15 +19,15 @@ namespace SomeGame.UI.Player
         [Export] public Label abilityName;
 
         [ExportGroup("Ability Flasher")]
-        [Export] private int flashCount;
-        [Export] private float flashOnDuration;
-        [Export] private float flashOffDuration;
+        [Export] public int flashCount;
+        [Export] public float flashOnDuration;
+        [Export] public float flashOffDuration;
 
         [ExportGroup("Ability Scaler")]
-        [Export] private int scaleCount;
-        [Export] private float defaultScale;
-        [Export] private float biggerScale;
-        [Export] private float scaleChangeDuration;
+        [Export] public int scaleCount;
+        [Export] public float defaultScale;
+        [Export] public float biggerScale;
+        [Export] public float scaleChangeDuration;
 
         // Data
         private bool _flasherActive;

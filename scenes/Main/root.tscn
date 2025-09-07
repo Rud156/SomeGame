@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://bgnguke0yisax"]
+[gd_scene load_steps=14 format=3 uid="uid://bgnguke0yisax"]
 
 [ext_resource type="Script" uid="uid://byjrr28k5r0du" path="res://Src/Camera/CameraController.cs" id="1_mb4n0"]
 [ext_resource type="PackedScene" uid="uid://dc31drmlrfvh5" path="res://prefabs/player/player_base.tscn" id="2_mb4n0"]
 [ext_resource type="Script" uid="uid://hw6p2ya2w4ns" path="res://Src/Player/PlayerInputController.cs" id="3_8orni"]
 [ext_resource type="PackedScene" uid="uid://bn3d7gutc3bln" path="res://prefabs/ui/abilities_display.tscn" id="4_wk0fx"]
 [ext_resource type="PackedScene" uid="uid://ufxsbqnfq3wa" path="res://prefabs/ui/player_display.tscn" id="5_mb4n0"]
+[ext_resource type="Script" uid="uid://bsviwwfffljwd" path="res://Src/UI/Player/PlayerHealthDisplay.cs" id="6_7yhar"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j5px3"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -79,7 +80,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="AbilitiesDisplay" parent="HUD" instance=ExtResource("4_wk0fx")]
+[node name="PlayerAbilitiesDisplay" parent="HUD" instance=ExtResource("4_wk0fx")]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -99,7 +100,13 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = -1.0
-offset_top = -50.0
+offset_top = -63.0
 offset_right = -1.0
-offset_bottom = -50.0
+offset_bottom = -63.0
 grow_vertical = 0
+
+[node name="PlayerHealthDisplay" type="Control" parent="HUD"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("6_7yhar")

@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://dc31drmlrfvh5"]
+[gd_scene load_steps=12 format=3 uid="uid://dc31drmlrfvh5"]
 
 [ext_resource type="Script" uid="uid://8vp0s0gxnhf3" path="res://Src/Player/PlayerController.cs" id="1_ao338"]
 [ext_resource type="PackedScene" uid="uid://dsscliltfgdp4" path="res://prefabs/player/player_character_1.tscn" id="2_0oxmf"]
 [ext_resource type="Script" uid="uid://hsod0iidlpri" path="res://Src/Behaviors/HitStop/HitStopBehavior.cs" id="2_74ymh"]
+[ext_resource type="Resource" uid="uid://b13otbdoph3a4" path="res://prefabs/player/type_1/player_type_1_info.tres" id="2_q4q30"]
 [ext_resource type="Script" uid="uid://efmawra8mgd8" path="res://Src/Behaviors/HitStop/HitStopParticleSystem.cs" id="3_8fpqd"]
 [ext_resource type="Script" uid="uid://c4r48qmuggd3q" path="res://Src/Behaviors/Abilities/Base/AbilityProcessor.cs" id="4_ao338"]
 [ext_resource type="Script" uid="uid://d3yopcb7mclfe" path="res://Src/Behaviors/HitStop/HitStopAnimator.cs" id="4_n1uah"]
@@ -12,7 +13,7 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3khpg"]
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("hitStopBehavior", "abilityProcessor", "playerAnimationController")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("abilityProcessor", "healthAndDamage", "hitStopBehavior", "playerAnimationController")]
 script = ExtResource("1_ao338")
 groundedAcceleration = 100.0
 groundedDeceleration = 50.0
@@ -22,8 +23,10 @@ maxAirSpeed = 25.0
 jumpVelocity = 70.0
 maxJumpCount = 2
 gravityMultiplier = 1.0
-hitStopBehavior = NodePath("HitStopBehavior")
+playerInfoDataDisplay = ExtResource("2_q4q30")
 abilityProcessor = NodePath("AbilityProcessor")
+healthAndDamage = NodePath("HealthComponent")
+hitStopBehavior = NodePath("HitStopBehavior")
 playerAnimationController = NodePath("Player Mesh/PlayerCharacter_1")
 
 [node name="HitStopBehavior" type="Node3D" parent="."]
@@ -55,12 +58,12 @@ shape = SubResource("CapsuleShape3D_3khpg")
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -0.85, 0)
 
 [node name="Skeleton" parent="Player Mesh/PlayerCharacter_1/character-female-d" index="0"]
-bones/1/rotation = Quaternion(0.0530335, 0.238287, 0.967198, 0.0702442)
-bones/2/rotation = Quaternion(0.0345389, 0.184264, 0.978472, 0.0862888)
-bones/3/position = Vector3(0.00446183, 0.160422, 0.0053378)
-bones/3/rotation = Quaternion(0.0143822, -0.105816, 0.0433414, 0.993337)
-bones/4/rotation = Quaternion(0.550328, 0.443916, 0.52387, -0.475013)
-bones/5/rotation = Quaternion(0.530625, -0.461518, -0.540728, -0.461575)
-bones/6/rotation = Quaternion(-0.0823517, 0.0437398, -0.0174828, 0.99549)
+bones/1/rotation = Quaternion(0.0651082, 0.121563, 0.986574, 0.0874977)
+bones/2/rotation = Quaternion(0.028821, 0.368088, 0.928612, 0.036886)
+bones/3/position = Vector3(0.00412333, 0.162004, 0.00451277)
+bones/3/rotation = Quaternion(0.0297041, -0.115545, 0.0439978, 0.991883)
+bones/4/rotation = Quaternion(0.549166, 0.441574, 0.54283, -0.456907)
+bones/5/rotation = Quaternion(0.545193, -0.449563, -0.522847, -0.476747)
+bones/6/rotation = Quaternion(-0.0663831, 0.112774, -0.0320283, 0.990883)
 
 [editable path="Player Mesh/PlayerCharacter_1"]

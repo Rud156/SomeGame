@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using Godot;
 using SomeGame.Behaviors.Abilities.Base;
+using SomeGame.Behaviors.HealthSystem;
 using SomeGame.Behaviors.HitStop;
 using SomeGame.Camera;
+using SomeGame.UI.Player;
 
 namespace SomeGame.Player
 {
@@ -29,11 +31,14 @@ namespace SomeGame.Player
         [Export] public int maxJumpCount;
         [Export] public float gravityMultiplier;
 
-        [ExportGroup("Components")]
-        [Export] public HitStopBehavior hitStopBehavior;
-        [Export] public AbilityProcessor abilityProcessor;
-        [Export] public PlayerAnimationController playerAnimationController;
+        [ExportGroup("Display")]
+        [Export] public PlayerInfoDataDisplay playerInfoDataDisplay;
 
+        [ExportGroup("Components")]
+        [Export] public AbilityProcessor abilityProcessor;
+        [Export] public HealthAndDamage healthAndDamage;
+        [Export] public HitStopBehavior hitStopBehavior;
+        [Export] public PlayerAnimationController playerAnimationController;
         // ================================
         // Signals
         // ================================
@@ -75,8 +80,11 @@ namespace SomeGame.Player
             abilityProcessor.OnAbilityStarted += _HandleAbilityStarted;
             abilityProcessor.OnAbilityEnded += _HandleAbilityEnded;
 
-            CameraController.Instance.SetTargetObject(this);
             playerAnimationController.SetPlayerController(this);
+
+            CameraController.Instance.SetTargetObject(this);
+            PlayerInfoDisplay.Instance.SetPlayerInfo(playerInfoDataDisplay.playerName, playerInfoDataDisplay.playerIcon);
+            PlayerHealthDisplay.Instance.RegisterHealthAndDamage(healthAndDamage);
         }
 
         public override void _ExitTree()
@@ -103,6 +111,11 @@ namespace SomeGame.Player
                 _ApplyMovement();
                 _UpdateMeshRotation();
             }
+        }
+
+        public override void _PhysicsProcess(double delta)
+        {
+            _DebugTestDamageHeal();
         }
 
         // ================================
@@ -277,6 +290,23 @@ namespace SomeGame.Player
         {
             _movementStack.RemoveAt(_movementStack.Count - 1);
             EmitSignal(SignalName.OnPlayerStateChanged, (int)TopMovementState);
+        }
+
+        // ================================
+        // Test Functions
+        // ================================
+
+        private void _DebugTestDamageHeal()
+        {
+            if (Input.IsActionJustPressed("DEBUG_INPUT_1"))
+            {
+                healthAndDamage.TakeDamage(20);
+            }
+
+            if (Input.IsActionJustPressed("DEBUG_INPUT_2"))
+            {
+                healthAndDamage.Heal(20);
+            }
         }
     }
 

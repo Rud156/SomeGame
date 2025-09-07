@@ -63,6 +63,11 @@ namespace SomeGame.UI.Player
             _instance = this;
         }
 
+        public override void _Ready()
+        {
+            _lerpAmount = 1;
+        }
+
         public override void _ExitTree()
         {
             if (_healthAndDamage != null)
@@ -98,7 +103,7 @@ namespace SomeGame.UI.Player
 
         private void _UpdateHealthDisplay(float delta)
         {
-            if (_lerpAmount > 1)
+            if (_lerpAmount >= 1)
             {
                 return;
             }
@@ -109,7 +114,7 @@ namespace SomeGame.UI.Player
             _lerpAmount += delta * displayLerpSpeed;
         }
 
-        private async void _HandleHealthChanged(float oldHealth, float newHealth, float maxHealth)
+        private void _HandleHealthChanged(float oldHealth, float newHealth, float maxHealth)
         {
             _startHealth = oldHealth;
             _targetHealth = newHealth;
@@ -120,6 +125,12 @@ namespace SomeGame.UI.Player
                 ? lowHealthColor.Lerp(midHealthColor, healthRatio * 2)
                 : midHealthColor.Lerp(fullHealthColor, (healthRatio - 0.5f) * 2);
 
+            _StartBarFlasher(healthColor);
+            _StartBarScaler();
+        }
+
+        private async void _StartBarFlasher(Color healthColor)
+        {
             if (!_flashCoroutineActive)
             {
                 foreach (var delayAmount in BarFlasher(healthColor))
@@ -128,7 +139,10 @@ namespace SomeGame.UI.Player
                     await Task.Delay(delay);
                 }
             }
+        }
 
+        private async void _StartBarScaler()
+        {
             if (!_scaleCoroutineActive)
             {
                 foreach (var delayAmount in BarScaler())

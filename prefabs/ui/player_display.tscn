@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://ufxsbqnfq3wa"]
+[gd_scene load_steps=4 format=3 uid="uid://ufxsbqnfq3wa"]
 
 [ext_resource type="PackedScene" uid="uid://bhwsltjqeqih2" path="res://prefabs/ui/player_health.tscn" id="1_kasli"]
 [ext_resource type="Script" uid="uid://c8na421ra21ur" path="res://Src/UI/Player/PlayerInfoDisplay.cs" id="1_l4md7"]
-[ext_resource type="Texture2D" uid="uid://buya53n6n28wy" path="res://assets/textures/Character_1.png" id="2_utg14"]
 [ext_resource type="Texture2D" uid="uid://bktyrciq6n0u7" path="res://assets/kenney_ui-pack-adventure/panel_border_brown_detail.png" id="3_o4wlo"]
 
 [node name="PlayerDisplay" type="Control" node_paths=PackedStringArray("playerNameLabel", "playerIcon")]
@@ -45,7 +44,6 @@ offset_bottom = 27.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(27, 27)
-texture = ExtResource("2_utg14")
 expand_mode = 1
 
 [node name="PlayerName" type="Label" parent="."]

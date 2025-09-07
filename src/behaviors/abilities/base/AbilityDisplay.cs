@@ -9,6 +9,7 @@ namespace SomeGame.Behaviors.Abilities.Base
         // ================================
         // Export
         // ================================
+
         [Export] public string abilityName;
 
         [Export] public string abilityDescription;

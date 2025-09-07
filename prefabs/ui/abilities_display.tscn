@@ -18,12 +18,8 @@ offset_right = 25.0
 offset_bottom = -64.0
 rotation = -0.261799
 scale = Vector2(1.5, 1.5)
-flashCount = 2
 flashOnDuration = 0.25
 flashOffDuration = 0.15
-scaleCount = 2
-defaultScale = 1.0
-biggerScale = 1.5
 scaleChangeDuration = 0.15
 
 [node name="AbilityTile_2" parent="." instance=ExtResource("1_wsyri")]

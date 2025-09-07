@@ -22,9 +22,9 @@ flashCount = 2
 flashOnDuration = 0.1
 flashOffDuration = 0.05
 defaultScale = 1.0
-biggerScale = 1.2
+biggerScale = 1.15
 scaleCount = 2
-scaleChangeDuration = 0.1
+scaleChangeDuration = 0.075
 progressBar = NodePath("TextureRect/TextureProgressBar")
 
 [node name="TextureRect" type="NinePatchRect" parent="."]
