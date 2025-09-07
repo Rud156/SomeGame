@@ -1,15 +1,15 @@
 [gd_scene load_steps=12 format=3 uid="uid://dc31drmlrfvh5"]
 
-[ext_resource type="Script" uid="uid://8vp0s0gxnhf3" path="res://Src/Player/PlayerController.cs" id="1_ao338"]
+[ext_resource type="Script" uid="uid://8vp0s0gxnhf3" path="res://src/player/PlayerController.cs" id="1_ao338"]
 [ext_resource type="PackedScene" uid="uid://dsscliltfgdp4" path="res://prefabs/player/player_character_1.tscn" id="2_0oxmf"]
-[ext_resource type="Script" uid="uid://hsod0iidlpri" path="res://Src/Behaviors/HitStop/HitStopBehavior.cs" id="2_74ymh"]
-[ext_resource type="Resource" uid="uid://b13otbdoph3a4" path="res://prefabs/player/type_1/player_type_1_info.tres" id="2_q4q30"]
-[ext_resource type="Script" uid="uid://efmawra8mgd8" path="res://Src/Behaviors/HitStop/HitStopParticleSystem.cs" id="3_8fpqd"]
-[ext_resource type="Script" uid="uid://c4r48qmuggd3q" path="res://Src/Behaviors/Abilities/Base/AbilityProcessor.cs" id="4_ao338"]
-[ext_resource type="Script" uid="uid://d3yopcb7mclfe" path="res://Src/Behaviors/HitStop/HitStopAnimator.cs" id="4_n1uah"]
-[ext_resource type="PackedScene" uid="uid://b5kbeshxt2d5j" path="res://prefabs/player/type_1/ability_slash_recall.tscn" id="5_8fpqd"]
-[ext_resource type="PackedScene" uid="uid://bc7kng21yxc72" path="res://prefabs/player/type_1/ability_dash.tscn" id="6_n1uah"]
-[ext_resource type="Script" uid="uid://oofdr4kb1l2m" path="res://Src/Behaviors/HealthSystem/HealthAndDamage.cs" id="8_3hfor"]
+[ext_resource type="Script" uid="uid://hsod0iidlpri" path="res://src/behaviors/hitstop/HitStopBehavior.cs" id="2_74ymh"]
+[ext_resource type="Resource" uid="uid://b13otbdoph3a4" path="res://prefabs/player/Type_1/player_type_1_info.tres" id="2_q4q30"]
+[ext_resource type="Script" uid="uid://efmawra8mgd8" path="res://src/behaviors/hitstop/HitStopParticleSystem.cs" id="3_8fpqd"]
+[ext_resource type="Script" uid="uid://c4r48qmuggd3q" path="res://src/behaviors/abilities/base/AbilityProcessor.cs" id="4_ao338"]
+[ext_resource type="Script" uid="uid://d3yopcb7mclfe" path="res://src/behaviors/hitstop/HitStopAnimator.cs" id="4_n1uah"]
+[ext_resource type="PackedScene" uid="uid://b5kbeshxt2d5j" path="res://prefabs/player/Type_1/ability_slash_recall.tscn" id="5_8fpqd"]
+[ext_resource type="PackedScene" uid="uid://bc7kng21yxc72" path="res://prefabs/player/Type_1/ability_dash.tscn" id="6_n1uah"]
+[ext_resource type="Script" uid="uid://oofdr4kb1l2m" path="res://src/behaviors/HealthSystem/HealthAndDamage.cs" id="8_3hfor"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3khpg"]
 
@@ -58,12 +58,12 @@ shape = SubResource("CapsuleShape3D_3khpg")
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -0.85, 0)
 
 [node name="Skeleton" parent="Player Mesh/PlayerCharacter_1/character-female-d" index="0"]
-bones/1/rotation = Quaternion(0.0104661, 0.392436, 0.919717, 0.00218241)
-bones/2/rotation = Quaternion(0.00827564, -0.006113, 0.999897, 0.0100558)
-bones/3/position = Vector3(0.00212542, 0.164399, 0.00542097)
-bones/3/rotation = Quaternion(0.0348438, -0.0386814, 0.0179067, 0.998483)
-bones/4/rotation = Quaternion(0.525832, 0.472074, 0.503999, -0.496621)
-bones/5/rotation = Quaternion(0.522493, -0.466611, -0.555639, -0.447817)
-bones/6/rotation = Quaternion(-0.0549509, -0.0894719, -0.00729031, 0.994446)
+bones/1/rotation = Quaternion(0.046591, 0.300559, 0.952274, 0.025856)
+bones/2/rotation = Quaternion(0.0624434, 0.0164224, 0.996341, 0.0559898)
+bones/3/position = Vector3(0.00342899, 0.163993, 0.00653905)
+bones/3/rotation = Quaternion(0.00987303, -0.104044, 0.0285748, 0.994113)
+bones/4/rotation = Quaternion(0.532571, 0.465986, 0.498558, -0.500666)
+bones/5/rotation = Quaternion(0.506414, -0.483549, -0.550302, -0.454855)
+bones/6/rotation = Quaternion(-0.0655743, -0.0456525, -0.00523774, 0.996789)
 
 [editable path="Player Mesh/PlayerCharacter_1"]

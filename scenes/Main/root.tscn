@@ -1,11 +1,11 @@
 [gd_scene load_steps=14 format=3 uid="uid://bgnguke0yisax"]
 
-[ext_resource type="Script" uid="uid://byjrr28k5r0du" path="res://Src/Camera/CameraController.cs" id="1_mb4n0"]
+[ext_resource type="Script" uid="uid://byjrr28k5r0du" path="res://src/camera/CameraController.cs" id="1_mb4n0"]
 [ext_resource type="PackedScene" uid="uid://dc31drmlrfvh5" path="res://prefabs/player/player_base.tscn" id="2_mb4n0"]
-[ext_resource type="Script" uid="uid://hw6p2ya2w4ns" path="res://Src/Player/PlayerInputController.cs" id="3_8orni"]
+[ext_resource type="Script" uid="uid://hw6p2ya2w4ns" path="res://src/player/PlayerInputController.cs" id="3_8orni"]
 [ext_resource type="PackedScene" uid="uid://bn3d7gutc3bln" path="res://prefabs/ui/abilities_display.tscn" id="4_wk0fx"]
 [ext_resource type="PackedScene" uid="uid://ufxsbqnfq3wa" path="res://prefabs/ui/player_display.tscn" id="5_mb4n0"]
-[ext_resource type="Script" uid="uid://bsviwwfffljwd" path="res://Src/UI/Player/PlayerHealthDisplay.cs" id="6_7yhar"]
+[ext_resource type="Script" uid="uid://bsviwwfffljwd" path="res://src/ui/player/PlayerHealthDisplay.cs" id="6_7yhar"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j5px3"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)

@@ -9,7 +9,7 @@ namespace SomeGame.Behaviors.Abilities.Base
         // Constants
         // ================================
 
-        public const float DEFAULT_COOLDOWN_MULTIPLIER = 1f;
+        private const float DefaultCooldownMultiplier = 1f;
 
         // ================================
         // Export
@@ -140,5 +140,9 @@ namespace SomeGame.Behaviors.Abilities.Base
             var amount = _currentCooldownDuration * percent;
             FixedCooldownReduction(amount);
         }
+
+        public void ResetCooldownMultiplier() => _cooldownMultiplier = DefaultCooldownMultiplier;
+
+        public void SetCooldownMultiplier(float cooldownMultiplier) => _cooldownMultiplier = cooldownMultiplier;
     }
 }

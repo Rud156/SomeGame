@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bn3d7gutc3bln"]
 
-[ext_resource type="Script" uid="uid://cw22osrik8bkb" path="res://Src/UI/Player/PlayerAbilityDisplay.cs" id="1_hmeop"]
+[ext_resource type="Script" uid="uid://cw22osrik8bkb" path="res://src/ui/player/PlayerAbilityDisplay.cs" id="1_hmeop"]
 [ext_resource type="PackedScene" uid="uid://cs6ugiohry21e" path="res://prefabs/ui/ability_tile.tscn" id="1_wsyri"]
 
 [node name="AbilitiesDisplay" type="Control" node_paths=PackedStringArray("primaryTile", "secondaryTile")]

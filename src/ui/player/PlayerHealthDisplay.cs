@@ -63,10 +63,7 @@ namespace SomeGame.UI.Player
             _instance = this;
         }
 
-        public override void _Ready()
-        {
-            _lerpAmount = 1;
-        }
+        public override void _Ready() => _lerpAmount = 1;
 
         public override void _ExitTree()
         {

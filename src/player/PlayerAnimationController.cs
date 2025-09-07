@@ -3,125 +3,127 @@ using Godot;
 
 namespace SomeGame.Player
 {
-    public partial class PlayerAnimationController : Node3D
-    {
-        // ================================
-        // Constants
-        // ================================
+	public partial class PlayerAnimationController : Node3D
+	{
+		// ================================
+		// Constants
+		// ================================
 
-        private const string GroundedAnimParam = "parameters/GroundedBSP/blend_position";
-        private const string JumpTriggerMain = "parameters/Lowerbody/blend_amount";
-        private const string JumpTriggerSecondary = "parameters/Lowerbody/blend_amount"; // This appears to be a duplicate constant, kept for direct conversion.
-        private const string JumpIsFalling = "parameters/JumpSM/conditions/is_falling";
-        private const string JumpIsGrounded = "parameters/JumpSM/conditions/is_grounded";
+		private const string GroundedAnimParam = "parameters/GroundedBSP/blend_position";
+		private const string JumpTriggerMain = "parameters/Lowerbody/blend_amount";
+		private const string JumpTriggerSecondary = "parameters/Lowerbody/blend_amount";
+		private const string JumpIsFalling = "parameters/JumpSM/conditions/is_falling";
+		private const string JumpIsGrounded = "parameters/JumpSM/conditions/is_grounded";
 
-        // ================================
-        // Export
-        // ================================
+		// ================================
+		// Export
+		// ================================
 
-        [Export] public AnimationTree animationTree;
+		[Export] public AnimationTree animationTree;
 
-        // Data
-        private PlayerController _playerController;
+		// Data
+		private PlayerController _playerController;
 
-        // ================================
-        // Override Functions
-        // ================================
+		// ================================
+		// Override Functions
+		// ================================
 
-        public override void _ExitTree() => _ResetPlayerControllerSignals();
+		public override void _Ready() => animationTree.SetActive(true);
 
-        public override void _Process(double delta)
-        {
-            switch (_playerController.TopMovementState)
-            {
-                case PlayerMovementState.Normal:
-                    _SetGroundedAnimation();
-                    break;
+		public override void _ExitTree() => _ResetPlayerControllerSignals();
 
-                case PlayerMovementState.CustomMovement:
-                case PlayerMovementState.Falling:
-                    break;
+		public override void _Process(double delta)
+		{
+			switch (_playerController.TopMovementState)
+			{
+				case PlayerMovementState.Normal:
+					_SetGroundedAnimation();
+					break;
 
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
+				case PlayerMovementState.CustomMovement:
+				case PlayerMovementState.Falling:
+					break;
 
-        // ================================
-        // Public Functions
-        // ================================
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+		}
 
-        public void SetPlayerController(PlayerController playerController)
-        {
-            _ResetPlayerControllerSignals();
+		// ================================
+		// Public Functions
+		// ================================
 
-            _playerController = playerController;
-            _playerController.OnJumpTriggered += _HandleOnJumpTriggered;
-            _playerController.OnPlayerStateChanged += _HandleOnPlayerStateChanged;
-        }
+		public void SetPlayerController(PlayerController playerController)
+		{
+			_ResetPlayerControllerSignals();
 
-        // ================================
-        // Private Functions
-        // ================================
+			_playerController = playerController;
+			_playerController.OnJumpTriggered += _HandleOnJumpTriggered;
+			_playerController.OnPlayerStateChanged += _HandleOnPlayerStateChanged;
+		}
 
-        private void _SetGroundedAnimation()
-        {
-            var (moveX, moveZ) = PlayerInputController.Instance.MovementInput;
-            moveX = -moveX;
-            var yRotation = _playerController.GlobalRotation.Y;
+		// ================================
+		// Private Functions
+		// ================================
 
-            var hMovement = moveX * Mathf.Cos(yRotation) - moveZ * Mathf.Sin(yRotation);
-            var vMovement = moveX * Mathf.Sin(yRotation) + moveZ * Mathf.Cos(yRotation);
+		private void _SetGroundedAnimation()
+		{
+			var (moveX, moveZ) = PlayerInputController.Instance.MovementInput;
+			moveX = -moveX;
+			var yRotation = _playerController.GlobalRotation.Y;
 
-            animationTree.Set(GroundedAnimParam, new Vector2(hMovement, vMovement));
-        }
+			var hMovement = moveX * Mathf.Cos(yRotation) - moveZ * Mathf.Sin(yRotation);
+			var vMovement = moveX * Mathf.Sin(yRotation) + moveZ * Mathf.Cos(yRotation);
 
-        private void _HandleOnJumpTriggered()
-        {
-            if (animationTree == null) return;
+			animationTree.Set(GroundedAnimParam, new Vector2(hMovement, vMovement));
+		}
 
-            animationTree.Set(JumpTriggerMain, 1);
-            animationTree.Set(JumpTriggerSecondary, true);
-            animationTree.Set(JumpIsGrounded, false);
-        }
+		private void _HandleOnJumpTriggered()
+		{
+			if (animationTree == null) return;
 
-        private void _HandleOnPlayerStateChanged(PlayerMovementState currentState)
-        {
-            if (animationTree == null) return;
+			animationTree.Set(JumpTriggerMain, 1);
+			animationTree.Set(JumpTriggerSecondary, true);
+			animationTree.Set(JumpIsGrounded, false);
+		}
 
-            switch (currentState)
-            {
-                case PlayerMovementState.Normal:
-                case PlayerMovementState.CustomMovement:
-                    _ResetJumpAnimation();
-                    break;
+		private void _HandleOnPlayerStateChanged(PlayerMovementState currentState)
+		{
+			if (animationTree == null) return;
 
-                case PlayerMovementState.Falling:
-                    animationTree.Set(JumpIsFalling, true);
-                    break;
+			switch (currentState)
+			{
+				case PlayerMovementState.Normal:
+				case PlayerMovementState.CustomMovement:
+					_ResetJumpAnimation();
+					break;
 
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(currentState), currentState, null);
-            }
-        }
+				case PlayerMovementState.Falling:
+					animationTree.Set(JumpIsFalling, true);
+					break;
 
-        private void _ResetJumpAnimation()
-        {
-            if (animationTree == null) return;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(currentState), currentState, null);
+			}
+		}
 
-            animationTree.Set(JumpTriggerMain, 0);
-            animationTree.Set(JumpTriggerSecondary, false);
-            animationTree.Set(JumpIsFalling, false);
-            animationTree.Set(JumpIsGrounded, true);
-        }
+		private void _ResetJumpAnimation()
+		{
+			if (animationTree == null) return;
 
-        private void _ResetPlayerControllerSignals()
-        {
-            if (_playerController != null)
-            {
-                _playerController.OnJumpTriggered -= _HandleOnJumpTriggered;
-                _playerController.OnPlayerStateChanged -= _HandleOnPlayerStateChanged;
-            }
-        }
-    }
+			animationTree.Set(JumpTriggerMain, 0);
+			animationTree.Set(JumpTriggerSecondary, false);
+			animationTree.Set(JumpIsFalling, false);
+			animationTree.Set(JumpIsGrounded, true);
+		}
+
+		private void _ResetPlayerControllerSignals()
+		{
+			if (_playerController != null)
+			{
+				_playerController.OnJumpTriggered -= _HandleOnJumpTriggered;
+				_playerController.OnPlayerStateChanged -= _HandleOnPlayerStateChanged;
+			}
+		}
+	}
 }
