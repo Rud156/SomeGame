@@ -11,7 +11,7 @@ namespace SomeGame.Player
 
 		private const string GroundedAnimParam = "parameters/GroundedBSP/blend_position";
 		private const string JumpTriggerMain = "parameters/Lowerbody/blend_amount";
-		private const string JumpTriggerSecondary = "parameters/Lowerbody/blend_amount";
+		private const string JumpTriggerSecondary = "parameters/JumpSM/conditions/jump_triggered";
 		private const string JumpIsFalling = "parameters/JumpSM/conditions/is_falling";
 		private const string JumpIsGrounded = "parameters/JumpSM/conditions/is_grounded";
 

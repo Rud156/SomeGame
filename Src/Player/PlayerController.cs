@@ -22,8 +22,6 @@ namespace SomeGame.Player
 		// ================================
 
 		[ExportGroup("Movement")]
-		[Export] public float groundedAcceleration;
-		[Export] public float groundedDeceleration;
 		[Export] public float maxGroundedSpeed;
 		[Export] public float airAcceleration;
 		[Export] public float maxAirSpeed;
@@ -172,22 +170,12 @@ namespace SomeGame.Player
 
 		private void _UpdateNormalState(float delta)
 		{
-			if (PlayerInputController.Instance.HasNoDirectionalInput())
-			{
-				_currentMovementSpeed -= groundedDeceleration * delta;
-			}
-			else
-			{
-				_currentMovementSpeed += groundedAcceleration * delta;
-			}
-
-			_currentMovementSpeed = Mathf.Clamp(_currentMovementSpeed, 0, maxGroundedSpeed);
-
-			var lastPlayerInput = PlayerInputController.Instance.LastNonZeroMovementInput;
+			_currentMovementSpeed = maxGroundedSpeed;
+			var playerInput = PlayerInputController.Instance.MovementInput;
 			var forward = Vector3.Forward;
 			var right = Vector3.Right;
 
-			var mappedMovement = forward * lastPlayerInput.Y + right * lastPlayerInput.X;
+			var mappedMovement = forward * playerInput.Y + right * playerInput.X;
 			mappedMovement.Y = 0;
 			mappedMovement = mappedMovement.Normalized() * _currentMovementSpeed;
 
