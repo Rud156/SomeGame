@@ -113,11 +113,6 @@ namespace SomeGame.Player
             }
         }
 
-        public override void _PhysicsProcess(double delta)
-        {
-            _DebugTestDamageHeal();
-        }
-
         // ================================
         // Public Functions
         // ================================
@@ -290,23 +285,6 @@ namespace SomeGame.Player
         {
             _movementStack.RemoveAt(_movementStack.Count - 1);
             EmitSignal(SignalName.OnPlayerStateChanged, (int)TopMovementState);
-        }
-
-        // ================================
-        // Test Functions
-        // ================================
-
-        private void _DebugTestDamageHeal()
-        {
-            if (Input.IsActionJustPressed("DEBUG_INPUT_1"))
-            {
-                healthAndDamage.TakeDamage(20);
-            }
-
-            if (Input.IsActionJustPressed("DEBUG_INPUT_2"))
-            {
-                healthAndDamage.Heal(20);
-            }
         }
     }
 
