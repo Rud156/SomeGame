@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
@@ -128,25 +129,25 @@ namespace SomeGame.UI.Player
 
         private async void _StartBarFlasher(Color healthColor)
         {
-            if (!_flashCoroutineActive)
+            if (_flashCoroutineActive)
+                return;
+
+            foreach (var delayAmount in BarFlasher(healthColor))
             {
-                foreach (var delayAmount in BarFlasher(healthColor))
-                {
-                    var delay = Mathf.FloorToInt(delayAmount * 1000);
-                    await Task.Delay(delay);
-                }
+                var delay = Mathf.FloorToInt(delayAmount * 1000);
+                await Task.Delay(delay);
             }
         }
 
         private async void _StartBarScaler()
         {
-            if (!_scaleCoroutineActive)
+            if (_scaleCoroutineActive)
+                return;
+
+            foreach (var delayAmount in BarScaler())
             {
-                foreach (var delayAmount in BarScaler())
-                {
-                    var delay = Mathf.FloorToInt(delayAmount * 1000);
-                    await Task.Delay(delay);
-                }
+                var delay = Mathf.FloorToInt(delayAmount * 1000);
+                await Task.Delay(delay);
             }
         }
 

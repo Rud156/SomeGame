@@ -44,7 +44,7 @@ shadow_enabled = true
 [node name="Camera Holder" type="Node3D" parent="."]
 script = ExtResource("1_mb4n0")
 followDistance = Vector3(0, 15, 15)
-followSpeed = 10.0
+followSpeed = 5.0
 followLerpCurve = SubResource("Curve_ksbpk")
 lookRotationSpeed = 10.0
 

@@ -51,37 +51,39 @@ namespace SomeGame.UI.Player
             abilityProgressBar.MaxValue = maxProgress;
         }
 
-        public async void TriggerAbilityFx()
+        public void TriggerAbilityFx()
         {
-            try
-            {
-                if (!_flasherActive)
-                {
-                    foreach (var delayAmount in FlashCoroutine())
-                    {
-                        var delay = Mathf.FloorToInt(delayAmount * 1000);
-                        await Task.Delay(delay);
-                    }
-                }
-
-                if (!_scalerActive)
-                {
-                    foreach (var delayAmount in ScaleCoroutine())
-                    {
-                        var delay = Mathf.FloorToInt(delayAmount * 1000);
-                        await Task.Delay(delay);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                GD.Print($"Unable to run async TriggerAbilityFx: {e.Message}");
-            }
+            _StartAbilityFlasher();
+            _StartAbilityScaler();
         }
 
         // ================================
         // Private Functions
         // ================================
+
+        private async void _StartAbilityFlasher()
+        {
+            if (_flasherActive)
+                return;
+
+            foreach (var delayAmount in FlashCoroutine())
+            {
+                var delay = Mathf.FloorToInt(delayAmount * 1000);
+                await Task.Delay(delay);
+            }
+        }
+
+        private async void _StartAbilityScaler()
+        {
+            if (_scalerActive)
+                return;
+
+            foreach (var delayAmount in ScaleCoroutine())
+            {
+                var delay = Mathf.FloorToInt(delayAmount * 1000);
+                await Task.Delay(delay);
+            }
+        }
 
         private IEnumerable<float> FlashCoroutine()
         {
