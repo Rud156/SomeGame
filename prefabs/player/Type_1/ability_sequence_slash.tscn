@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5kbeshxt2d5j"]
+
+[ext_resource type="Script" path="res://Src/Player/Type1/AbilitySlashRecallType1.cs" id="1_5kw4w"]
+[ext_resource type="Resource" uid="uid://sf1j2mnwmwyy" path="res://prefabs/player/type_1/ability_sequence_slash_data.tres" id="2_jkbna"]
+
+[node name="AblitySlashRecall" type="Node3D"]
+script = ExtResource("1_5kw4w")
+abilityDisplay = ExtResource("2_jkbna")

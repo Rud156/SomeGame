@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bc7kng21yxc72"]
 
 [ext_resource type="Script" uid="uid://drwsvlf8ah2t6" path="res://Src/Player/Type1/AbilityDashType1.cs" id="1_bdf3n"]
-[ext_resource type="Resource" uid="uid://cenpm8xkqc1d2" path="res://prefabs/player/type_1/ability_dash_data.tres" id="2_yoibc"]
+[ext_resource type="Resource" uid="uid://cenpm8xkqc1d2" path="res://prefabs/player/type_1/ability_spin_data.tres" id="2_yoibc"]
 
 [node name="AbilityDash" type="Node3D"]
 script = ExtResource("1_bdf3n")

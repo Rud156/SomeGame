@@ -108,6 +108,16 @@ namespace SomeGame.Player
             return Mathf.IsZeroApprox(_movementInput.X) && Mathf.IsZeroApprox(_movementInput.Y);
         }
 
+        public bool IsAbilityTriggerPressed(int abilityIndex)
+        {
+            return abilityIndex switch
+            {
+                0 => _ability1Pressed,
+                1 => _ability2Pressed,
+                _ => false
+            };
+        }
+
         // ================================
         // Private Functions
         // ================================

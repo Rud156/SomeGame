@@ -14,8 +14,8 @@ namespace SomeGame.UI.Player
 		// Export
 		// ================================
 
-		[Export] public PlayerAbilityTileDisplay primaryTile;
-		[Export] public PlayerAbilityTileDisplay secondaryTile;
+		[Export] private PlayerAbilityTileDisplay primaryTile;
+		[Export] private PlayerAbilityTileDisplay secondaryTile;
 
 		// ================================
 		// Override Functions

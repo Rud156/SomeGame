@@ -9,7 +9,7 @@ namespace SomeGame.Player
         // Export
         // ================================
 
-        [Export] public string playerName;
-        [Export] public Texture2D playerIcon;
+        [Export] private string playerName;
+        [Export] private Texture2D playerIcon;
     }
 }

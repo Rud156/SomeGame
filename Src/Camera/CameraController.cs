@@ -10,10 +10,10 @@ namespace SomeGame.Camera
         // ================================
         // Export
         // ================================
-        [Export] public Vector3 followDistance;
-        [Export] public float followSpeed;
-        [Export] public Curve followLerpCurve;
-        [Export] public float lookRotationSpeed;
+        [Export] private Vector3 followDistance;
+        [Export] private float followSpeed;
+        [Export] private Curve followLerpCurve;
+        [Export] private float lookRotationSpeed;
 
         // Data
         private Node3D _target;

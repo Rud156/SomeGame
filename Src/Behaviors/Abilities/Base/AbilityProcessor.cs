@@ -10,7 +10,10 @@ namespace SomeGame.Behaviors.Abilities.Base
         // ================================
         // Export
         // ================================
-        [Export] public Array<PackedScene> abilities;
+        [Export] private Array<PackedScene> abilities;
+        [Export] private AnimationTree animationTree;
+        [Export] private Node3D character;
+        [Export] private Node3D characterMesh;
 
         [Signal]
         public delegate void OnAbilityStartedEventHandler(AbilityBase ability);
@@ -31,6 +34,9 @@ namespace SomeGame.Behaviors.Abilities.Base
         // Properties
         // ================================
         public List<AbilityBase> ActiveAbilities => _activeAbilities;
+        public AnimationTree AnimationTree => animationTree;
+        public Node3D Character => character;
+        public Node3D CharacterMesh => characterMesh;
 
         // ================================
         // Override Functions
@@ -45,10 +51,10 @@ namespace SomeGame.Behaviors.Abilities.Base
             foreach (var abilityPackedScene in abilities)
             {
                 var ability = (AbilityBase)abilityPackedScene.Instantiate();
-                ability.Initialize();
+                ability.Initialize(this);
 
                 _allAbilities.Add(ability);
-                AddChild(ability, true, InternalMode.Back);
+                AddChild(ability);
             }
         }
 

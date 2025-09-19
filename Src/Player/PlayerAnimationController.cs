@@ -19,7 +19,7 @@ namespace SomeGame.Player
 		// Export
 		// ================================
 
-		[Export] public AnimationTree animationTree;
+		[Export] private AnimationTree animationTree;
 
 		// Data
 		private PlayerController _playerController;

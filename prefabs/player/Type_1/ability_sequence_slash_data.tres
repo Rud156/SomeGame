@@ -5,15 +5,11 @@
 
 [resource]
 script = ExtResource("1_aecn1")
-abilityName = "Slash Recall"
-abilityDescription = "Throw your sword a distance and pull it back"
+abilityName = "Sequence Slash"
+abilityDescription = "3 Step Attack"
 abilityIcon = ExtResource("1_ahiyt")
 isMovementAbility = true
-abilityType = 0
-abilityEnum = 0
-abilityPriorityIndex = 0
 cooldownDuration = 0.5
-stackCount = 0
 abilityEffect = null
 abilityEffectOffset = null
 disallowedAbilities = null

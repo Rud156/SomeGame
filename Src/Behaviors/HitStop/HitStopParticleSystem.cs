@@ -8,7 +8,7 @@ namespace SomeGame.Behaviors.HitStop
         // ================================
         // Export
         // ================================
-        [Export] public HitStopBehavior hitStopBehavior;
+        [Export] private HitStopBehavior hitStopBehavior;
 
         // Data
         private List<GpuParticles3D> _activeParticleSystems;

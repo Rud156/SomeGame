@@ -15,7 +15,7 @@ namespace SomeGame.Behaviors.Abilities.Base
         // Export
         // ================================
 
-        [Export] public AbilityDisplay abilityDisplay;
+        [Export] private AbilityDisplay _abilityDisplay;
 
         // Signals
         [Signal]
@@ -31,10 +31,14 @@ namespace SomeGame.Behaviors.Abilities.Base
         public delegate void OnAbilityStackUpdatedEventHandler(AbilityBase ability);
 
         // Data
-        private bool _abilityActive;
-        private float _currentCooldownDuration;
-        private int _currentStackCount;
-        private float _cooldownMultiplier;
+        protected bool _abilityActive;
+        protected float _currentCooldownDuration;
+        protected int _currentStackCount;
+        protected float _cooldownMultiplier;
+
+        // Components
+        protected AbilityProcessor _abilityProcessor;
+
 
         // ================================
         // Properties
@@ -54,8 +58,9 @@ namespace SomeGame.Behaviors.Abilities.Base
         // Ability Functions
         // ================================
 
-        public virtual void Initialize()
+        public virtual void Initialize(AbilityProcessor abilityProcessor)
         {
+            _abilityProcessor = abilityProcessor;
         }
 
         public virtual void Start()
@@ -79,9 +84,9 @@ namespace SomeGame.Behaviors.Abilities.Base
 
             foreach (var ability in activeAbilities)
             {
-                var display = ability.abilityDisplay;
+                var display = ability._abilityDisplay;
 
-                if (abilityDisplay.disallowedAbilities.Contains(display.abilityEnum))
+                if (_abilityDisplay.disallowedAbilities.Contains(display.abilityEnum))
                 {
                     return false;
                 }
@@ -107,10 +112,10 @@ namespace SomeGame.Behaviors.Abilities.Base
 
                 if (_currentCooldownDuration <= 0)
                 {
-                    if (_currentStackCount < abilityDisplay.stackCount)
+                    if (_currentStackCount < _abilityDisplay.stackCount)
                     {
                         _currentStackCount += 1;
-                        _currentCooldownDuration = abilityDisplay.cooldownDuration;
+                        _currentCooldownDuration = _abilityDisplay.cooldownDuration;
                         EmitSignal(SignalName.OnAbilityStackUpdated, this);
                     }
                     else

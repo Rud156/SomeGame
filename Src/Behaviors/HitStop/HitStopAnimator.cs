@@ -12,8 +12,8 @@ namespace SomeGame.Behaviors.HitStop
         // ================================
         // Export
         // ================================
-        [Export] public HitStopBehavior hitStopBehavior;
-        [Export] public AnimationTree animationTree;
+        [Export] private HitStopBehavior hitStopBehavior;
+        [Export] private AnimationTree animationTree;
 
         // Data
         private float _hsAnimSpeed;

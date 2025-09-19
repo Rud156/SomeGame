@@ -22,21 +22,21 @@ namespace SomeGame.Player
 		// ================================
 
 		[ExportGroup("Movement")]
-		[Export] public float maxGroundedSpeed;
-		[Export] public float airAcceleration;
-		[Export] public float maxAirSpeed;
-		[Export] public float jumpVelocity;
-		[Export] public int maxJumpCount;
-		[Export] public float gravityMultiplier;
+		[Export] private float maxGroundedSpeed;
+		[Export] private float airAcceleration;
+		[Export] private float maxAirSpeed;
+		[Export] private float jumpVelocity;
+		[Export] private int maxJumpCount;
+		[Export] private float gravityMultiplier;
 
 		[ExportGroup("Display")]
-		[Export] public PlayerInfoDataDisplay playerInfoDataDisplay;
+		[Export] private PlayerInfoDataDisplay playerInfoDataDisplay;
 
 		[ExportGroup("Components")]
-		[Export] public AbilityProcessor abilityProcessor;
-		[Export] public HealthAndDamage healthAndDamage;
-		[Export] public HitStopBehavior hitStopBehavior;
-		[Export] public PlayerAnimationController playerAnimationController;
+		[Export] private AbilityProcessor abilityProcessor;
+		[Export] private HealthAndDamage healthAndDamage;
+		[Export] private HitStopBehavior hitStopBehavior;
+		[Export] private PlayerAnimationController playerAnimationController;
 		// ================================
 		// Signals
 		// ================================
@@ -47,16 +47,11 @@ namespace SomeGame.Player
 		[Signal]
 		public delegate void OnPlayerStateChangedEventHandler(PlayerMovementState movementState);
 
-		// ================================
+		
 		// Movement Modifiers
-		// ================================
-
 		private Vector3 _movementVelocity;
 
-		// ================================
-		// State
-		// ================================
-
+		// Player State
 		private List<PlayerMovementState> _movementStack;
 		private bool _jumpPressed;
 		private int _currentJumpCount;

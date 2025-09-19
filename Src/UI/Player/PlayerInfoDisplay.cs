@@ -11,8 +11,8 @@ namespace SomeGame.UI.Player
         // Exports
         // ================================
 
-        [Export] public Label playerNameLabel;
-        [Export] public TextureRect playerIcon;
+        [Export] private Label playerNameLabel;
+        [Export] private TextureRect playerIcon;
 
         // ================================
         // Override Functions

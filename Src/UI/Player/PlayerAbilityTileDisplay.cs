@@ -12,22 +12,22 @@ namespace SomeGame.UI.Player
         // ================================
 
         [ExportGroup("Components")]
-        [Export] public TextureRect abilityIcon;
-        [Export] public TextureRect abilityFlasher;
-        [Export] public Label abilityTimer;
-        [Export] public TextureProgressBar abilityProgressBar;
-        [Export] public Label abilityName;
+        [Export] private TextureRect abilityIcon;
+        [Export] private TextureRect abilityFlasher;
+        [Export] private Label abilityTimer;
+        [Export] private TextureProgressBar abilityProgressBar;
+        [Export] private Label abilityName;
 
         [ExportGroup("Ability Flasher")]
-        [Export] public int flashCount;
-        [Export] public float flashOnDuration;
-        [Export] public float flashOffDuration;
+        [Export] private int flashCount;
+        [Export] private float flashOnDuration;
+        [Export] private float flashOffDuration;
 
         [ExportGroup("Ability Scaler")]
-        [Export] public int scaleCount;
-        [Export] public float defaultScale;
-        [Export] public float biggerScale;
-        [Export] public float scaleChangeDuration;
+        [Export] private int scaleCount;
+        [Export] private float defaultScale;
+        [Export] private float biggerScale;
+        [Export] private float scaleChangeDuration;
 
         // Data
         private bool _flasherActive;

@@ -16,28 +16,28 @@ namespace SomeGame.UI.Player
         // ================================
 
         [ExportGroup("Lerp Data")]
-        [Export] public float displayLerpSpeed;
-        [Export] public Curve lerpCurve;
+        [Export] private float displayLerpSpeed;
+        [Export] private Curve lerpCurve;
 
         [ExportGroup("Display Colors")]
-        [Export] public Color lowHealthColor;
-        [Export] public Color midHealthColor;
-        [Export] public Color fullHealthColor;
+        [Export] private Color lowHealthColor;
+        [Export] private Color midHealthColor;
+        [Export] private Color fullHealthColor;
 
         [ExportGroup("Bar Flash")]
-        [Export] public Color flashColor;
-        [Export] public int flashCount;
-        [Export] public float flashOnDuration;
-        [Export] public float flashOffDuration;
+        [Export] private Color flashColor;
+        [Export] private int flashCount;
+        [Export] private float flashOnDuration;
+        [Export] private float flashOffDuration;
 
         [ExportGroup("Bar Scaler")]
-        [Export] public float defaultScale;
-        [Export] public float biggerScale;
-        [Export] public int scaleCount;
-        [Export] public float scaleChangeDuration;
+        [Export] private float defaultScale;
+        [Export] private float biggerScale;
+        [Export] private int scaleCount;
+        [Export] private float scaleChangeDuration;
 
         [ExportGroup("Components")]
-        [Export] public TextureProgressBar progressBar;
+        [Export] private TextureProgressBar progressBar;
 
         // Data
         private HealthAndDamage _healthAndDamage;
