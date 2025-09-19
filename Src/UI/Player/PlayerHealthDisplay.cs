@@ -16,28 +16,28 @@ namespace SomeGame.UI.Player
         // ================================
 
         [ExportGroup("Lerp Data")]
-        [Export] private float displayLerpSpeed;
-        [Export] private Curve lerpCurve;
+        [Export] private float _displayLerpSpeed;
+        [Export] private Curve _lerpCurve;
 
         [ExportGroup("Display Colors")]
-        [Export] private Color lowHealthColor;
-        [Export] private Color midHealthColor;
-        [Export] private Color fullHealthColor;
+        [Export] private Color _lowHealthColor;
+        [Export] private Color _midHealthColor;
+        [Export] private Color _fullHealthColor;
 
         [ExportGroup("Bar Flash")]
-        [Export] private Color flashColor;
-        [Export] private int flashCount;
-        [Export] private float flashOnDuration;
-        [Export] private float flashOffDuration;
+        [Export] private Color _flashColor;
+        [Export] private int _flashCount;
+        [Export] private float _flashOnDuration;
+        [Export] private float _flashOffDuration;
 
         [ExportGroup("Bar Scaler")]
-        [Export] private float defaultScale;
-        [Export] private float biggerScale;
-        [Export] private int scaleCount;
-        [Export] private float scaleChangeDuration;
+        [Export] private float _defaultScale;
+        [Export] private float _biggerScale;
+        [Export] private int _scaleCount;
+        [Export] private float _scaleChangeDuration;
 
         [ExportGroup("Components")]
-        [Export] private TextureProgressBar progressBar;
+        [Export] private TextureProgressBar _progressBar;
 
         // Data
         private HealthAndDamage _healthAndDamage;
@@ -90,9 +90,9 @@ namespace SomeGame.UI.Player
             _healthAndDamage = healthAndDamage;
             _healthAndDamage.OnHealthChanged += _HandleHealthChanged;
 
-            progressBar.MinValue = 0;
-            progressBar.MaxValue = _healthAndDamage.MaxHealth;
-            progressBar.Value = _healthAndDamage.CurrentHealth;
+            _progressBar.MinValue = 0;
+            _progressBar.MaxValue = _healthAndDamage.MaxHealth;
+            _progressBar.Value = _healthAndDamage.CurrentHealth;
         }
 
         // ================================
@@ -106,10 +106,10 @@ namespace SomeGame.UI.Player
                 return;
             }
 
-            var percent = lerpCurve.Sample(_lerpAmount);
+            var percent = _lerpCurve.Sample(_lerpAmount);
             var mappedValue = Mathf.Lerp(_startHealth, _targetHealth, percent);
-            progressBar.Value = mappedValue;
-            _lerpAmount += delta * displayLerpSpeed;
+            _progressBar.Value = mappedValue;
+            _lerpAmount += delta * _displayLerpSpeed;
         }
 
         private void _HandleHealthChanged(float oldHealth, float newHealth, float maxHealth)
@@ -120,8 +120,8 @@ namespace SomeGame.UI.Player
 
             var healthRatio = newHealth / maxHealth;
             var healthColor = healthRatio <= 0.5
-                ? lowHealthColor.Lerp(midHealthColor, healthRatio * 2)
-                : midHealthColor.Lerp(fullHealthColor, (healthRatio - 0.5f) * 2);
+                ? _lowHealthColor.Lerp(_midHealthColor, healthRatio * 2)
+                : _midHealthColor.Lerp(_fullHealthColor, (healthRatio - 0.5f) * 2);
 
             _StartBarFlasher(healthColor);
             _StartBarScaler();
@@ -158,28 +158,28 @@ namespace SomeGame.UI.Player
         private IEnumerable<float> BarFlasher(Color finalColor)
         {
             _flashCoroutineActive = true;
-            var startColor = progressBar.TintProgress;
-            for (var i = 0; i < flashCount; i++)
+            var startColor = _progressBar.TintProgress;
+            for (var i = 0; i < _flashCount; i++)
             {
-                progressBar.TintProgress = flashColor;
-                yield return flashOnDuration;
-                progressBar.TintProgress = startColor;
-                yield return flashOffDuration;
+                _progressBar.TintProgress = _flashColor;
+                yield return _flashOnDuration;
+                _progressBar.TintProgress = startColor;
+                yield return _flashOffDuration;
             }
 
-            progressBar.TintProgress = finalColor;
+            _progressBar.TintProgress = finalColor;
             _flashCoroutineActive = false;
         }
 
         private IEnumerable<float> BarScaler()
         {
             _scaleCoroutineActive = true;
-            for (var i = 0; i < scaleCount; i++)
+            for (var i = 0; i < _scaleCount; i++)
             {
-                Scale = Vector2.One * biggerScale;
-                yield return scaleChangeDuration;
-                Scale = Vector2.One * defaultScale;
-                yield return scaleChangeDuration;
+                Scale = Vector2.One * _biggerScale;
+                yield return _scaleChangeDuration;
+                Scale = Vector2.One * _defaultScale;
+                yield return _scaleChangeDuration;
             }
 
             _scaleCoroutineActive = false;

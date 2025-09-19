@@ -11,8 +11,8 @@ namespace SomeGame.Player.Type1
         // Export
         // ================================
 
-        [Export] private float spinAttackDuration;
-        [Export] private float spinAttackDps;
+        [Export] private float _spinAttackDuration;
+        [Export] private float _spinAttackDamage;
 
         // ================================
         // Override Functions
@@ -22,7 +22,7 @@ namespace SomeGame.Player.Type1
         {
             base._Process(delta);
 
-            if (PlayerInputController.Instance.IsAbilityTriggerPressed((int)abilityDisplay.abilityType))
+            if (PlayerInputController.Instance.IsAbilityTriggerPressed((int)AbilityDisplay.abilityType))
             {
             }
         }

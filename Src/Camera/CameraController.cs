@@ -10,10 +10,10 @@ namespace SomeGame.Camera
         // ================================
         // Export
         // ================================
-        [Export] private Vector3 followDistance;
-        [Export] private float followSpeed;
-        [Export] private Curve followLerpCurve;
-        [Export] private float lookRotationSpeed;
+        [Export] private Vector3 _followDistance;
+        [Export] private float _followSpeed;
+        [Export] private Curve _followLerpCurve;
+        [Export] private float _lookRotationSpeed;
 
         // Data
         private Node3D _target;
@@ -88,9 +88,9 @@ namespace SomeGame.Camera
             var cameraTransform = GlobalTransform;
             var lookAtTransform = cameraTransform.LookingAt(targetPosition, Vector3.Up);
 
-            var x = cameraTransform.Basis.X.Lerp(lookAtTransform.Basis.X, lookRotationSpeed * delta);
-            var y = cameraTransform.Basis.Y.Lerp(lookAtTransform.Basis.Y, lookRotationSpeed * delta);
-            var z = cameraTransform.Basis.Z.Lerp(lookAtTransform.Basis.Z, lookRotationSpeed * delta);
+            var x = cameraTransform.Basis.X.Lerp(lookAtTransform.Basis.X, _lookRotationSpeed * delta);
+            var y = cameraTransform.Basis.Y.Lerp(lookAtTransform.Basis.Y, _lookRotationSpeed * delta);
+            var z = cameraTransform.Basis.Z.Lerp(lookAtTransform.Basis.Z, _lookRotationSpeed * delta);
             GlobalBasis = new Basis(x, y, z);
         }
 
@@ -101,9 +101,9 @@ namespace SomeGame.Camera
                 return;
             }
 
-            _lerpAmount += followSpeed * delta;
+            _lerpAmount += _followSpeed * delta;
 
-            var lerpValue = followLerpCurve.Sample(_lerpAmount);
+            var lerpValue = _followLerpCurve.Sample(_lerpAmount);
 
             var mappedPosition = _startPosition.Lerp(_targetPosition, lerpValue);
             Position = mappedPosition;
@@ -114,7 +114,7 @@ namespace SomeGame.Camera
             if (_target != null)
             {
                 var targetPosition = _target.GlobalPosition;
-                targetPosition += followDistance;
+                targetPosition += _followDistance;
 
                 if (!targetPosition.IsEqualApprox(_targetPosition))
                 {

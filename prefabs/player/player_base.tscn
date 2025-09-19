@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dc31drmlrfvh5"]
+[gd_scene load_steps=10 format=3 uid="uid://dc31drmlrfvh5"]
 
 [ext_resource type="Script" uid="uid://8vp0s0gxnhf3" path="res://Src/Player/PlayerController.cs" id="1_ao338"]
 [ext_resource type="Script" uid="uid://hsod0iidlpri" path="res://Src/Behaviors/HitStop/HitStopBehavior.cs" id="2_74ymh"]
@@ -6,8 +6,6 @@
 [ext_resource type="Script" uid="uid://efmawra8mgd8" path="res://Src/Behaviors/HitStop/HitStopParticleSystem.cs" id="3_8fpqd"]
 [ext_resource type="Script" uid="uid://c4r48qmuggd3q" path="res://Src/Behaviors/Abilities/Base/AbilityProcessor.cs" id="4_ao338"]
 [ext_resource type="Script" uid="uid://d3yopcb7mclfe" path="res://Src/Behaviors/HitStop/HitStopAnimator.cs" id="4_n1uah"]
-[ext_resource type="PackedScene" uid="uid://b5kbeshxt2d5j" path="res://prefabs/player/type_1/ability_sequence_slash.tscn" id="5_8fpqd"]
-[ext_resource type="PackedScene" uid="uid://bc7kng21yxc72" path="res://prefabs/player/type_1/ability_spin.tscn" id="6_n1uah"]
 [ext_resource type="Script" uid="uid://oofdr4kb1l2m" path="res://Src/Behaviors/HealthSystem/HealthAndDamage.cs" id="8_3hfor"]
 [ext_resource type="PackedScene" uid="uid://cx7ytose4mwxv" path="res://prefabs/player/type_1/barbarian.tscn" id="10_q4q30"]
 
@@ -15,38 +13,34 @@
 radius = 1.0
 height = 2.5
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("abilityProcessor", "healthAndDamage", "hitStopBehavior", "playerAnimationController")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("_abilityProcessor", "_healthAndDamage", "_hitStopBehavior", "_playerAnimationController")]
 script = ExtResource("1_ao338")
-maxGroundedSpeed = 25.0
-airAcceleration = 10.0
-maxAirSpeed = 25.0
-jumpVelocity = 70.0
-maxJumpCount = 2
-gravityMultiplier = 1.0
-playerInfoDataDisplay = ExtResource("2_q4q30")
-abilityProcessor = NodePath("AbilityProcessor")
-healthAndDamage = NodePath("HealthComponent")
-hitStopBehavior = NodePath("HitStopBehavior")
-playerAnimationController = NodePath("Player Mesh/Barbarian")
+_maxGroundedSpeed = 25.0
+_airAcceleration = 10.0
+_maxAirSpeed = 25.0
+_jumpVelocity = 50.0
+_maxJumpCount = 2
+_gravityMultiplier = 15.0
+_playerInfoDataDisplay = ExtResource("2_q4q30")
+_abilityProcessor = NodePath("AbilityProcessor")
+_healthAndDamage = NodePath("HealthComponent")
+_hitStopBehavior = NodePath("HitStopBehavior")
+_playerAnimationController = NodePath("Player Mesh/Barbarian")
 
 [node name="HitStopBehavior" type="Node3D" parent="."]
 script = ExtResource("2_74ymh")
 
-[node name="HitStopParticleSystem" type="Node3D" parent="." node_paths=PackedStringArray("hitStopBehavior")]
+[node name="HitStopParticleSystem" type="Node3D" parent="."]
 script = ExtResource("3_8fpqd")
-hitStopBehavior = NodePath("../HitStopBehavior")
 
-[node name="HitStopAnimator" type="Node3D" parent="." node_paths=PackedStringArray("hitStopBehavior")]
+[node name="HitStopAnimator" type="Node3D" parent="."]
 script = ExtResource("4_n1uah")
-hitStopBehavior = NodePath("../HitStopBehavior")
 
 [node name="AbilityProcessor" type="Node3D" parent="."]
 script = ExtResource("4_ao338")
-abilities = Array[PackedScene]([ExtResource("5_8fpqd"), ExtResource("6_n1uah")])
 
 [node name="HealthComponent" type="Node3D" parent="."]
 script = ExtResource("8_3hfor")
-maxHealth = 100.0
 
 [node name="Player Collision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_3khpg")
@@ -55,3 +49,5 @@ shape = SubResource("CapsuleShape3D_3khpg")
 
 [node name="Barbarian" parent="Player Mesh" instance=ExtResource("10_q4q30")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1, 0)
+
+[editable path="Player Mesh/Barbarian"]

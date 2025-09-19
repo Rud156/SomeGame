@@ -8,7 +8,7 @@ namespace SomeGame.Behaviors.HealthSystem
         // Exports
         // ================================
 
-        [Export] private float maxHealth;
+        [Export] private float _maxHealth;
 
         // Signals
         [Signal]
@@ -24,7 +24,7 @@ namespace SomeGame.Behaviors.HealthSystem
         // Properties
         // ================================
 
-        public float MaxHealth => maxHealth;
+        public float MaxHealth => _maxHealth;
 
         public float CurrentHealth => _currentHealth;
 
@@ -34,8 +34,8 @@ namespace SomeGame.Behaviors.HealthSystem
 
         public override void _Ready()
         {
-            _currentHealth = maxHealth;
-            EmitSignal(SignalName.OnHealthChanged, 0, _currentHealth, maxHealth);
+            _currentHealth = _maxHealth;
+            EmitSignal(SignalName.OnHealthChanged, 0, _currentHealth, _maxHealth);
         }
 
         // ================================
@@ -47,12 +47,12 @@ namespace SomeGame.Behaviors.HealthSystem
             var oldHealth = _currentHealth;
 
             _currentHealth -= damage;
-            _currentHealth = Mathf.Clamp(_currentHealth, 0, maxHealth);
+            _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
 
-            EmitSignal(SignalName.OnHealthChanged, oldHealth, _currentHealth, maxHealth);
+            EmitSignal(SignalName.OnHealthChanged, oldHealth, _currentHealth, _maxHealth);
             if (_currentHealth <= 0)
             {
-                EmitSignal(SignalName.OnDied, maxHealth);
+                EmitSignal(SignalName.OnDied, _maxHealth);
             }
         }
 
@@ -61,12 +61,12 @@ namespace SomeGame.Behaviors.HealthSystem
             var oldHealth = _currentHealth;
 
             _currentHealth += heal;
-            _currentHealth = Mathf.Clamp(_currentHealth, 0, maxHealth);
+            _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
 
-            EmitSignal(SignalName.OnHealthChanged, oldHealth, _currentHealth, maxHealth);
+            EmitSignal(SignalName.OnHealthChanged, oldHealth, _currentHealth, _maxHealth);
             if (_currentHealth <= 0)
             {
-                EmitSignal(SignalName.OnDied, maxHealth);
+                EmitSignal(SignalName.OnDied, _maxHealth);
             }
         }
     }

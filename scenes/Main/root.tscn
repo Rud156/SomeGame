@@ -1,11 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://bgnguke0yisax"]
+[gd_scene load_steps=13 format=3 uid="uid://bgnguke0yisax"]
 
 [ext_resource type="Script" uid="uid://byjrr28k5r0du" path="res://Src/Camera/CameraController.cs" id="1_mb4n0"]
 [ext_resource type="PackedScene" uid="uid://dc31drmlrfvh5" path="res://prefabs/player/player_base.tscn" id="2_mb4n0"]
 [ext_resource type="Script" uid="uid://hw6p2ya2w4ns" path="res://Src/Player/PlayerInputController.cs" id="3_8orni"]
-[ext_resource type="PackedScene" uid="uid://bn3d7gutc3bln" path="res://prefabs/ui/abilities_display.tscn" id="4_wk0fx"]
-[ext_resource type="PackedScene" uid="uid://ufxsbqnfq3wa" path="res://prefabs/ui/player_display.tscn" id="5_mb4n0"]
-[ext_resource type="Script" uid="uid://bsviwwfffljwd" path="res://Src/UI/Player/PlayerHealthDisplay.cs" id="6_7yhar"]
+[ext_resource type="PackedScene" uid="uid://bn3d7gutc3bln" path="res://prefabs/ui/player/abilities_display.tscn" id="4_wk0fx"]
+[ext_resource type="PackedScene" uid="uid://ufxsbqnfq3wa" path="res://prefabs/ui/player/player_info_display.tscn" id="5_mb4n0"]
+[ext_resource type="PackedScene" uid="uid://bhwsltjqeqih2" path="res://prefabs/ui/player/player_health.tscn" id="6_7yhar"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j5px3"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -43,18 +43,16 @@ shadow_enabled = true
 
 [node name="Camera Holder" type="Node3D" parent="."]
 script = ExtResource("1_mb4n0")
-followDistance = Vector3(0, 15, 15)
-followSpeed = 5.0
-followLerpCurve = SubResource("Curve_ksbpk")
-lookRotationSpeed = 10.0
+_followDistance = Vector3(0, 15, 15)
+_followSpeed = 5.0
+_followLerpCurve = SubResource("Curve_ksbpk")
+_lookRotationSpeed = 10.0
 
 [node name="Main Camera" type="Camera3D" parent="Camera Holder"]
 current = true
 
 [node name="Player" parent="." instance=ExtResource("2_mb4n0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.27143, -2.7826)
-jumpVelocity = 50.0
-gravityMultiplier = 15.0
 
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0397463, 0)
@@ -113,12 +111,15 @@ offset_right = -1.0
 offset_bottom = -63.0
 grow_vertical = 0
 
-[node name="PlayerHealthDisplay" type="Control" parent="HUD/PlayerDisplay"]
+[node name="PlayerHealth" parent="HUD/PlayerDisplay" instance=ExtResource("6_7yhar")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -40.0
-offset_right = 40.0
+offset_left = 70.595
+offset_top = -57.119995
+offset_right = 70.595
+offset_bottom = -57.119995
 grow_vertical = 0
-script = ExtResource("6_7yhar")
+rotation = -0.0523599
+_lerpCurve = null

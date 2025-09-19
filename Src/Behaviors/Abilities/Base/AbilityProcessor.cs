@@ -10,10 +10,10 @@ namespace SomeGame.Behaviors.Abilities.Base
         // ================================
         // Export
         // ================================
-        [Export] private Array<PackedScene> abilities;
-        [Export] private AnimationTree animationTree;
-        [Export] private Node3D character;
-        [Export] private Node3D characterMesh;
+        [Export] private Array<PackedScene> _abilities;
+        [Export] private AnimationTree _animationTree;
+        [Export] private Node3D _character;
+        [Export] private Node3D _characterMesh;
 
         [Signal]
         public delegate void OnAbilityStartedEventHandler(AbilityBase ability);
@@ -34,9 +34,9 @@ namespace SomeGame.Behaviors.Abilities.Base
         // Properties
         // ================================
         public List<AbilityBase> ActiveAbilities => _activeAbilities;
-        public AnimationTree AnimationTree => animationTree;
-        public Node3D Character => character;
-        public Node3D CharacterMesh => characterMesh;
+        public AnimationTree AnimationTree => _animationTree;
+        public Node3D Character => _character;
+        public Node3D CharacterMesh => _characterMesh;
 
         // ================================
         // Override Functions
@@ -48,7 +48,7 @@ namespace SomeGame.Behaviors.Abilities.Base
             _activeAbilities = [];
             _abilitiesToAddNextFrame = [];
 
-            foreach (var abilityPackedScene in abilities)
+            foreach (var abilityPackedScene in _abilities)
             {
                 var ability = (AbilityBase)abilityPackedScene.Instantiate();
                 ability.Initialize(this);
@@ -102,13 +102,13 @@ namespace SomeGame.Behaviors.Abilities.Base
         {
             foreach (var newAbility in _abilitiesToAddNextFrame)
             {
-                var newAbilityDisplay = newAbility.abilityDisplay;
+                var newAbilityDisplay = newAbility.AbilityDisplay;
                 var canStartNewAbility = true;
 
                 for (var i = _activeAbilities.Count - 1; i >= 0; i--)
                 {
                     var activeAbility = _activeAbilities[i];
-                    var activeAbilityDisplay = activeAbility.abilityDisplay;
+                    var activeAbilityDisplay = activeAbility.AbilityDisplay;
 
                     if (newAbilityDisplay.disallowedAbilities.Contains(activeAbilityDisplay.abilityEnum))
                     {

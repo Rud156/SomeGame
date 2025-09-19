@@ -31,27 +31,28 @@ namespace SomeGame.Behaviors.Abilities.Base
         public delegate void OnAbilityStackUpdatedEventHandler(AbilityBase ability);
 
         // Data
-        protected bool _abilityActive;
-        protected float _currentCooldownDuration;
-        protected int _currentStackCount;
-        protected float _cooldownMultiplier;
+        protected bool abilityActive;
+        protected float currentCooldownDuration;
+        protected int currentStackCount;
+        protected float cooldownMultiplier;
 
         // Components
-        protected AbilityProcessor _abilityProcessor;
+        protected AbilityProcessor abilityProcessor;
 
 
         // ================================
         // Properties
         // ================================
 
-        public bool AbilityActive => _abilityActive;
-        public float CurrentCooldownDuration => _currentCooldownDuration;
-        public int CurrentStackCount => _currentStackCount;
+        public AbilityDisplay AbilityDisplay => _abilityDisplay;
+        public bool AbilityActive => abilityActive;
+        public float CurrentCooldownDuration => currentCooldownDuration;
+        public int CurrentStackCount => currentStackCount;
 
         public float CooldownMultiplier
         {
-            get => _cooldownMultiplier;
-            set => _cooldownMultiplier = value;
+            get => cooldownMultiplier;
+            set => cooldownMultiplier = value;
         }
 
         // ================================
@@ -60,24 +61,24 @@ namespace SomeGame.Behaviors.Abilities.Base
 
         public virtual void Initialize(AbilityProcessor abilityProcessor)
         {
-            _abilityProcessor = abilityProcessor;
+            this.abilityProcessor = abilityProcessor;
         }
 
         public virtual void Start()
         {
-            _abilityActive = true;
+            abilityActive = true;
             EmitSignal(SignalName.OnAbilityStarted, this);
         }
 
         public virtual void End()
         {
-            _abilityActive = false;
+            abilityActive = false;
             EmitSignal(SignalName.OnAbilityEnded, this);
         }
 
         public virtual bool CanStart(List<AbilityBase> activeAbilities)
         {
-            if (_currentCooldownDuration > 0 && _currentStackCount <= 0)
+            if (currentCooldownDuration > 0 && currentStackCount <= 0)
             {
                 return false;
             }
@@ -106,21 +107,21 @@ namespace SomeGame.Behaviors.Abilities.Base
 
         public override void _Process(double delta)
         {
-            if (_currentCooldownDuration > 0)
+            if (currentCooldownDuration > 0)
             {
-                _currentCooldownDuration -= (float)delta * _cooldownMultiplier;
+                currentCooldownDuration -= (float)delta * cooldownMultiplier;
 
-                if (_currentCooldownDuration <= 0)
+                if (currentCooldownDuration <= 0)
                 {
-                    if (_currentStackCount < _abilityDisplay.stackCount)
+                    if (currentStackCount < _abilityDisplay.stackCount)
                     {
-                        _currentStackCount += 1;
-                        _currentCooldownDuration = _abilityDisplay.cooldownDuration;
+                        currentStackCount += 1;
+                        currentCooldownDuration = _abilityDisplay.cooldownDuration;
                         EmitSignal(SignalName.OnAbilityStackUpdated, this);
                     }
                     else
                     {
-                        _currentCooldownDuration = 0;
+                        currentCooldownDuration = 0;
                         EmitSignal(SignalName.OnAbilityCooldownComplete, this);
                     }
                 }
@@ -133,21 +134,21 @@ namespace SomeGame.Behaviors.Abilities.Base
 
         public void FixedCooldownReduction(float amount)
         {
-            _currentCooldownDuration -= amount;
-            if (_currentCooldownDuration < 0)
+            currentCooldownDuration -= amount;
+            if (currentCooldownDuration < 0)
             {
-                _currentCooldownDuration = 0;
+                currentCooldownDuration = 0;
             }
         }
 
         public void PercentCooldownReduction(float percent)
         {
-            var amount = _currentCooldownDuration * percent;
+            var amount = currentCooldownDuration * percent;
             FixedCooldownReduction(amount);
         }
 
-        public void ResetCooldownMultiplier() => _cooldownMultiplier = DefaultCooldownMultiplier;
+        public void ResetCooldownMultiplier() => cooldownMultiplier = DefaultCooldownMultiplier;
 
-        public void SetCooldownMultiplier(float cooldownMultiplier) => _cooldownMultiplier = cooldownMultiplier;
+        public void SetCooldownMultiplier(float cooldownMultiplier) => this.cooldownMultiplier = cooldownMultiplier;
     }
 }

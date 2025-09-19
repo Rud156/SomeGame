@@ -11,8 +11,8 @@ namespace SomeGame.UI.Player
         // Exports
         // ================================
 
-        [Export] private Label playerNameLabel;
-        [Export] private TextureRect playerIcon;
+        [Export] private Label _playerNameLabel;
+        [Export] private TextureRect _playerIcon;
 
         // ================================
         // Override Functions
@@ -35,8 +35,8 @@ namespace SomeGame.UI.Player
 
         public void SetPlayerInfo(string playerName, Texture2D playerTexture)
         {
-            playerNameLabel.Text = playerName;
-            playerIcon.Texture = playerTexture;
+            _playerNameLabel.Text = playerName;
+            _playerIcon.Texture = playerTexture;
         }
     }
 }

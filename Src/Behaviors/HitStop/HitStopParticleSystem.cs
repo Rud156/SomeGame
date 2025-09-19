@@ -8,7 +8,7 @@ namespace SomeGame.Behaviors.HitStop
         // ================================
         // Export
         // ================================
-        [Export] private HitStopBehavior hitStopBehavior;
+        [Export] private HitStopBehavior _hitStopBehavior;
 
         // Data
         private List<GpuParticles3D> _activeParticleSystems;
@@ -20,12 +20,12 @@ namespace SomeGame.Behaviors.HitStop
         public override void _Ready()
         {
             _activeParticleSystems = [];
-            hitStopBehavior.OnHitStopStateChanged += _HandleHitStopBehaviorChanged;
+            _hitStopBehavior.OnHitStopStateChanged += _HandleHitStopBehaviorChanged;
         }
 
         public override void _ExitTree()
         {
-            hitStopBehavior.OnHitStopStateChanged -= _HandleHitStopBehaviorChanged;
+            _hitStopBehavior.OnHitStopStateChanged -= _HandleHitStopBehaviorChanged;
         }
 
         public override void _Process(double delta)

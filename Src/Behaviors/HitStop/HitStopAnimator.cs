@@ -12,8 +12,8 @@ namespace SomeGame.Behaviors.HitStop
         // ================================
         // Export
         // ================================
-        [Export] private HitStopBehavior hitStopBehavior;
-        [Export] private AnimationTree animationTree;
+        [Export] private HitStopBehavior _hitStopBehavior;
+        [Export] private AnimationTree _animationTree;
 
         // Data
         private float _hsAnimSpeed;
@@ -24,12 +24,12 @@ namespace SomeGame.Behaviors.HitStop
 
         public override void _Ready()
         {
-            hitStopBehavior.OnHitStopStateChanged += _HandleHitStopBehaviorChanged;
+            _hitStopBehavior.OnHitStopStateChanged += _HandleHitStopBehaviorChanged;
         }
 
         public override void _ExitTree()
         {
-            hitStopBehavior.OnHitStopStateChanged -= _HandleHitStopBehaviorChanged;
+            _hitStopBehavior.OnHitStopStateChanged -= _HandleHitStopBehaviorChanged;
         }
 
         // ================================
@@ -40,12 +40,12 @@ namespace SomeGame.Behaviors.HitStop
         {
             if (active)
             {
-                _hsAnimSpeed = (float)animationTree.Get(AnimationSpeed);
-                animationTree.Set(AnimationSpeed, 0);
+                _hsAnimSpeed = (float)_animationTree.Get(AnimationSpeed);
+                _animationTree.Set(AnimationSpeed, 0);
             }
             else
             {
-                animationTree.Set(AnimationSpeed, _hsAnimSpeed);
+                _animationTree.Set(AnimationSpeed, _hsAnimSpeed);
             }
         }
     }

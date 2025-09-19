@@ -21,15 +21,15 @@ namespace SomeGame.Player.Type1
         // ================================
 
         [ExportGroup("Generic Data")]
-        [Export] private float attackRate;
-        [Export] private float resetStateDuration;
+        [Export] private float _attackRate;
+        [Export] private float _resetStateDuration;
 
         [ExportGroup("Attack Data")]
-        [Export] private float chopDamage;
-        [Export] private CollisionShape3D chopDamageArea;
-        [Export] private Node3D dualSlicePrefab;
-        [Export] private float slashDamage;
-        [Export] private CollisionShape3D slashDamageArea;
+        [Export] private float _chopDamage;
+        [Export] private CollisionShape3D _chopDamageArea;
+        [Export] private Node3D _dualSlicePrefab;
+        [Export] private float _slashDamage;
+        [Export] private CollisionShape3D _slashDamageArea;
 
         private SequenceState _sequenceState;
         private float _currentResetTime; // Once this hits 0, the sequence is reset to SequenceState.Chop
@@ -44,7 +44,6 @@ namespace SomeGame.Player.Type1
 
             if (PlayerInputController.Instance.IsAbilityTriggerPressed((int)AbilityDisplay.abilityType))
             {
-                
             }
         }
 

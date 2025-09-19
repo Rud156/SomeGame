@@ -16,21 +16,15 @@ font_color = Color(0, 0, 0, 1)
 shadow_color = Color(0, 0, 0, 0.588235)
 shadow_offset = Vector2(0.5, 0.5)
 
-[node name="AbilityTile" type="Control" node_paths=PackedStringArray("abilityIcon", "abilityFlasher", "abilityTimer", "abilityProgressBar", "abilityName")]
+[node name="AbilityTile" type="Control" node_paths=PackedStringArray("_abilityIcon", "_abilityFlasher", "_abilityTimer", "_abilityProgressBar", "_abilityName")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_it0ef")
-abilityIcon = NodePath("AbilityIcon")
-abilityFlasher = NodePath("AbilityFlasher")
-abilityTimer = NodePath("Background/Timer")
-abilityProgressBar = NodePath("Background/TextureProgressBar")
-abilityName = NodePath("Background/TitleBackground/Label")
-flashCount = 2
-flashOnDuration = 0.1
-flashOffDuration = 0.05
-scaleCount = 2
-defaultScale = 1.0
-biggerScale = 1.5
+_abilityIcon = NodePath("AbilityIcon")
+_abilityFlasher = NodePath("AbilityFlasher")
+_abilityTimer = NodePath("Background/Timer")
+_abilityProgressBar = NodePath("Background/TextureProgressBar")
+_abilityName = NodePath("Background/TitleBackground/Label")
 scaleChangeDuration = 0.1
 
 [node name="AbilityIcon" type="TextureRect" parent="."]

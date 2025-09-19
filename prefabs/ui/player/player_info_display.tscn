@@ -1,21 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://ufxsbqnfq3wa"]
+[gd_scene load_steps=3 format=3 uid="uid://ufxsbqnfq3wa"]
 
-[ext_resource type="PackedScene" uid="uid://bhwsltjqeqih2" path="res://prefabs/ui/player_health.tscn" id="1_kasli"]
 [ext_resource type="Script" uid="uid://c8na421ra21ur" path="res://Src/UI/Player/PlayerInfoDisplay.cs" id="1_l4md7"]
 [ext_resource type="Texture2D" uid="uid://bktyrciq6n0u7" path="res://assets/kenney_ui-pack-adventure/panel_border_brown_detail.png" id="3_o4wlo"]
 
-[node name="PlayerDisplay" type="Control" node_paths=PackedStringArray("playerNameLabel", "playerIcon")]
+[node name="PlayerInfoDisplay" type="Control" node_paths=PackedStringArray("_playerNameLabel", "_playerIcon")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_l4md7")
-playerNameLabel = NodePath("PlayerName")
-playerIcon = NodePath("PlayerBackground/PlayerIcon")
-
-[node name="PlayerHealth" parent="." instance=ExtResource("1_kasli")]
-layout_mode = 1
-offset_left = 64.0
-offset_right = 64.0
-rotation = -0.0523599
+_playerNameLabel = NodePath("PlayerName")
+_playerIcon = NodePath("PlayerBackground/PlayerIcon")
 
 [node name="PlayerBackground" type="NinePatchRect" parent="."]
 layout_mode = 1

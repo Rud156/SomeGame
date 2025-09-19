@@ -12,21 +12,21 @@ namespace SomeGame.UI.Player
         // ================================
 
         [ExportGroup("Components")]
-        [Export] private TextureRect abilityIcon;
-        [Export] private TextureRect abilityFlasher;
-        [Export] private Label abilityTimer;
-        [Export] private TextureProgressBar abilityProgressBar;
-        [Export] private Label abilityName;
+        [Export] private TextureRect _abilityIcon;
+        [Export] private TextureRect _abilityFlasher;
+        [Export] private Label _abilityTimer;
+        [Export] private TextureProgressBar _abilityProgressBar;
+        [Export] private Label _abilityName;
 
         [ExportGroup("Ability Flasher")]
-        [Export] private int flashCount;
-        [Export] private float flashOnDuration;
-        [Export] private float flashOffDuration;
+        [Export] private int _flashCount;
+        [Export] private float _flashOnDuration;
+        [Export] private float _flashOffDuration;
 
         [ExportGroup("Ability Scaler")]
-        [Export] private int scaleCount;
-        [Export] private float defaultScale;
-        [Export] private float biggerScale;
+        [Export] private int _scaleCount;
+        [Export] private float _defaultScale;
+        [Export] private float _biggerScale;
         [Export] private float scaleChangeDuration;
 
         // Data
@@ -39,16 +39,16 @@ namespace SomeGame.UI.Player
 
         public void SetAbilityNameAndIcon(string name, Texture2D icon)
         {
-            abilityName.Text = name;
-            abilityIcon.Texture = icon;
+            _abilityName.Text = name;
+            _abilityIcon.Texture = icon;
         }
 
         public void SetAbilityProgress(float time, float progress, float minProgress, float maxProgress)
         {
-            abilityTimer.Text = time.ToString("0.00");
-            abilityProgressBar.Value = progress;
-            abilityProgressBar.MinValue = minProgress;
-            abilityProgressBar.MaxValue = maxProgress;
+            _abilityTimer.Text = time.ToString("0.00");
+            _abilityProgressBar.Value = progress;
+            _abilityProgressBar.MinValue = minProgress;
+            _abilityProgressBar.MaxValue = maxProgress;
         }
 
         public void TriggerAbilityFx()
@@ -88,12 +88,12 @@ namespace SomeGame.UI.Player
         private IEnumerable<float> FlashCoroutine()
         {
             _flasherActive = true;
-            for (var i = 0; i < flashCount; i++)
+            for (var i = 0; i < _flashCount; i++)
             {
-                abilityFlasher.Visible = true;
-                yield return flashOnDuration;
-                abilityFlasher.Visible = false;
-                yield return flashOffDuration;
+                _abilityFlasher.Visible = true;
+                yield return _flashOnDuration;
+                _abilityFlasher.Visible = false;
+                yield return _flashOffDuration;
             }
 
             _flasherActive = false;
@@ -102,11 +102,11 @@ namespace SomeGame.UI.Player
         private IEnumerable<float> ScaleCoroutine()
         {
             _scalerActive = true;
-            for (var i = 0; i < scaleCount; i++)
+            for (var i = 0; i < _scaleCount; i++)
             {
-                Scale = Vector2.One * biggerScale;
+                Scale = Vector2.One * _biggerScale;
                 yield return scaleChangeDuration;
-                Scale = Vector2.One * defaultScale;
+                Scale = Vector2.One * _defaultScale;
                 yield return scaleChangeDuration;
             }
 

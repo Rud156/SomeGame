@@ -153,7 +153,7 @@ transitions = ["Start", "1H_Melee_Attack_Chop", SubResource("AnimationNodeStateM
 graph_offset = Vector2(-202, -26)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_1ewo7"]
-graph_offset = Vector2(-793.29755, 253.46283)
+graph_offset = Vector2(-683.29755, 70.46283)
 nodes/output/position = Vector2(920, -100)
 nodes/AbilityActive/node = SubResource("AnimationNodeBlend2_3j6a5")
 nodes/AbilityActive/position = Vector2(360, -60)
@@ -173,9 +173,9 @@ nodes/Type1Slash/node = SubResource("AnimationNodeStateMachine_8844r")
 nodes/Type1Slash/position = Vector2(-380, 220)
 node_connections = [&"output", 0, &"AnimatorSpeed", &"AbilityActive", 0, &"MovementBlend", &"AbilityActive", 1, &"AbilitySelector", &"AbilitySelector", 0, &"Type1Slash", &"AbilitySelector", 1, &"Type1Dash", &"AnimatorSpeed", 0, &"AbilityActive", &"MovementBlend", 0, &"GroundedBSP", &"MovementBlend", 1, &"JumpSM"]
 
-[node name="Barbarian" node_paths=PackedStringArray("animationTree") instance=ExtResource("1_ui5dp")]
+[node name="Barbarian" node_paths=PackedStringArray("_animationTree") instance=ExtResource("1_ui5dp")]
 script = ExtResource("2_3j6a5")
-animationTree = NodePath("AnimationTree")
+_animationTree = NodePath("AnimationTree")
 
 [node name="Skeleton3D" parent="Rig" index="0"]
 bones/1/position = Vector3(-2.3665827e-30, 0.39206383, 0)
