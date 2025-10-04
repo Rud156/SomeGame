@@ -9,11 +9,19 @@ namespace SomeGame.Player.Type1
     public partial class AbilitySpinAttackType1 : PlayerMovementAbilityBase
     {
         // ================================
+        // Constants
+        // ================================
+
+        private const string AbilityActiveParam = "parameters/AbilityActive/blend_amount";
+        private const string AbilitySelectorParam = "parameters/AbilitySelector/blend_amount";
+        private const string SpinAttackStartParam = "parameters/Type1SpinAttack/conditions/spin_attack_start";
+        private const string SpinAttackStopParam = "parameters/Type1SpinAttack/conditions/spin_attack_stop";
+
+        // ================================
         // Export
         // ================================
 
         [Export] private float _spinAttackMaxDuration;
-        [Export] private float _spinRate;
         [Export] private float _spinMovementSpeed;
         [Export] private PackedScene _weaponRotatingDamage;
         [Export] private PackedScene _endingAoeDamage;
@@ -38,6 +46,11 @@ namespace SomeGame.Player.Type1
             }
 
             _tickDamageInstance.Enable(abilityProcessor.Character.Position, [abilityProcessor.Character]);
+
+            abilityProcessor.AnimationTree.Set(AbilityActiveParam, 1);
+            abilityProcessor.AnimationTree.Set(AbilitySelectorParam, (int)AbilityDisplay.abilityType);
+            abilityProcessor.AnimationTree.Set(SpinAttackStopParam, false);
+            abilityProcessor.AnimationTree.Set(SpinAttackStartParam, true);
         }
 
         public override void End()
@@ -50,6 +63,10 @@ namespace SomeGame.Player.Type1
             _tickDamageInstance.Disable();
             _tickDamageInstance.QueueFree();
             _tickDamageInstance = null;
+
+            abilityProcessor.AnimationTree.Set(AbilityActiveParam, 0);
+            abilityProcessor.AnimationTree.Set(SpinAttackStopParam, true);
+            abilityProcessor.AnimationTree.Set(SpinAttackStartParam, false);
         }
 
         public override void Update(float delta)
@@ -61,25 +78,16 @@ namespace SomeGame.Player.Type1
 
             if (IsAbilityTriggerPressed(AbilityDisplay.abilityType))
             {
-                {
-                    // Handle Spin...
-                    var currentRotation = abilityProcessor.CharacterMesh.RotationDegrees;
-                    currentRotation.Y += _spinRate * delta;
-                    abilityProcessor.CharacterMesh.RotationDegrees = currentRotation;
-                }
+                // Handle Movement...
+                var movementInput = GetMovementInput();
+                var forward = Vector3.Forward;
+                var right = Vector3.Right;
 
-                {
-                    // Handle Movement...
-                    var movementInput = GetMovementInput();
-                    var forward = Vector3.Forward;
-                    var right = Vector3.Right;
+                var mappedMovement = forward * movementInput.Y + right * movementInput.X;
+                mappedMovement.Y = 0;
+                mappedMovement = mappedMovement.Normalized() * _spinMovementSpeed;
 
-                    var mappedMovement = forward * movementInput.Y + right * movementInput.X;
-                    mappedMovement.Y = 0;
-                    mappedMovement = mappedMovement.Normalized() * _spinMovementSpeed;
-
-                    MovementData = mappedMovement;
-                }
+                MovementData = mappedMovement;
             }
             else
             {

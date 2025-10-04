@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4fdt6syeid55"]
+
+[ext_resource type="Script" uid="uid://cn2purwkwwqn7" path="res://Src/Behaviors/HealthSystem/TickDamageInRange.cs" id="1_1pva5"]
+
+[node name="SpinRotatingDamage" type="Node3D"]
+script = ExtResource("1_1pva5")
+_damageRadius = 7.0
+_damageAmount = 0.75
+_damageTickRate = 3.0
+_hitStopDuration = 0.15

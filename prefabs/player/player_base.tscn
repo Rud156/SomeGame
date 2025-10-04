@@ -32,8 +32,9 @@ _playerAnimationController = NodePath("Player Mesh/Barbarian")
 [node name="HitStopBehavior" type="Node3D" parent="."]
 script = ExtResource("2_74ymh")
 
-[node name="HitStopParticleSystem" type="Node3D" parent="."]
+[node name="HitStopParticleSystem" type="Node3D" parent="." node_paths=PackedStringArray("_hitStopBehavior")]
 script = ExtResource("3_8fpqd")
+_hitStopBehavior = NodePath("../HitStopBehavior")
 
 [node name="HitStopAnimator" type="Node3D" parent="." node_paths=PackedStringArray("_hitStopBehavior", "_animationTree")]
 script = ExtResource("4_n1uah")
@@ -50,6 +51,7 @@ _characterCollision = NodePath("../Player Collision")
 
 [node name="HealthComponent" type="Node3D" parent="."]
 script = ExtResource("8_3hfor")
+_maxHealth = 100.0
 
 [node name="Player Collision" type="CollisionShape3D" parent="." node_paths=PackedStringArray("_healthAndDamage", "_hitStopBehavior")]
 shape = SubResource("CapsuleShape3D_3khpg")
