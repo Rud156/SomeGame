@@ -32,6 +32,7 @@ namespace SomeGame.Behaviors.Abilities.Base
 
         // Data
         protected bool abilityActive;
+        protected bool markedForEnd;
         protected float currentCooldownDuration;
         protected int currentStackCount;
         protected float cooldownMultiplier;
@@ -46,6 +47,7 @@ namespace SomeGame.Behaviors.Abilities.Base
 
         public AbilityDisplay AbilityDisplay => _abilityDisplay;
         public bool AbilityActive => abilityActive;
+        public bool MarkedForEnd => markedForEnd;
         public float CurrentCooldownDuration => currentCooldownDuration;
         public int CurrentStackCount => currentStackCount;
 
@@ -56,28 +58,50 @@ namespace SomeGame.Behaviors.Abilities.Base
         }
 
         // ================================
+        // Input Functions
+        // ================================
+
+        protected virtual bool IsAbilityTriggerPressed(AbilityType abilityType) => false;
+
+        protected virtual Vector2 GetMovementInput() => Vector2.Zero;
+
+        // ================================
         // Ability Functions
         // ================================
 
         public virtual void Initialize(AbilityProcessor abilityProcessor)
         {
             this.abilityProcessor = abilityProcessor;
+            abilityActive = false;
+            markedForEnd = true;
         }
 
         public virtual void Start()
         {
             abilityActive = true;
+            markedForEnd = false;
             EmitSignal(SignalName.OnAbilityStarted, this);
+        }
+
+        public virtual void Update(float delta)
+        {
         }
 
         public virtual void End()
         {
             abilityActive = false;
+            markedForEnd = true;
             EmitSignal(SignalName.OnAbilityEnded, this);
         }
 
         public virtual bool CanStart(List<AbilityBase> activeAbilities)
         {
+            // This means the ability has already started we can safely ignore it...
+            if (abilityActive)
+            {
+                return false;
+            }
+
             if (currentCooldownDuration > 0 && currentStackCount <= 0)
             {
                 return false;
@@ -98,7 +122,7 @@ namespace SomeGame.Behaviors.Abilities.Base
 
         public virtual bool NeedsToEnd()
         {
-            return true;
+            return markedForEnd;
         }
 
         // ================================

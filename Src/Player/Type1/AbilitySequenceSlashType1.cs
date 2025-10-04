@@ -49,7 +49,7 @@ namespace SomeGame.Player.Type1
 
         public override bool CanStart(List<AbilityBase> activeAbilities)
         {
-            return false;
+            return base.CanStart(activeAbilities);
         }
 
         // ================================

@@ -142,7 +142,7 @@ namespace SomeGame.Player
             if (rayResult.TryGetValue("position", out var position))
                 return (Vector3)position;
 
-            return Vector3.Zero;
+            return _mousePosition;
         }
     }
 }

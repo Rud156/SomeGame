@@ -12,8 +12,9 @@ namespace SomeGame.Behaviors.Abilities.Base
         // ================================
         [Export] private Array<PackedScene> _abilities;
         [Export] private AnimationTree _animationTree;
-        [Export] private Node3D _character;
+        [Export] private CharacterBody3D _character;
         [Export] private Node3D _characterMesh;
+        [Export] private CollisionShape3D _characterCollision;
 
         [Signal]
         public delegate void OnAbilityStartedEventHandler(AbilityBase ability);
@@ -26,7 +27,7 @@ namespace SomeGame.Behaviors.Abilities.Base
         private List<AbilityBase> _activeAbilities;
 
         // These are abilities that will be added next frame and also are always added externally
-        // So like effects like Knockback, Stun etc.
+        // So like effects like Knockback, Stun, etc.
         // So these always take precedence over user inputted abilities...
         private List<AbilityBase> _abilitiesToAddNextFrame;
 
@@ -35,8 +36,9 @@ namespace SomeGame.Behaviors.Abilities.Base
         // ================================
         public List<AbilityBase> ActiveAbilities => _activeAbilities;
         public AnimationTree AnimationTree => _animationTree;
-        public Node3D Character => _character;
+        public CharacterBody3D Character => _character;
         public Node3D CharacterMesh => _characterMesh;
+        public CollisionShape3D CharacterCollision => _characterCollision;
 
         // ================================
         // Override Functions
@@ -63,6 +65,8 @@ namespace SomeGame.Behaviors.Abilities.Base
             for (var i = _activeAbilities.Count - 1; i >= 0; i--)
             {
                 var ability = _activeAbilities[i];
+                ability.Update((float)delta);
+
                 if (ability.NeedsToEnd())
                 {
                     ability.End();

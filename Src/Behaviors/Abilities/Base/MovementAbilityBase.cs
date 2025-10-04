@@ -9,6 +9,6 @@ namespace SomeGame.Behaviors.Abilities.Base
         // Properties
         // ================================
 
-        public Vector3 MovementData { get; set; }
+        public Vector3 MovementData { get; protected set; }
     }
 }
