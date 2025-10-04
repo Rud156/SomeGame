@@ -67,7 +67,6 @@ namespace SomeGame.Player.Type1
             _tickDamageInstance.QueueFree();
             _tickDamageInstance = null;
 
-            // TODO: Fix animations not working a second time...
             abilityProcessor.AnimationTree.Set(AbilityActiveParam, 0);
             abilityProcessor.AnimationTree.Set(SpinAttackStopParam, true);
             abilityProcessor.AnimationTree.Set(SpinAttackStartParam, false);
