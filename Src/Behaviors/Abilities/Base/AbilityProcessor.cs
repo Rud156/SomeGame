@@ -92,22 +92,20 @@ namespace SomeGame.Behaviors.Abilities.Base
         // Private Functions
         // ================================
 
-        private void _CheckAndActivateAbilities()
-        {
-            foreach (var abilityBase in _allAbilities.Where(abilityBase => abilityBase.CanStart(_activeAbilities)))
-            {
-                abilityBase.Start();
-                _activeAbilities.Add(abilityBase);
-                EmitSignal(SignalName.OnAbilityStarted, abilityBase);
-            }
-        }
+        private void _CheckAndActivateAbilities() => _ValidateAndEnableAbilities(_allAbilities);
 
         private void _ProcessNextFrameAbilities()
         {
-            foreach (var newAbility in _abilitiesToAddNextFrame)
+            _ValidateAndEnableAbilities(_abilitiesToAddNextFrame);
+            _abilitiesToAddNextFrame.Clear();
+        }
+
+        private void _ValidateAndEnableAbilities(IReadOnlyCollection<AbilityBase> abilities)
+        {
+            foreach (var newAbility in abilities)
             {
                 var newAbilityDisplay = newAbility.AbilityDisplay;
-                var canStartNewAbility = true;
+                var canStartNewAbility = newAbility.CanStart(_activeAbilities);
 
                 for (var i = _activeAbilities.Count - 1; i >= 0; i--)
                 {
@@ -124,11 +122,6 @@ namespace SomeGame.Behaviors.Abilities.Base
                             _activeAbilities.RemoveAt(i);
                             EmitSignal(SignalName.OnAbilityEnded, activeAbility);
                         }
-                        // Otherwise, we cannot start the new ability
-                        else
-                        {
-                            canStartNewAbility = false;
-                        }
                     }
                 }
 
@@ -139,8 +132,6 @@ namespace SomeGame.Behaviors.Abilities.Base
                     EmitSignal(SignalName.OnAbilityStarted, newAbility);
                 }
             }
-
-            _abilitiesToAddNextFrame.Clear();
         }
     }
 }

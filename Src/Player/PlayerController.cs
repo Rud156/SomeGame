@@ -9,7 +9,7 @@ using SomeGame.UI.Player;
 
 namespace SomeGame.Player
 {
-    public partial class PlayerController : CharacterBody3D
+    public partial class PlayerController : DamageHitStopPropagator
     {
         // ================================
         // Constants
@@ -34,8 +34,6 @@ namespace SomeGame.Player
 
         [ExportGroup("Components")]
         [Export] private AbilityProcessor _abilityProcessor;
-        [Export] private HealthAndDamage _healthAndDamage;
-        [Export] private HitStopBehavior _hitStopBehavior;
         [Export] private PlayerAnimationController _playerAnimationController;
 
         // ================================
@@ -56,6 +54,7 @@ namespace SomeGame.Player
         private List<PlayerMovementState> _movementStack;
         private bool _jumpPressed;
         private int _currentJumpCount;
+        private bool _fallStartHasMovement;
         private float _currentMovementSpeed;
 
         // ================================
@@ -78,7 +77,7 @@ namespace SomeGame.Player
 
             CameraController.Instance.SetTargetObject(this);
             PlayerInfoDisplay.Instance.SetPlayerInfo(_playerInfoDataDisplay.playerName, _playerInfoDataDisplay.playerIcon);
-            PlayerHealthDisplay.Instance.RegisterHealthAndDamage(_healthAndDamage);
+            PlayerHealthDisplay.Instance.RegisterHealthAndDamage(HealthAndDamage);
         }
 
         public override void _ExitTree()
@@ -93,17 +92,22 @@ namespace SomeGame.Player
             var deltaTime = (float)delta;
 
             // (hitStopBehavior != null && !hitStopBehavior.IsActive)
-            if (_hitStopBehavior is { IsActive: false })
+            if (HitStopBehavior is { IsActive: false })
             {
                 _UpdateGroundedState();
-
                 _HandleMovement(deltaTime);
-                _ProcessGravity(deltaTime);
 
-                _ApplyJump();
+                if (TopMovementState != PlayerMovementState.CustomMovement)
+                {
+                    _ProcessGravity(deltaTime);
+                    _ApplyJump();
+                }
 
                 _ApplyMovement();
-                _UpdateMeshRotation();
+                if (TopMovementState != PlayerMovementState.CustomMovement)
+                {
+                    _UpdateMeshRotation();
+                }
             }
         }
 
@@ -139,6 +143,7 @@ namespace SomeGame.Player
             var movementState = TopMovementState;
             if (!IsOnFloor() && movementState != PlayerMovementState.Falling && movementState != PlayerMovementState.CustomMovement)
             {
+                _fallStartHasMovement = !PlayerInputController.Instance.HasNoDirectionalInput();
                 _PushMovementState(PlayerMovementState.Falling);
             }
         }
@@ -148,7 +153,7 @@ namespace SomeGame.Player
             switch (TopMovementState)
             {
                 case PlayerMovementState.Normal:
-                    _UpdateNormalState(delta);
+                    _UpdateNormalState();
                     break;
 
                 case PlayerMovementState.Falling:
@@ -156,7 +161,7 @@ namespace SomeGame.Player
                     break;
 
                 case PlayerMovementState.CustomMovement:
-                    _UpdateCustomMovement(delta);
+                    _UpdateCustomMovement();
                     break;
 
                 default:
@@ -164,7 +169,7 @@ namespace SomeGame.Player
             }
         }
 
-        private void _UpdateNormalState(float delta)
+        private void _UpdateNormalState()
         {
             _currentMovementSpeed = _maxGroundedSpeed;
             var playerInput = PlayerInputController.Instance.MovementInput;
@@ -188,7 +193,17 @@ namespace SomeGame.Player
 
             _currentMovementSpeed = Mathf.Clamp(_currentMovementSpeed, 0, _maxAirSpeed);
 
-            var lastPlayerInput = PlayerInputController.Instance.LastNonZeroMovementInput;
+            var lastPlayerInput = PlayerInputController.Instance.MovementInput;
+            if (!PlayerInputController.Instance.HasNoDirectionalInput())
+            {
+                _fallStartHasMovement = true;
+            }
+
+            if (_fallStartHasMovement)
+            {
+                lastPlayerInput = PlayerInputController.Instance.LastNonZeroMovementInput;
+            }
+
             var forward = Vector3.Forward;
             var right = Vector3.Right;
 
@@ -211,8 +226,26 @@ namespace SomeGame.Player
             _currentJumpCount = 0;
         }
 
-        private void _UpdateCustomMovement(float delta)
+        private void _UpdateCustomMovement()
         {
+            var currentAbilityVelocity = Vector3.Zero;
+            var hasMovementAbility = false;
+
+            foreach (var abilityBase in _abilityProcessor.ActiveAbilities)
+            {
+                if (abilityBase is MovementAbilityBase movementAbilityBase)
+                {
+                    currentAbilityVelocity += movementAbilityBase.MovementData;
+                    hasMovementAbility = true;
+                }
+            }
+
+            _movementVelocity = currentAbilityVelocity;
+
+            if (!hasMovementAbility)
+            {
+                _PopMovementState();
+            }
         }
 
         private void _ProcessGravity(float delta)

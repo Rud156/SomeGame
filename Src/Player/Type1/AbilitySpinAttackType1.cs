@@ -42,10 +42,11 @@ namespace SomeGame.Player.Type1
             if (_tickDamageInstance == null)
             {
                 var tickDamageInstance = (TickDamageInRange)_weaponRotatingDamage.Instantiate();
+                AddChild(tickDamageInstance);
                 _tickDamageInstance = tickDamageInstance;
             }
 
-            _tickDamageInstance.Enable(abilityProcessor.Character.Position, [abilityProcessor.Character]);
+            _tickDamageInstance.Enable(abilityProcessor.Character.Position, [abilityProcessor.Character.GetRid()]);
 
             abilityProcessor.AnimationTree.Set(AbilityActiveParam, 1);
             abilityProcessor.AnimationTree.Set(AbilitySelectorParam, (int)AbilityDisplay.abilityType);
@@ -58,12 +59,15 @@ namespace SomeGame.Player.Type1
             base.End();
 
             var burstDamage = (BurstDamageInRange)_endingAoeDamage.Instantiate();
-            burstDamage.ApplyDamage(abilityProcessor.Character.Position, [abilityProcessor.Character]);
+            AddChild(burstDamage);
+            burstDamage.ApplyDamage(abilityProcessor.Character.Position, [abilityProcessor.Character.GetRid()]);
+            burstDamage.QueueFree();
 
             _tickDamageInstance.Disable();
             _tickDamageInstance.QueueFree();
             _tickDamageInstance = null;
 
+            // TODO: Fix animations not working a second time...
             abilityProcessor.AnimationTree.Set(AbilityActiveParam, 0);
             abilityProcessor.AnimationTree.Set(SpinAttackStopParam, true);
             abilityProcessor.AnimationTree.Set(SpinAttackStartParam, false);
@@ -96,6 +100,12 @@ namespace SomeGame.Player.Type1
 
             _currentSpinTime -= delta;
             if (_currentSpinTime <= 0)
+            {
+                markedForEnd = true;
+            }
+
+            // When the character falls end the ability...
+            if (!abilityProcessor.Character.IsOnFloor())
             {
                 markedForEnd = true;
             }

@@ -16,5 +16,5 @@ cooldownDuration = 1.0
 stackCount = 2
 abilityEffect = null
 abilityEffectOffset = null
-disallowedAbilities = null
+disallowedAbilities = Array[int]([0])
 metadata/_custom_type_script = "uid://cf53ld55jq1ue"

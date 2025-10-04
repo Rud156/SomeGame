@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Godot;
-using NoDontDoIt.Godot.Raycasting;
+using Godot.Collections;
 
 namespace SomeGame.Behaviors.HealthSystem
 {
@@ -21,21 +21,33 @@ namespace SomeGame.Behaviors.HealthSystem
         // Public Functions
         // ================================
 
-        public void ApplyDamage(Vector3 position, IReadOnlyCollection<CollisionObject3D> excludeObjects)
+        public void ApplyDamage(Vector3 position, Array<Rid> excludeObjects)
         {
             var damageLocation = new Transform3D(Basis.Identity, position);
-            var hitColliders = GetWorld3D().DirectSpaceState.OverlapSphere(
-                _damageRadius,
-                damageLocation,
-                Vector3.Zero,
-                exclude: excludeObjects
-            );
+            var sphereShape = PhysicsServer3D.SphereShapeCreate();
+            PhysicsServer3D.ShapeSetData(sphereShape, _damageRadius);
 
-            foreach (var hitCollider in hitColliders)
+            var queryParams = new PhysicsShapeQueryParameters3D
             {
-                var damageHitStopPropagator = (DamageHitStopPropagator)hitCollider.Shape;
-                damageHitStopPropagator.TakeDamage(_damageAmount);
-                damageHitStopPropagator.EnableHitStop(_hitStopDuration);
+                ShapeRid = sphereShape,
+                Transform = damageLocation,
+                Exclude = excludeObjects,
+                CollideWithAreas = true,
+                CollideWithBodies = true
+            };
+
+            var spaceState = GetWorld3D().DirectSpaceState;
+            var result = spaceState.IntersectShape(queryParams);
+            PhysicsServer3D.FreeRid(sphereShape);
+
+            foreach (var intersectResult in result)
+            {
+                var collider = (CollisionObject3D)intersectResult.GetValueOrDefault("collider").AsGodotObject();
+                if (collider is DamageHitStopPropagator damageHitStopPropagator)
+                {
+                    damageHitStopPropagator.TakeDamage(_damageAmount);
+                    damageHitStopPropagator.EnableHitStop(_hitStopDuration);
+                }
             }
         }
     }

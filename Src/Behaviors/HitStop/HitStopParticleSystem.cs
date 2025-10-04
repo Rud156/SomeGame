@@ -62,13 +62,9 @@ namespace SomeGame.Behaviors.HitStop
         {
             // TODO: Check if this actually works
             // Also might need to save particles prior speed before setting it back/setting it to 0
-
             foreach (var particleSystem in _activeParticleSystems)
             {
-                if (active)
-                    particleSystem.SetSpeedScale(0);
-                else
-                    particleSystem.SetSpeedScale(1);
+                particleSystem.SetSpeedScale(active ? 0 : 1);
             }
         }
     }

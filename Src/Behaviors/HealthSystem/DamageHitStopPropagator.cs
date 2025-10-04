@@ -3,14 +3,21 @@ using SomeGame.Behaviors.HitStop;
 
 namespace SomeGame.Behaviors.HealthSystem
 {
-    public partial class DamageHitStopPropagator : CollisionShape3D
+    public partial class DamageHitStopPropagator : CharacterBody3D
     {
         // ================================
         // Export
         // ================================
 
-        [Export] public HealthAndDamage _healthAndDamage;
-        [Export] public HitStopBehavior _hitStopBehavior;
+        [Export] private HealthAndDamage _healthAndDamage;
+        [Export] private HitStopBehavior _hitStopBehavior;
+
+        // ================================
+        // Properties
+        // ================================
+
+        public HealthAndDamage HealthAndDamage => _healthAndDamage;
+        public HitStopBehavior HitStopBehavior => _hitStopBehavior;
 
         // ================================
         // Public Functions

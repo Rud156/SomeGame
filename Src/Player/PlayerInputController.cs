@@ -131,14 +131,13 @@ namespace SomeGame.Player
             var rayOrigin = camera.ProjectRayOrigin(mousePosition);
             var rayEnd = rayOrigin + camera.ProjectRayNormal(mousePosition) * MouseRaycastDistance;
 
-            var query = new PhysicsRayQueryParameters3D
+            var queryParams = new PhysicsRayQueryParameters3D
             {
                 From = rayOrigin,
                 To = rayEnd
             };
 
-            var rayResult = spaceState.IntersectRay(query);
-
+            var rayResult = spaceState.IntersectRay(queryParams);
             if (rayResult.TryGetValue("position", out var position))
                 return (Vector3)position;
 

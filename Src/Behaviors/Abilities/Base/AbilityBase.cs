@@ -110,10 +110,9 @@ namespace SomeGame.Behaviors.Abilities.Base
             foreach (var ability in activeAbilities)
             {
                 var display = ability._abilityDisplay;
-
                 if (_abilityDisplay.disallowedAbilities.Contains(display.abilityEnum))
                 {
-                    return false;
+                    return _abilityDisplay.abilityPriorityIndex > display.abilityPriorityIndex;
                 }
             }
 

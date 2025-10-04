@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://cx7ytose4mwxv"]
+[gd_scene load_steps=41 format=3 uid="uid://cx7ytose4mwxv"]
 
 [ext_resource type="PackedScene" uid="uid://cn2lj8ydmnoui" path="res://assets/KayKit_Adventurers/Barbarian.fbx" id="1_ui5dp"]
 [ext_resource type="Script" uid="uid://dsdfgvhotgqt4" path="res://Src/Player/PlayerAnimationController.cs" id="2_3j6a5"]
@@ -56,6 +56,9 @@ blend_point_3/pos = Vector2(1, 0)
 blend_point_4/node = SubResource("AnimationNodeAnimation_16ydg")
 blend_point_4/pos = Vector2(0, 0)
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qyw02"]
+animation = &"T-Pose"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ae7ab"]
 animation = &"Jump_Idle"
 
@@ -66,25 +69,31 @@ animation = &"Jump_Start"
 switch_mode = 2
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vmbtg"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x7qlt"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1g1p7"]
 advance_mode = 2
 advance_condition = &"jump_triggered"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hirwg"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yxaky"]
 advance_mode = 2
 advance_condition = &"is_falling"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dgpqs"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xhhj6"]
 advance_mode = 2
 advance_condition = &"is_grounded"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_cjqtt"]
-states/End/position = Vector2(528, 100)
+states/End/position = Vector2(1011, 100)
+states/Start/position = Vector2(24, 100)
+states/T-Pose/node = SubResource("AnimationNodeAnimation_qyw02")
+states/T-Pose/position = Vector2(174, 100)
 states/fall/node = SubResource("AnimationNodeAnimation_ae7ab")
-states/fall/position = Vector2(356, 209)
+states/fall/position = Vector2(341, 247)
 states/jump/node = SubResource("AnimationNodeAnimation_d8l8e")
-states/jump/position = Vector2(356, 100)
-transitions = ["jump", "fall", SubResource("AnimationNodeStateMachineTransition_jlxd1"), "Start", "jump", SubResource("AnimationNodeStateMachineTransition_vmbtg"), "Start", "fall", SubResource("AnimationNodeStateMachineTransition_hirwg"), "fall", "End", SubResource("AnimationNodeStateMachineTransition_dgpqs")]
+states/jump/position = Vector2(549, 100)
+transitions = ["jump", "fall", SubResource("AnimationNodeStateMachineTransition_jlxd1"), "Start", "T-Pose", SubResource("AnimationNodeStateMachineTransition_x7qlt"), "T-Pose", "jump", SubResource("AnimationNodeStateMachineTransition_1g1p7"), "T-Pose", "fall", SubResource("AnimationNodeStateMachineTransition_yxaky"), "fall", "T-Pose", SubResource("AnimationNodeStateMachineTransition_xhhj6")]
 graph_offset = Vector2(-67, 34)
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_k6ocp"]
@@ -99,61 +108,77 @@ animation = &"1H_Melee_Attack_Slice_Diagonal"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xy8yc"]
 animation = &"Dualwield_Melee_Attack_Slice"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1hpr3"]
-advance_mode = 2
-advance_condition = &"chop"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_k1jfe"]
-advance_mode = 2
-advance_condition = &"dual_slice"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_btb0e"]
-advance_mode = 2
-advance_condition = &"slice"
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_btb0e"]
+animation = &"T-Pose"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qyw02"]
-switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8yrg1"]
+advance_mode = 2
+advance_condition = &"chop"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xdtdc"]
+advance_mode = 2
+advance_condition = &"slice"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rtrpg"]
+advance_mode = 2
+advance_condition = &"dual_slice"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8becd"]
 switch_mode = 2
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xdtdc"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_olu8o"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3al3u"]
 switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_8844r"]
 states/1H_Melee_Attack_Chop/node = SubResource("AnimationNodeAnimation_ui5dp")
-states/1H_Melee_Attack_Chop/position = Vector2(358, 42)
+states/1H_Melee_Attack_Chop/position = Vector2(106, -10)
 states/1H_Melee_Attack_Slice_Diagonal/node = SubResource("AnimationNodeAnimation_3j6a5")
-states/1H_Melee_Attack_Slice_Diagonal/position = Vector2(358, 196)
+states/1H_Melee_Attack_Slice_Diagonal/position = Vector2(106, 256)
 states/Dualwield_Melee_Attack_Slice/node = SubResource("AnimationNodeAnimation_xy8yc")
 states/Dualwield_Melee_Attack_Slice/position = Vector2(358, 120)
 states/End/position = Vector2(716, 120)
-states/Start/position = Vector2(116, 120)
-transitions = ["Start", "1H_Melee_Attack_Chop", SubResource("AnimationNodeStateMachineTransition_1hpr3"), "Start", "1H_Melee_Attack_Slice_Diagonal", SubResource("AnimationNodeStateMachineTransition_k1jfe"), "Start", "Dualwield_Melee_Attack_Slice", SubResource("AnimationNodeStateMachineTransition_btb0e"), "1H_Melee_Attack_Chop", "End", SubResource("AnimationNodeStateMachineTransition_qyw02"), "Dualwield_Melee_Attack_Slice", "End", SubResource("AnimationNodeStateMachineTransition_8yrg1"), "1H_Melee_Attack_Slice_Diagonal", "End", SubResource("AnimationNodeStateMachineTransition_xdtdc")]
-graph_offset = Vector2(-202, -26)
+states/Start/position = Vector2(-81, 120)
+states/T-Pose/node = SubResource("AnimationNodeAnimation_btb0e")
+states/T-Pose/position = Vector2(106, 120)
+transitions = ["Start", "T-Pose", SubResource("AnimationNodeStateMachineTransition_qyw02"), "T-Pose", "1H_Melee_Attack_Chop", SubResource("AnimationNodeStateMachineTransition_8yrg1"), "T-Pose", "Dualwield_Melee_Attack_Slice", SubResource("AnimationNodeStateMachineTransition_xdtdc"), "T-Pose", "1H_Melee_Attack_Slice_Diagonal", SubResource("AnimationNodeStateMachineTransition_rtrpg"), "1H_Melee_Attack_Slice_Diagonal", "T-Pose", SubResource("AnimationNodeStateMachineTransition_8becd"), "Dualwield_Melee_Attack_Slice", "T-Pose", SubResource("AnimationNodeStateMachineTransition_olu8o"), "1H_Melee_Attack_Chop", "T-Pose", SubResource("AnimationNodeStateMachineTransition_3al3u")]
+graph_offset = Vector2(-381, -23)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1hpr3"]
 animation = &"2H_Melee_Attack_Spinning"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_k1jfe"]
+animation = &"T-Pose"
+
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8844r"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q2ltn"]
 advance_mode = 2
 advance_condition = &"spin_attack_start"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q2ltn"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_b853u"]
 advance_mode = 2
 advance_condition = &"spin_attack_stop"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_b853u"]
 states/2H_Melee_Attack_Spinning/node = SubResource("AnimationNodeAnimation_1hpr3")
-states/2H_Melee_Attack_Spinning/position = Vector2(437, 100)
-states/End/position = Vector2(666, 100)
-transitions = ["Start", "2H_Melee_Attack_Spinning", SubResource("AnimationNodeStateMachineTransition_8844r"), "2H_Melee_Attack_Spinning", "End", SubResource("AnimationNodeStateMachineTransition_q2ltn")]
+states/2H_Melee_Attack_Spinning/position = Vector2(689, 100)
+states/End/position = Vector2(1067, 100)
+states/T-Pose/node = SubResource("AnimationNodeAnimation_k1jfe")
+states/T-Pose/position = Vector2(400, 100)
+transitions = ["Start", "T-Pose", SubResource("AnimationNodeStateMachineTransition_8844r"), "T-Pose", "2H_Melee_Attack_Spinning", SubResource("AnimationNodeStateMachineTransition_q2ltn"), "2H_Melee_Attack_Spinning", "T-Pose", SubResource("AnimationNodeStateMachineTransition_b853u")]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_1ewo7"]
-graph_offset = Vector2(-637.66644, 235.6387)
+graph_offset = Vector2(-733.0267, -106.25949)
 nodes/output/position = Vector2(920, -100)
 nodes/AbilityActive/node = SubResource("AnimationNodeBlend2_3j6a5")
 nodes/AbilityActive/position = Vector2(360, -60)
