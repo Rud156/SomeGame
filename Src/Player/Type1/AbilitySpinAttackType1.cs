@@ -31,7 +31,7 @@ namespace SomeGame.Player.Type1
         private TickDamageInRange _tickDamageInstance;
 
         // ================================
-        // Override Functions
+        // Ability Functions
         // ================================
 
         public override void Start()
@@ -108,17 +108,6 @@ namespace SomeGame.Player.Type1
             {
                 markedForEnd = true;
             }
-        }
-
-        public override bool CanStart(List<AbilityBase> activeAbilities)
-        {
-            var canStart = base.CanStart(activeAbilities);
-            if (!IsAbilityTriggerPressed(AbilityDisplay.abilityType))
-            {
-                canStart = false;
-            }
-
-            return canStart;
         }
     }
 }

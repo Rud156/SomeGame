@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://couy58xw72igm"]
+
+[ext_resource type="Script" uid="uid://idoha2n7g44c" path="res://Src/Behaviors/HealthSystem/AoeBurstDamage.cs" id="1_bjtlo"]
+
+[node name="AbilitySequenceChop" type="Node3D"]
+script = ExtResource("1_bjtlo")

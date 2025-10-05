@@ -97,7 +97,7 @@ namespace SomeGame.Behaviors.Abilities.Base
             EmitSignal(SignalName.OnAbilityEnded, this);
         }
 
-        public virtual bool CanStart(List<AbilityBase> activeAbilities)
+        public virtual bool CanStart(IReadOnlyCollection<AbilityBase> activeAbilities)
         {
             // This means the ability has already started we can safely ignore it...
             if (abilityActive)
@@ -136,6 +136,10 @@ namespace SomeGame.Behaviors.Abilities.Base
             currentCooldownDuration = 0;
             currentStackCount = _abilityDisplay.stackCount;
             ResetCooldownMultiplier();
+        }
+
+        public override void _ExitTree()
+        {
         }
 
         public override void _Process(double delta)

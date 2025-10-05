@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 using SomeGame.Behaviors.Abilities.Base;
 using SomeGame.Helpers;
@@ -23,6 +24,17 @@ namespace SomeGame.Player.Abilities
         {
             base.Start();
             PlayerAbilityDisplay.Instance.TriggerAbilityFx(AbilityDisplay.abilityType);
+        }
+
+        public override bool CanStart(IReadOnlyCollection<AbilityBase> activeAbilities)
+        {
+            var canStart = base.CanStart(activeAbilities);
+            if (!IsAbilityTriggerPressed(AbilityDisplay.abilityType))
+            {
+                canStart = false;
+            }
+
+            return canStart;
         }
 
         // ================================
