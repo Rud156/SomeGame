@@ -12,6 +12,7 @@ namespace SomeGame.UI.Player
         // ================================
 
         [ExportGroup("Components")]
+        [Export] private TextureRect _abilityBorder;
         [Export] private TextureRect _abilityIcon;
         [Export] private TextureRect _abilityFlasher;
         [Export] private Label _abilityTimer;
@@ -37,8 +38,10 @@ namespace SomeGame.UI.Player
         // Public Functions
         // ================================
 
+        public void SetAbilityBorderColor(Color color) => _abilityBorder.Modulate = color;
+
         public void SetAbilityIcon(Texture2D icon) => _abilityIcon.Texture = icon;
-        
+
         public void SetAbilityKeyIcon(Texture2D keyIcon) => _abilityKey.Texture = keyIcon;
 
         public void SetAbilityProgress(float time, float progress, float minProgress, float maxProgress)

@@ -44,6 +44,26 @@ namespace SomeGame.UI.Player
         // ================================
         // Public Functions
         // ================================
+        
+        public void SetAbilityBorderColor(Color color, AbilityType abilityType)
+        {
+            switch (abilityType)
+            {
+                case AbilityType.Ability1:
+                    _primaryTile.SetAbilityBorderColor(color);
+                    break;
+
+                case AbilityType.Ability2:
+                    _secondaryTile.SetAbilityBorderColor(color);
+                    break;
+
+                case AbilityType.ExternalAbility:
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(abilityType), abilityType, null);
+            }
+        }
 
         public void SetAbilityIcon(Texture2D icon, AbilityType abilityType)
         {

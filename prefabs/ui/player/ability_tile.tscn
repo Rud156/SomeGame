@@ -8,10 +8,11 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_1p376"]
 
-[node name="AbilityTile" type="Control" node_paths=PackedStringArray("_abilityIcon", "_abilityFlasher", "_abilityTimer", "_abilityProgressBar", "_abilityKey")]
+[node name="AbilityTile" type="Control" node_paths=PackedStringArray("_abilityBorder", "_abilityIcon", "_abilityFlasher", "_abilityTimer", "_abilityProgressBar", "_abilityKey")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_it0ef")
+_abilityBorder = NodePath("Border")
 _abilityIcon = NodePath("Icon")
 _abilityFlasher = NodePath("AbilityFlasher")
 _abilityTimer = NodePath("Timer")

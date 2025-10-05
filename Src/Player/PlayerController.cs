@@ -80,12 +80,6 @@ namespace SomeGame.Player
             CameraController.Instance.SetTargetObject(this);
             PlayerInfoDisplay.Instance.SetPlayerInfo(_playerInfoDataDisplay.playerName, _playerInfoDataDisplay.playerIcon);
             PlayerHealthDisplay.Instance.RegisterHealthAndDamage(HealthAndDamage);
-
-            // TODO: Complete this...
-            foreach (var abilityDisplay in _abilityProcessor.AllAbilities.Select(abilityBase => abilityBase.AbilityDisplay))
-            {
-                PlayerAbilityDisplay.Instance.SetAbilityIcon(abilityDisplay.abilityIcon, abilityDisplay.abilityType);
-            }
         }
 
         public override void _ExitTree()
