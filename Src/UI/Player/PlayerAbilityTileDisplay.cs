@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
 
@@ -14,6 +13,8 @@ namespace SomeGame.UI.Player
         [ExportGroup("Components")]
         [Export] private TextureRect _abilityBorder;
         [Export] private TextureRect _abilityIcon;
+        [Export] private Control _abilityStackContainer;
+        [Export] private Label _abilityStack;
         [Export] private TextureRect _abilityFlasher;
         [Export] private Label _abilityTimer;
         [Export] private TextureProgressBar _abilityProgressBar;
@@ -44,12 +45,19 @@ namespace SomeGame.UI.Player
 
         public void SetAbilityKeyIcon(Texture2D keyIcon) => _abilityKey.Texture = keyIcon;
 
-        public void SetAbilityProgress(float time, float progress, float minProgress, float maxProgress)
+        public void SetAbilityStack(int count, int maxCount)
         {
-            _abilityTimer.Text = time.ToString("0.00");
+            _abilityStackContainer.Visible = maxCount > 1;
+            _abilityStack.Text = count.ToString();
+        }
+
+        public void SetAbilityProgress(float remainingTime, float progress)
+        {
+            _abilityProgressBar.Visible = progress > 0;
+            _abilityTimer.Visible = progress > 0;
+
+            _abilityTimer.Text = remainingTime.ToString("0.00");
             _abilityProgressBar.Value = progress;
-            _abilityProgressBar.MinValue = minProgress;
-            _abilityProgressBar.MaxValue = maxProgress;
         }
 
         public void TriggerAbilityFx()

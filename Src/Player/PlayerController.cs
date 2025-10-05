@@ -223,10 +223,7 @@ namespace SomeGame.Player
             }
         }
 
-        private void _ResetFallingStateData()
-        {
-            _currentJumpCount = 0;
-        }
+        private void _ResetFallingStateData() => _currentJumpCount = 0;
 
         private void _UpdateCustomMovement()
         {

@@ -8,27 +8,46 @@ namespace SomeGame.Player.Abilities
     public abstract partial class PlayerMovementAbilityBase : MovementAbilityBase
     {
         // ================================
+        // Input Functions
+        // ================================
+
+        protected override bool IsAbilityTriggerPressed(AbilityType abilityType) => CustomInputController.Instance.IsAbilityTriggerPressed((int)abilityType);
+
+        protected override Vector2 GetMovementInput() => CustomInputController.Instance.MovementInput;
+
+        // ================================
+        // Ability Functions
+        // ================================
+
+        public override void Start()
+        {
+            base.Start();
+            PlayerAbilityDisplay.Instance.TriggerAbilityFx(AbilityDisplay.abilityType);
+        }
+
+        // ================================
         // Override Functions
         // ================================
 
         public override void _Ready()
         {
+            base._Ready();
+
             PlayerAbilityDisplay.Instance.SetAbilityIcon(AbilityDisplay.abilityIcon, AbilityDisplay.abilityType);
             PlayerAbilityDisplay.Instance.SetAbilityBorderColor(ExtensionFunctions.AverageColorFromTexture(AbilityDisplay.abilityIcon), AbilityDisplay.abilityType);
         }
 
-        // ================================
-        // Input Functions
-        // ================================
-
-        protected override bool IsAbilityTriggerPressed(AbilityType abilityType)
+        public override void _Process(double delta)
         {
-            return CustomInputController.Instance.IsAbilityTriggerPressed((int)abilityType);
-        }
+            base._Process(delta);
 
-        protected override Vector2 GetMovementInput()
-        {
-            return CustomInputController.Instance.MovementInput;
+            PlayerAbilityDisplay.Instance.SetAbilityProgress(
+                currentCooldownDuration,
+                currentCooldownDuration / AbilityDisplay.cooldownDuration,
+                AbilityDisplay.abilityType
+            );
+
+            PlayerAbilityDisplay.Instance.SetAbilityStackCount(currentStackCount, AbilityDisplay.stackCount, AbilityDisplay.abilityType);
         }
     }
 }

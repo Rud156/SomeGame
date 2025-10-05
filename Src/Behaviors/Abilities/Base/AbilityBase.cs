@@ -80,6 +80,9 @@ namespace SomeGame.Behaviors.Abilities.Base
         {
             abilityActive = true;
             markedForEnd = false;
+            currentCooldownDuration = _abilityDisplay.cooldownDuration;
+            currentStackCount -= 1;
+
             EmitSignal(SignalName.OnAbilityStarted, this);
         }
 
@@ -128,19 +131,29 @@ namespace SomeGame.Behaviors.Abilities.Base
         // Override Functions
         // ================================
 
+        public override void _Ready()
+        {
+            currentCooldownDuration = 0;
+            currentStackCount = _abilityDisplay.stackCount;
+            ResetCooldownMultiplier();
+        }
+
         public override void _Process(double delta)
         {
-            if (currentCooldownDuration > 0)
+            if (currentStackCount < _abilityDisplay.stackCount && currentCooldownDuration > 0)
             {
                 currentCooldownDuration -= (float)delta * cooldownMultiplier;
-
                 if (currentCooldownDuration <= 0)
                 {
                     if (currentStackCount < _abilityDisplay.stackCount)
                     {
                         currentStackCount += 1;
-                        currentCooldownDuration = _abilityDisplay.cooldownDuration;
                         EmitSignal(SignalName.OnAbilityStackUpdated, this);
+                    }
+
+                    if (currentStackCount < _abilityDisplay.stackCount)
+                    {
+                        currentCooldownDuration = _abilityDisplay.cooldownDuration;
                     }
                     else
                     {

@@ -44,7 +44,7 @@ namespace SomeGame.UI.Player
         // ================================
         // Public Functions
         // ================================
-        
+
         public void SetAbilityBorderColor(Color color, AbilityType abilityType)
         {
             switch (abilityType)
@@ -85,16 +85,36 @@ namespace SomeGame.UI.Player
             }
         }
 
-        public void SetAbilityProgress(float time, float progress, float minProgress, float maxProgress, AbilityType abilityType)
+        public void SetAbilityStackCount(int count, int maxCount, AbilityType abilityType)
         {
             switch (abilityType)
             {
                 case AbilityType.Ability1:
-                    _primaryTile.SetAbilityProgress(time, progress, minProgress, maxProgress);
+                    _primaryTile.SetAbilityStack(count, maxCount);
                     break;
 
                 case AbilityType.Ability2:
-                    _secondaryTile.SetAbilityProgress(time, progress, minProgress, maxProgress);
+                    _secondaryTile.SetAbilityStack(count, maxCount);
+                    break;
+
+                case AbilityType.ExternalAbility:
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(abilityType), abilityType, null);
+            }
+        }
+
+        public void SetAbilityProgress(float remainingTime, float progress, AbilityType abilityType)
+        {
+            switch (abilityType)
+            {
+                case AbilityType.Ability1:
+                    _primaryTile.SetAbilityProgress(remainingTime, progress);
+                    break;
+
+                case AbilityType.Ability2:
+                    _secondaryTile.SetAbilityProgress(remainingTime, progress);
                     break;
 
                 case AbilityType.ExternalAbility:
