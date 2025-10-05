@@ -68,7 +68,7 @@ namespace SomeGame.Player
 
         private void _SetGroundedAnimation()
         {
-            var (moveX, moveZ) = PlayerInputController.Instance.MovementInput;
+            var (moveX, moveZ) = CustomInputController.Instance.MovementInput;
             moveX = -moveX;
             var yRotation = _playerController.GlobalRotation.Y;
 

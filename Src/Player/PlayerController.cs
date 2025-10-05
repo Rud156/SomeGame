@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using SomeGame.Behaviors.Abilities.Base;
 using SomeGame.Behaviors.HealthSystem;
-using SomeGame.Behaviors.HitStop;
 using SomeGame.Camera;
 using SomeGame.UI.Player;
 
@@ -54,6 +54,8 @@ namespace SomeGame.Player
         private List<PlayerMovementState> _movementStack;
         private bool _jumpPressed;
         private int _currentJumpCount;
+
+        // Movement
         private bool _fallStartHasMovement;
         private float _currentMovementSpeed;
 
@@ -69,7 +71,7 @@ namespace SomeGame.Player
             _PushMovementState(PlayerMovementState.Normal);
             _ResetFallingStateData();
 
-            PlayerInputController.Instance.OnJumpPressed += _HandleJumpPressed;
+            CustomInputController.Instance.OnJumpPressed += _HandleJumpPressed;
             _abilityProcessor.OnAbilityStarted += _HandleAbilityStarted;
             _abilityProcessor.OnAbilityEnded += _HandleAbilityEnded;
 
@@ -78,11 +80,17 @@ namespace SomeGame.Player
             CameraController.Instance.SetTargetObject(this);
             PlayerInfoDisplay.Instance.SetPlayerInfo(_playerInfoDataDisplay.playerName, _playerInfoDataDisplay.playerIcon);
             PlayerHealthDisplay.Instance.RegisterHealthAndDamage(HealthAndDamage);
+
+            // TODO: Complete this...
+            foreach (var abilityDisplay in _abilityProcessor.AllAbilities.Select(abilityBase => abilityBase.AbilityDisplay))
+            {
+                PlayerAbilityDisplay.Instance.SetAbilityIcon(abilityDisplay.abilityIcon, abilityDisplay.abilityType);
+            }
         }
 
         public override void _ExitTree()
         {
-            PlayerInputController.Instance.OnJumpPressed -= _HandleJumpPressed;
+            CustomInputController.Instance.OnJumpPressed -= _HandleJumpPressed;
             _abilityProcessor.OnAbilityStarted -= _HandleAbilityStarted;
             _abilityProcessor.OnAbilityEnded -= _HandleAbilityEnded;
         }
@@ -143,7 +151,7 @@ namespace SomeGame.Player
             var movementState = TopMovementState;
             if (!IsOnFloor() && movementState != PlayerMovementState.Falling && movementState != PlayerMovementState.CustomMovement)
             {
-                _fallStartHasMovement = !PlayerInputController.Instance.HasNoDirectionalInput();
+                _fallStartHasMovement = !CustomInputController.Instance.HasNoDirectionalInput();
                 _PushMovementState(PlayerMovementState.Falling);
             }
         }
@@ -172,7 +180,7 @@ namespace SomeGame.Player
         private void _UpdateNormalState()
         {
             _currentMovementSpeed = _maxGroundedSpeed;
-            var playerInput = PlayerInputController.Instance.MovementInput;
+            var playerInput = CustomInputController.Instance.MovementInput;
             var forward = Vector3.Forward;
             var right = Vector3.Right;
 
@@ -186,22 +194,22 @@ namespace SomeGame.Player
 
         private void _UpdateFallingState(float delta)
         {
-            if (!PlayerInputController.Instance.HasNoDirectionalInput())
+            if (!CustomInputController.Instance.HasNoDirectionalInput())
             {
                 _currentMovementSpeed += _airAcceleration * delta;
             }
 
             _currentMovementSpeed = Mathf.Clamp(_currentMovementSpeed, 0, _maxAirSpeed);
 
-            var lastPlayerInput = PlayerInputController.Instance.MovementInput;
-            if (!PlayerInputController.Instance.HasNoDirectionalInput())
+            var lastPlayerInput = CustomInputController.Instance.MovementInput;
+            if (!CustomInputController.Instance.HasNoDirectionalInput())
             {
                 _fallStartHasMovement = true;
             }
 
             if (_fallStartHasMovement)
             {
-                lastPlayerInput = PlayerInputController.Instance.LastNonZeroMovementInput;
+                lastPlayerInput = CustomInputController.Instance.LastNonZeroMovementInput;
             }
 
             var forward = Vector3.Forward;
@@ -283,13 +291,37 @@ namespace SomeGame.Player
 
         private void _UpdateMeshRotation()
         {
-            var mousePosition = PlayerInputController.Instance.MousePosition;
+            switch (CustomInputController.Instance.LastUsedInputDeviceType)
+            {
+                case InputDeviceType.Keyboard:
+                    _UpdateMeshRotationKeyboardMouse();
+                    break;
+
+                case InputDeviceType.Gamepad:
+                    _UpdateMeshRotationGamepad();
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void _UpdateMeshRotationKeyboardMouse()
+        {
+            var mousePosition = CustomInputController.Instance.MousePosition;
             var playerPosition = GlobalPosition;
             var targetPosition = new Vector3(mousePosition.X, playerPosition.Y, mousePosition.Z);
             if (!playerPosition.IsEqualApprox(targetPosition))
             {
                 LookAt(targetPosition, Vector3.Up);
             }
+        }
+
+        private void _UpdateMeshRotationGamepad()
+        {
+            var lookGamepadInput = CustomInputController.Instance.LastLookGamepadInput;
+            var rotationAngle = Mathf.Atan2(lookGamepadInput.Y, lookGamepadInput.X);
+            RotationDegrees = Vector3.Up * Mathf.RadToDeg(rotationAngle);
         }
 
         private void _PushMovementState(PlayerMovementState movementState)

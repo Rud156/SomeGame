@@ -1,29 +1,31 @@
 using Godot;
+using Godot.Collections;
 
 namespace SomeGame.Player
 {
-    public partial class PlayerInputController : Node3D
+    public partial class CustomInputController : Node3D
     {
         // ================================
         // Singleton
         // ================================
-        private static PlayerInputController _instance;
 
-        public static PlayerInputController Instance => _instance;
-
-        // ================================
-        // Signals
-        // ================================
-        [Signal]
-        public delegate void OnJumpPressedEventHandler();
+        private static CustomInputController _instance;
+        public static CustomInputController Instance => _instance;
 
         // ================================
         // Constants
         // ================================
+
         private const string ForwardEvent = "FORWARD";
         private const string BackwardEvent = "BACKWARD";
         private const string LeftEvent = "LEFT";
         private const string RightEvent = "RIGHT";
+        private const string LookForwardEvent = "LOOK_FORWARD";
+        private const string LookBackwardEvent = "LOOK_BACKWARD";
+        private const string LookLeftEvent = "LOOK_LEFT";
+        private const string LookRightEvent = "LOOK_RIGHT";
+
+
         private const string JumpEvent = "JUMP";
 
         private const string Ability1Event = "ABILITY_1";
@@ -32,24 +34,42 @@ namespace SomeGame.Player
         private const int MouseRaycastDistance = 2000;
 
         // ================================
-        // Data
+        // Signals
         // ================================
-        private Vector2 _mouseInput;
+
+        [Signal]
+        public delegate void OnJumpPressedEventHandler();
+
+        [Signal]
+        public delegate void OnInputTypeUpdatedEventHandler(InputDeviceType inputDeviceType);
+
+        // Data
         private Vector3 _mousePosition;
+        private Vector2 _lookGamepadInput;
+        private Vector2 _lastLookGamepadInput;
+
         private Vector2 _movementInput;
         private Vector2 _lastNonZeroMovementInput;
+
         private bool _ability1Pressed;
         private bool _ability2Pressed;
+
+        // Input Type
+        private InputDeviceType _lastUsedInputDeviceType;
 
         // ================================
         // Properties
         // ================================
-        public Vector2 MouseInput => _mouseInput;
+
         public Vector3 MousePosition => _mousePosition;
+        public Vector2 LookGamepadInput => _lookGamepadInput;
+        public Vector2 LastLookGamepadInput => _lastLookGamepadInput;
         public Vector2 MovementInput => _movementInput;
         public Vector2 LastNonZeroMovementInput => _lastNonZeroMovementInput;
         public bool Ability1Pressed => _ability1Pressed;
         public bool Ability2Pressed => _ability2Pressed;
+
+        public InputDeviceType LastUsedInputDeviceType => _lastUsedInputDeviceType;
 
         // ================================
         // Override Functions
@@ -69,18 +89,32 @@ namespace SomeGame.Player
 
         public override void _Input(InputEvent @event)
         {
-            if (@event is InputEventMouseMotion mouseMotion)
+            switch (@event)
             {
-                _mouseInput = mouseMotion.Relative;
+                case InputEventMouseMotion:
+                case InputEventKey:
+                    _UpdateLastUsedInputDevice(InputDeviceType.Keyboard);
+                    break;
+
+                case InputEventJoypadMotion:
+                case InputEventJoypadButton:
+                    _UpdateLastUsedInputDevice(InputDeviceType.Gamepad);
+                    break;
             }
         }
 
         public override void _PhysicsProcess(double delta)
         {
-            _mousePosition = ScreenPointToRay();
+            _mousePosition = _ScreenPointToRay();
+            _lookGamepadInput = Input.GetVector(LookLeftEvent, LookRightEvent, LookBackwardEvent, LookForwardEvent);
             _movementInput = Input.GetVector(LeftEvent, RightEvent, BackwardEvent, ForwardEvent);
             _ability1Pressed = Input.IsActionPressed(Ability1Event);
             _ability2Pressed = Input.IsActionPressed(Ability2Event);
+
+            if (!Mathf.IsZeroApprox(_lookGamepadInput.LengthSquared()))
+            {
+                _lastLookGamepadInput = _lookGamepadInput;
+            }
 
             if (!Mathf.IsZeroApprox(_movementInput.LengthSquared()))
             {
@@ -103,10 +137,9 @@ namespace SomeGame.Player
             Input.MouseMode = mouseMode;
         }
 
-        public bool HasNoDirectionalInput()
-        {
-            return Mathf.IsZeroApprox(_movementInput.X) && Mathf.IsZeroApprox(_movementInput.Y);
-        }
+        public bool HasNoDirectionalInput() => Mathf.IsZeroApprox(_movementInput.X) && Mathf.IsZeroApprox(_movementInput.Y);
+
+        public bool HasNoLookGamepadInput() => Mathf.IsZeroApprox(_lookGamepadInput.X) && Mathf.IsZeroApprox(_lookGamepadInput.Y);
 
         public bool IsAbilityTriggerPressed(int abilityIndex)
         {
@@ -122,7 +155,7 @@ namespace SomeGame.Player
         // Private Functions
         // ================================
 
-        private Vector3 ScreenPointToRay()
+        private Vector3 _ScreenPointToRay()
         {
             var spaceState = GetWorld3D().DirectSpaceState;
             var mousePosition = GetViewport().GetMousePosition();
@@ -143,5 +176,23 @@ namespace SomeGame.Player
 
             return _mousePosition;
         }
+
+        private void _UpdateLastUsedInputDevice(InputDeviceType inputDeviceType)
+        {
+            _lastUsedInputDeviceType = inputDeviceType;
+
+            SetMouseMode(inputDeviceType == InputDeviceType.Gamepad);
+            EmitSignal(SignalName.OnInputTypeUpdated, (int)inputDeviceType);
+        }
+    }
+
+    // ================================
+    // Enums
+    // ================================
+
+    public enum InputDeviceType
+    {
+        Keyboard = 0,
+        Gamepad = 1
     }
 }

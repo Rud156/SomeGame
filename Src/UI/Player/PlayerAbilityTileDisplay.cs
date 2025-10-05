@@ -16,7 +16,7 @@ namespace SomeGame.UI.Player
         [Export] private TextureRect _abilityFlasher;
         [Export] private Label _abilityTimer;
         [Export] private TextureProgressBar _abilityProgressBar;
-        [Export] private Label _abilityName;
+        [Export] private TextureRect _abilityKey;
 
         [ExportGroup("Ability Flasher")]
         [Export] private int _flashCount;
@@ -27,7 +27,7 @@ namespace SomeGame.UI.Player
         [Export] private int _scaleCount;
         [Export] private float _defaultScale;
         [Export] private float _biggerScale;
-        [Export] private float scaleChangeDuration;
+        [Export] private float _scaleChangeDuration;
 
         // Data
         private bool _flasherActive;
@@ -37,11 +37,9 @@ namespace SomeGame.UI.Player
         // Public Functions
         // ================================
 
-        public void SetAbilityNameAndIcon(string name, Texture2D icon)
-        {
-            _abilityName.Text = name;
-            _abilityIcon.Texture = icon;
-        }
+        public void SetAbilityIcon(Texture2D icon) => _abilityIcon.Texture = icon;
+        
+        public void SetAbilityKeyIcon(Texture2D keyIcon) => _abilityKey.Texture = keyIcon;
 
         public void SetAbilityProgress(float time, float progress, float minProgress, float maxProgress)
         {
@@ -105,9 +103,9 @@ namespace SomeGame.UI.Player
             for (var i = 0; i < _scaleCount; i++)
             {
                 Scale = Vector2.One * _biggerScale;
-                yield return scaleChangeDuration;
+                yield return _scaleChangeDuration;
                 Scale = Vector2.One * _defaultScale;
-                yield return scaleChangeDuration;
+                yield return _scaleChangeDuration;
             }
 
             _scalerActive = false;

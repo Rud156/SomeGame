@@ -11,12 +11,12 @@ namespace SomeGame.Player.Abilities
 
         protected override bool IsAbilityTriggerPressed(AbilityType abilityType)
         {
-            return PlayerInputController.Instance.IsAbilityTriggerPressed((int)abilityType);
+            return CustomInputController.Instance.IsAbilityTriggerPressed((int)abilityType);
         }
 
         protected override Vector2 GetMovementInput()
         {
-            return PlayerInputController.Instance.MovementInput;
+            return CustomInputController.Instance.MovementInput;
         }
     }
 }

@@ -34,6 +34,8 @@ namespace SomeGame.Behaviors.Abilities.Base
         // ================================
         // Properties
         // ================================
+
+        public List<AbilityBase> AllAbilities => _allAbilities;
         public List<AbilityBase> ActiveAbilities => _activeAbilities;
         public AnimationTree AnimationTree => _animationTree;
         public CharacterBody3D Character => _character;

@@ -1,33 +1,31 @@
-[gd_scene load_steps=10 format=3 uid="uid://cs6ugiohry21e"]
+[gd_scene load_steps=7 format=3 uid="uid://cs6ugiohry21e"]
 
-[ext_resource type="Texture2D" uid="uid://dyqnoxap2kqiy" path="res://assets/textures/ParticleCloudWhite.png" id="1_3cgrv"]
 [ext_resource type="Script" uid="uid://betbidv0k0ljw" path="res://Src/UI/Player/PlayerAbilityTileDisplay.cs" id="1_it0ef"]
-[ext_resource type="FontFile" uid="uid://5me1ba4infyq" path="res://assets/fonts/Satoshi-Medium.otf" id="2_4vxmg"]
 [ext_resource type="Texture2D" uid="uid://yw1u3u7djyx7" path="res://assets/textures/Abilities/Player/Type_1/Primary.png" id="2_mm2y1"]
-[ext_resource type="Texture2D" uid="uid://d3dtspqwsvqyp" path="res://assets/textures/Sketch Circle.png" id="3_mm2y1"]
+[ext_resource type="Texture2D" uid="uid://bktyrciq6n0u7" path="res://assets/kenney_ui-pack-adventure/panel_border_brown_detail.png" id="2_qc0w5"]
 [ext_resource type="Texture2D" uid="uid://fneu63d1jhui" path="res://assets/textures/WhitePixel.png" id="3_ui34t"]
-[ext_resource type="Texture2D" uid="uid://dt461eb8bp8j2" path="res://assets/textures/Smoke26.png" id="4_3cgrv"]
-[ext_resource type="LabelSettings" uid="uid://bpprawltslqca" path="res://prefabs/ui/styles/default_text.tres" id="6_1p376"]
+[ext_resource type="Texture2D" uid="uid://pky43a378ohj" path="res://assets/kenny_input_prompts/gamepad/xbox_button_color_a.png" id="5_ii3ya"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1p376"]
-font = ExtResource("2_4vxmg")
-font_size = 14
-font_color = Color(0, 0, 0, 1)
-shadow_color = Color(0, 0, 0, 0.588235)
-shadow_offset = Vector2(0.5, 0.5)
 
-[node name="AbilityTile" type="Control" node_paths=PackedStringArray("_abilityIcon", "_abilityFlasher", "_abilityTimer", "_abilityProgressBar", "_abilityName")]
+[node name="AbilityTile" type="Control" node_paths=PackedStringArray("_abilityIcon", "_abilityFlasher", "_abilityTimer", "_abilityProgressBar", "_abilityKey")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_it0ef")
-_abilityIcon = NodePath("AbilityIcon")
+_abilityIcon = NodePath("Icon")
 _abilityFlasher = NodePath("AbilityFlasher")
-_abilityTimer = NodePath("Background/Timer")
-_abilityProgressBar = NodePath("Background/TextureProgressBar")
-_abilityName = NodePath("Background/TitleBackground/Label")
-scaleChangeDuration = 0.1
+_abilityTimer = NodePath("Timer")
+_abilityProgressBar = NodePath("TimerProgress")
+_abilityKey = NodePath("Key")
+_flashCount = 2
+_flashOnDuration = 1.0
+_flashOffDuration = 0.05
+_scaleCount = 2
+_defaultScale = 1.0
+_biggerScale = 1.2
+_scaleChangeDuration = 0.1
 
-[node name="AbilityIcon" type="TextureRect" parent="."]
+[node name="Icon" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -62,18 +60,32 @@ pivot_offset = Vector2(20, 20)
 texture = ExtResource("3_ui34t")
 expand_mode = 1
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="TimerProgress" type="TextureProgressBar" parent="."]
+visible = false
 layout_mode = 1
-offset_right = 64.0
-offset_bottom = 64.0
-texture = ExtResource("1_3cgrv")
-expand_mode = 1
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 140.0
+offset_bottom = 140.0
+scale = Vector2(0.313, 0.313)
+max_value = 1.0
+step = 0.01
+fill_mode = 3
+texture_progress = ExtResource("3_ui34t")
+tint_under = Color(1, 1, 1, 0.19607843)
+tint_over = Color(1, 1, 1, 0.19607843)
+tint_progress = Color(0, 0, 0, 0.5882353)
 
-[node name="Timer" type="Label" parent="Background"]
+[node name="Timer" type="Label" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 22.0
+offset_right = 43.0
+offset_bottom = 41.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "0.0"
@@ -82,52 +94,27 @@ horizontal_alignment = 1
 vertical_alignment = 1
 justification_flags = 160
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="Background"]
+[node name="Border" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 1136.0
-offset_bottom = 1136.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 57.0
+offset_bottom = 57.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.055, 0.055)
-max_value = 1.0
-step = 0.01
-value = 0.5
-fill_mode = 4
-texture_progress = ExtResource("3_mm2y1")
-
-[node name="TitleBackground" type="TextureRect" parent="Background"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -50.0
-offset_top = 1.0
-offset_right = 50.0
-offset_bottom = 26.0
-grow_horizontal = 2
-grow_vertical = 0
-texture = ExtResource("4_3cgrv")
+texture = ExtResource("2_qc0w5")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="Background/TitleBackground"]
+[node name="Key" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -2.0
-offset_bottom = 2.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Ability 1"
-label_settings = ExtResource("6_1p376")
-horizontal_alignment = 1
-vertical_alignment = 1
-justification_flags = 160
-clip_text = true
-text_overrun_behavior = 1
-uppercase = true
+offset_left = 23.5
+offset_top = 57.0
+offset_right = 39.5
+offset_bottom = 73.0
+texture = ExtResource("5_ii3ya")
+expand_mode = 1

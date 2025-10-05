@@ -1,8 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://bgnguke0yisax"]
+[gd_scene load_steps=14 format=3 uid="uid://bgnguke0yisax"]
 
 [ext_resource type="Script" uid="uid://byjrr28k5r0du" path="res://Src/Camera/CameraController.cs" id="1_mb4n0"]
 [ext_resource type="PackedScene" uid="uid://dc31drmlrfvh5" path="res://prefabs/player/player_base.tscn" id="2_mb4n0"]
-[ext_resource type="Script" uid="uid://hw6p2ya2w4ns" path="res://Src/Player/PlayerInputController.cs" id="3_8orni"]
+[ext_resource type="Script" uid="uid://hw6p2ya2w4ns" path="res://Src/Player/CustomInputController.cs" id="3_7yhar"]
 [ext_resource type="PackedScene" uid="uid://bn3d7gutc3bln" path="res://prefabs/ui/player/abilities_display.tscn" id="4_wk0fx"]
 [ext_resource type="PackedScene" uid="uid://ufxsbqnfq3wa" path="res://prefabs/ui/player/player_info_display.tscn" id="5_mb4n0"]
 [ext_resource type="PackedScene" uid="uid://bhwsltjqeqih2" path="res://prefabs/ui/player/player_health.tscn" id="6_7yhar"]
@@ -67,8 +67,8 @@ shape = SubResource("BoxShape3D_j5px3")
 
 [node name="Global Controllers" type="Node" parent="."]
 
-[node name="Player Input Controller" type="Node3D" parent="Global Controllers"]
-script = ExtResource("3_8orni")
+[node name="Custom Input Controller" type="Node3D" parent="Global Controllers"]
+script = ExtResource("3_7yhar")
 
 [node name="HUD" type="Control" parent="."]
 layout_mode = 3
@@ -122,4 +122,3 @@ offset_right = 70.595
 offset_bottom = -57.119995
 grow_vertical = 0
 rotation = -0.0523599
-_lerpCurve = null

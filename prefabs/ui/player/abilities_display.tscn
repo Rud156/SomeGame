@@ -1,14 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://bn3d7gutc3bln"]
+[gd_scene load_steps=7 format=3 uid="uid://bn3d7gutc3bln"]
 
 [ext_resource type="Script" uid="uid://cw22osrik8bkb" path="res://Src/UI/Player/PlayerAbilityDisplay.cs" id="1_hmeop"]
 [ext_resource type="PackedScene" uid="uid://cs6ugiohry21e" path="res://prefabs/ui/player/ability_tile.tscn" id="1_wsyri"]
+[ext_resource type="Texture2D" uid="uid://b3jaoyl6pb7dh" path="res://assets/kenny_input_prompts/keyboard_mouse/mouse_left.png" id="2_6koyi"]
+[ext_resource type="Texture2D" uid="uid://cnbirhojcelbj" path="res://assets/kenny_input_prompts/gamepad/xbox_button_color_x.png" id="3_ved2e"]
+[ext_resource type="Texture2D" uid="uid://c3x075lllcbny" path="res://assets/kenny_input_prompts/keyboard_mouse/mouse_right.png" id="4_xb3py"]
+[ext_resource type="Texture2D" uid="uid://ty7ayq5f5pw" path="res://assets/kenny_input_prompts/gamepad/xbox_button_color_y.png" id="5_xlnjt"]
 
 [node name="AbilitiesDisplay" type="Control" node_paths=PackedStringArray("_primaryTile", "_secondaryTile")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_hmeop")
 _primaryTile = NodePath("AbilityTile_1")
+_primaryKeyboardIcon = ExtResource("2_6koyi")
+_primaryGamepadIcon = ExtResource("3_ved2e")
 _secondaryTile = NodePath("AbilityTile_2")
+_secondaryKeyboardIcon = ExtResource("4_xb3py")
+_secondaryGamepadIcon = ExtResource("5_xlnjt")
 
 [node name="AbilityTile_1" parent="." instance=ExtResource("1_wsyri")]
 layout_mode = 1
@@ -18,7 +26,6 @@ offset_right = 25.0
 offset_bottom = -64.0
 rotation = -0.261799
 scale = Vector2(1.5, 1.5)
-scaleChangeDuration = 0.15
 
 [node name="AbilityTile_2" parent="." instance=ExtResource("1_wsyri")]
 layout_mode = 1

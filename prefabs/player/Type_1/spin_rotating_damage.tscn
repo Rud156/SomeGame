@@ -5,6 +5,6 @@
 [node name="SpinRotatingDamage" type="Node3D"]
 script = ExtResource("1_1pva5")
 _damageRadius = 7.0
-_damageAmount = 0.75
-_damageTickRate = 3.0
+_damageAmount = 3.0
+_damageTickRate = 0.75
 _hitStopDuration = 0.15

@@ -42,7 +42,7 @@ namespace SomeGame.Player.Type1
         {
             base._Process(delta);
 
-            if (PlayerInputController.Instance.IsAbilityTriggerPressed((int)AbilityDisplay.abilityType))
+            if (CustomInputController.Instance.IsAbilityTriggerPressed((int)AbilityDisplay.abilityType))
             {
             }
         }
