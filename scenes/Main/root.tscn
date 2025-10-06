@@ -1,11 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://bgnguke0yisax"]
+[gd_scene load_steps=16 format=3 uid="uid://bgnguke0yisax"]
 
-[ext_resource type="Script" uid="uid://byjrr28k5r0du" path="res://Src/Camera/CameraController.cs" id="1_mb4n0"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_7yhar"]
 [ext_resource type="PackedScene" uid="uid://dc31drmlrfvh5" path="res://prefabs/player/player_base.tscn" id="2_mb4n0"]
 [ext_resource type="Script" uid="uid://hw6p2ya2w4ns" path="res://Src/Player/CustomInputController.cs" id="3_7yhar"]
 [ext_resource type="PackedScene" uid="uid://bn3d7gutc3bln" path="res://prefabs/ui/player/abilities_display.tscn" id="4_wk0fx"]
 [ext_resource type="PackedScene" uid="uid://ufxsbqnfq3wa" path="res://prefabs/ui/player/player_info_display.tscn" id="5_mb4n0"]
 [ext_resource type="PackedScene" uid="uid://bhwsltjqeqih2" path="res://prefabs/ui/player/player_health.tscn" id="6_7yhar"]
+[ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="7_5dv0b"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_8ylla"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j5px3"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -20,9 +22,8 @@ sky = SubResource("Sky_twpsu")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="Curve" id="Curve_ksbpk"]
-_data = [Vector2(0, 0), 0.0, 2.15421, 0, 0, Vector2(1, 1), -2.04936, 0.0, 0, 0]
-point_count = 2
+[sub_resource type="Resource" id="Resource_qlfll"]
+script = ExtResource("8_8ylla")
 
 [sub_resource type="BoxMesh" id="BoxMesh_sqa0i"]
 
@@ -41,15 +42,19 @@ environment = SubResource("Environment_lrqlo")
 transform = Transform3D(-0.996779, 0.0724465, -0.0344001, 0, 0.428935, 0.903335, 0.0801989, 0.900426, -0.427554, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Camera Holder" type="Node3D" parent="."]
-script = ExtResource("1_mb4n0")
-_followDistance = Vector3(0, 15, 15)
-_followSpeed = 5.0
-_followLerpCurve = SubResource("Curve_ksbpk")
-_lookRotationSpeed = 10.0
-
-[node name="Main Camera" type="Camera3D" parent="Camera Holder"]
+[node name="Main Camera Phantom" type="Camera3D" parent="."]
 current = true
+
+[node name="PhantomCameraHost" type="Node" parent="Main Camera Phantom"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("1_7yhar")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="MainCamera" type="Node3D" parent="."]
+script = ExtResource("7_5dv0b")
+tween_resource = SubResource("Resource_qlfll")
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="Player" parent="." instance=ExtResource("2_mb4n0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.27143, -2.7826)
@@ -57,17 +62,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.27143, -2.7826)
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0397463, 0)
 
-[node name="Ground Mesh" type="MeshInstance3D" parent="Ground"]
+[node name="GroundMesh" type="MeshInstance3D" parent="Ground"]
 transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0)
 mesh = SubResource("BoxMesh_sqa0i")
 surface_material_override/0 = SubResource("StandardMaterial3D_jh1ax")
 
-[node name="Ground Collider" type="CollisionShape3D" parent="Ground"]
+[node name="GroundCollider" type="CollisionShape3D" parent="Ground"]
 shape = SubResource("BoxShape3D_j5px3")
 
-[node name="Global Controllers" type="Node" parent="."]
+[node name="GlobalControllers" type="Node" parent="."]
 
-[node name="Custom Input Controller" type="Node3D" parent="Global Controllers"]
+[node name="CustomInputController" type="Node3D" parent="GlobalControllers"]
 script = ExtResource("3_7yhar")
 
 [node name="HUD" type="Control" parent="."]

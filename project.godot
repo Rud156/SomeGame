@@ -14,13 +14,17 @@ config/name="SomeGame"
 run/main_scene="uid://bgnguke0yisax"
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
 
+[autoload]
+
+PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
+
 [dotnet]
 
 project/assembly_name="SomeGame"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/mixamo_animation_retargeter/plugin.cfg", "res://addons/wakatime/plugin.cfg")
+enabled=PackedStringArray("res://addons/mixamo_animation_retargeter/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/wakatime/plugin.cfg")
 
 [input]
 
