@@ -4,8 +4,23 @@ namespace SomeGame.Camera
 {
     public partial class CameraController : Node3D
     {
+        // ================================
+        // Singleton
+        // ================================
+
         private static CameraController _instance;
         public static CameraController Instance => _instance;
+
+        public override void _EnterTree()
+        {
+            if (_instance != null)
+            {
+                QueueFree();
+                return;
+            }
+
+            _instance = this;
+        }
 
         // ================================
         // Export
@@ -25,17 +40,6 @@ namespace SomeGame.Camera
         // ================================
         // Override Functions
         // ================================
-
-        public override void _EnterTree()
-        {
-            if (_instance != null)
-            {
-                QueueFree();
-                return;
-            }
-
-            _instance = this;
-        }
 
         public override void _Ready()
         {

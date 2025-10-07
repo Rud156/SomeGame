@@ -76,7 +76,8 @@ namespace SomeGame.Player
 
             _playerAnimationController.SetPlayerController(this);
 
-            CameraController.Instance.SetTargetObject(this);
+            // Maybe move this to a GameManager or something...
+            PhantomCameraController.Instance.SetTargetObject(this);
             PlayerInfoDisplay.Instance.SetPlayerInfo(_playerInfoDataDisplay.playerName, _playerInfoDataDisplay.playerIcon);
             PlayerHealthDisplay.Instance.RegisterHealthAndDamage(HealthAndDamage);
         }
