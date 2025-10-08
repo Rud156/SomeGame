@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bgnguke0yisax"]
+[gd_scene load_steps=20 format=3 uid="uid://bgnguke0yisax"]
 
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_7yhar"]
 [ext_resource type="PackedScene" uid="uid://dc31drmlrfvh5" path="res://prefabs/player/player_base.tscn" id="2_mb4n0"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://bvvs0tdkg5ttr" path="res://Src/Camera/PhantomCameraController.cs" id="6_qlfll"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="7_5dv0b"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_8ylla"]
+[ext_resource type="Script" uid="uid://dppd2k61cjr2v" path="res://Src/Camera/CameraDeadZoneFollower.cs" id="8_juesv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j5px3"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -35,6 +36,9 @@ albedo_color = Color(0.286275, 0, 0.396078, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_j5px3"]
 size = Vector3(100, 1, 100)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_qlfll"]
+size = Vector3(15, 10, 10)
+
 [node name="Root" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -45,7 +49,6 @@ transform = Transform3D(-0.996779, 0.0724465, -0.0344001, 0, 0.428935, 0.903335,
 shadow_enabled = true
 
 [node name="MainCameraPhantom" type="Camera3D" parent="."]
-physics_interpolation_mode = 1
 transform = Transform3D(-0.94787973, 0.26511267, -0.17674175, 0.18673575, 0.9116645, 0.36603513, 0.25817397, 0.31395316, -0.9136543, 0, 18.271431, -2.7826)
 current = true
 fov = 90.0
@@ -72,7 +75,7 @@ show_viewfinder_in_play = true
 look_at_damping = true
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
-[node name="PhantomCameraNoiseEmitter3D" type="Node3D" parent="."]
+[node name="CameraNoiseEmitter" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.8192269, 0.5734587, 0, -0.5734587, 0.8192269, 0, 10.844889, 8.036627)
 script = ExtResource("4_8ylla")
 metadata/_custom_type_script = "uid://ccmiitq0sdh7j"
@@ -96,10 +99,19 @@ shape = SubResource("BoxShape3D_j5px3")
 [node name="CustomCameraController" type="Node3D" parent="GlobalControllers" node_paths=PackedStringArray("_phantomCamera", "_phantomCameraShaker")]
 script = ExtResource("6_qlfll")
 _phantomCamera = NodePath("../../MainCamera")
-_phantomCameraShaker = NodePath("../../PhantomCameraNoiseEmitter3D")
+_phantomCameraShaker = NodePath("../../CameraNoiseEmitter")
 
 [node name="CustomInputController" type="Node3D" parent="GlobalControllers"]
 script = ExtResource("3_7yhar")
+
+[node name="CameraDeadzoneDetector" type="Area3D" parent="GlobalControllers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.18785, 0, -4.713022)
+script = ExtResource("8_juesv")
+_lerpRate = 7.0
+
+[node name="CollisionShape" type="CollisionShape3D" parent="GlobalControllers/CameraDeadzoneDetector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -2.5)
+shape = SubResource("BoxShape3D_qlfll")
 
 [node name="HUD" type="Control" parent="."]
 layout_mode = 3

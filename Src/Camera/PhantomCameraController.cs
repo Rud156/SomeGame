@@ -34,7 +34,7 @@ namespace SomeGame.Camera
         // Public Functions
         // ================================
 
-        public void SetTargetObject(Node3D target)
+        public void SetTarget(Node3D target)
         {
             _phantomCamera.Call("set_follow_target", target);
             _phantomCamera.Call("set_look_at_target", target);
