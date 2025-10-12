@@ -106,6 +106,7 @@ script = ExtResource("3_7yhar")
 
 [node name="CameraDeadzoneDetector" type="Area3D" parent="GlobalControllers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.18785, 0, -4.713022)
+visible = false
 script = ExtResource("8_juesv")
 _lerpRate = 7.0
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dc31drmlrfvh5"]
+[gd_scene load_steps=12 format=3 uid="uid://dc31drmlrfvh5"]
 
 [ext_resource type="Script" uid="uid://8vp0s0gxnhf3" path="res://Src/Player/PlayerController.cs" id="1_ao338"]
 [ext_resource type="Script" uid="uid://hsod0iidlpri" path="res://Src/Behaviors/HitStop/HitStopBehavior.cs" id="2_74ymh"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://d3yopcb7mclfe" path="res://Src/Behaviors/HitStop/HitStopAnimator.cs" id="4_n1uah"]
 [ext_resource type="PackedScene" uid="uid://bc7kng21yxc72" path="res://prefabs/player/type_1/ability_spin.tscn" id="7_q4q30"]
 [ext_resource type="Script" uid="uid://oofdr4kb1l2m" path="res://Src/Behaviors/HealthSystem/HealthAndDamage.cs" id="8_3hfor"]
+[ext_resource type="PackedScene" uid="uid://b5kbeshxt2d5j" path="res://prefabs/player/type_1/ability_sequence_slash.tscn" id="8_q4q30"]
 [ext_resource type="PackedScene" uid="uid://cx7ytose4mwxv" path="res://prefabs/player/type_1/barbarian.tscn" id="10_q4q30"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3khpg"]
@@ -42,7 +43,7 @@ _animationTree = NodePath("../Player Mesh/Barbarian/AnimationTree")
 
 [node name="AbilityProcessor" type="Node3D" parent="." node_paths=PackedStringArray("_animationTree", "_character", "_characterMesh", "_characterCollision")]
 script = ExtResource("4_ao338")
-_abilities = Array[PackedScene]([ExtResource("7_q4q30")])
+_abilities = Array[PackedScene]([ExtResource("7_q4q30"), ExtResource("8_q4q30")])
 _animationTree = NodePath("../Player Mesh/Barbarian/AnimationTree")
 _character = NodePath("..")
 _characterMesh = NodePath("../Player Mesh/Barbarian")

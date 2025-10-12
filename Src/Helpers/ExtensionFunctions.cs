@@ -16,7 +16,7 @@ namespace SomeGame.Helpers
             float b = 0;
             float colorCount = 0;
 
-            for (var i = 0; i < textureData.Length - 1; i += 3)
+            for (var i = 0; i < textureData.Length; i += 4)
             {
                 r += textureData[i];
                 g += textureData[i + 1];

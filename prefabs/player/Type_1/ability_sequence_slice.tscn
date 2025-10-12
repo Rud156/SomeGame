@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://snufqtwxrdmj"]
 
-[ext_resource type="Script" uid="uid://idoha2n7g44c" path="res://Src/Behaviors/HealthSystem/AoeBurstDamage.cs" id="1_jd3sm"]
+[ext_resource type="Script" uid="uid://b0wyowmw4s846" path="res://Src/Behaviors/HealthSystem/BurstDamageController.cs" id="1_jd3sm"]
 
-[node name="AbilitySequenceSlice" type="Node3D"]
+[node name="AbilitySequenceSlice" type="Node3D" node_paths=PackedStringArray("_burstDamageNodes")]
 script = ExtResource("1_jd3sm")
+_burstDamageNodes = []

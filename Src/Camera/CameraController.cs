@@ -67,20 +67,11 @@ namespace SomeGame.Camera
         // Public Functions
         // ================================
 
-        public void SetTargetObject(Node3D target)
-        {
-            _target = target;
-        }
+        public void SetTargetObject(Node3D target) => _target = target;
 
-        public void ClearTarget()
-        {
-            _target = null;
-        }
+        public void ClearTarget() => _target = null;
 
-        public void StartShake(float decay, float magnitude)
-        {
-            _cameraShaker.StartShake(decay, magnitude);
-        }
+        public void StartShake(float decay, float magnitude) => _cameraShaker.StartShake(decay, magnitude);
 
         // ================================
         // Private Functions

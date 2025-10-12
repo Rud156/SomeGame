@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using SomeGame.Behaviors.HealthSystem;
 using SomeGame.Player.Abilities;
 
 namespace SomeGame.Player.Type1
@@ -22,6 +23,7 @@ namespace SomeGame.Player.Type1
 
         [ExportGroup("Generic Data")]
         [Export] private float _resetStateDuration;
+        [Export] private float _animationResetDuration;
 
         [ExportGroup("Attack Data")]
         [Export] private float _chopDuration;
@@ -31,10 +33,16 @@ namespace SomeGame.Player.Type1
         [Export] private float _sliceDuration;
         [Export] private PackedScene _sliceDamage;
 
-        // Data
+        // Sequence Data
         private SequenceState _sequenceState;
+        private Node3D _sequenceAttackInstance;
+
+        // Attack Data
         private float _currentResetTime; // Once this hits 0, the sequence is reset to SequenceState.Chop
         private float _currentAttackDuration;
+
+        // Animation Control
+        private float _currentAnimationResetTime;
 
         // ================================
         // Ability Functions
@@ -49,6 +57,7 @@ namespace SomeGame.Player.Type1
             abilityProcessor.AnimationTree.Set(AbilityActiveParam, 1);
             abilityProcessor.AnimationTree.Set(AbilitySelectorParam, (int)AbilityDisplay.abilityType);
 
+            _ResetAnimations();
             _ValidateAndUpdateNextState();
         }
 
@@ -57,16 +66,29 @@ namespace SomeGame.Player.Type1
             base.End();
 
             _currentResetTime = _resetStateDuration;
-
             abilityProcessor.AnimationTree.Set(AbilityActiveParam, 0);
-            abilityProcessor.AnimationTree.Set(ChopAnimParam, false);
-            abilityProcessor.AnimationTree.Set(DualSliceAnimParam, false);
-            abilityProcessor.AnimationTree.Set(SliceAnimParam, false);
+
+            if (_sequenceAttackInstance != null)
+            {
+                _sequenceAttackInstance.QueueFree();
+                _sequenceAttackInstance = null;
+            }
+
+            _ResetAnimations();
         }
 
         public override void Update(float delta)
         {
             base.Update(delta);
+
+            if (_currentAnimationResetTime > 0)
+            {
+                _currentAnimationResetTime -= delta;
+                if (_currentAnimationResetTime <= 0)
+                {
+                    _ResetAnimations();
+                }
+            }
 
             _currentAttackDuration -= delta;
             if (_currentAttackDuration <= 0)
@@ -103,6 +125,12 @@ namespace SomeGame.Player.Type1
 
         private void _ValidateAndUpdateNextState()
         {
+            if (_sequenceAttackInstance != null)
+            {
+                _sequenceAttackInstance.QueueFree();
+                _sequenceAttackInstance = null;
+            }
+
             if (!IsAbilityTriggerPressed(AbilityDisplay.abilityType))
             {
                 markedForEnd = true;
@@ -118,30 +146,34 @@ namespace SomeGame.Player.Type1
                 _ => _currentAttackDuration
             };
 
+            _currentAnimationResetTime = _animationResetDuration;
+
             // Play the animation
             switch (_sequenceState)
             {
                 case SequenceState.Chop:
                     abilityProcessor.AnimationTree.Set(ChopAnimParam, true);
-                    abilityProcessor.AnimationTree.Set(DualSliceAnimParam, false);
-                    abilityProcessor.AnimationTree.Set(SliceAnimParam, false);
+                    _sequenceAttackInstance = (Node3D)_chopDamage.Instantiate();
                     break;
 
                 case SequenceState.DualSlice:
-                    abilityProcessor.AnimationTree.Set(ChopAnimParam, false);
                     abilityProcessor.AnimationTree.Set(DualSliceAnimParam, true);
-                    abilityProcessor.AnimationTree.Set(SliceAnimParam, false);
+                    _sequenceAttackInstance = (Node3D)_dualSliceDamage.Instantiate();
                     break;
 
                 case SequenceState.Slice:
-                    abilityProcessor.AnimationTree.Set(ChopAnimParam, false);
-                    abilityProcessor.AnimationTree.Set(DualSliceAnimParam, false);
                     abilityProcessor.AnimationTree.Set(SliceAnimParam, true);
+                    _sequenceAttackInstance = (Node3D)_sliceDamage.Instantiate();
                     break;
 
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+            // Apply Damage
+            AddChild(_sequenceAttackInstance);
+            var burstDamageController = (BurstDamageController)_sequenceAttackInstance;
+            burstDamageController.ApplyDamage(abilityProcessor.Character.Position, [abilityProcessor.Character.GetRid()]);
 
             // Go to the next state
             _sequenceState = _sequenceState switch
@@ -151,6 +183,13 @@ namespace SomeGame.Player.Type1
                 SequenceState.Slice => SequenceState.Chop,
                 _ => _sequenceState
             };
+        }
+
+        private void _ResetAnimations()
+        {
+            abilityProcessor.AnimationTree.Set(ChopAnimParam, false);
+            abilityProcessor.AnimationTree.Set(DualSliceAnimParam, false);
+            abilityProcessor.AnimationTree.Set(SliceAnimParam, false);
         }
 
         // ================================

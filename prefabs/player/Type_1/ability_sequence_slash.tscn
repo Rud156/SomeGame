@@ -9,6 +9,7 @@
 [node name="AblitySequenceSlash" type="Node3D"]
 script = ExtResource("1_vy6kj")
 _resetStateDuration = 7.0
+_animationResetDuration = 0.5
 _chopDuration = 1.067
 _chopDamage = ExtResource("2_nvipc")
 _dualSliceDuration = 1.167

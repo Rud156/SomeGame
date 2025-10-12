@@ -4,7 +4,7 @@ using Godot.Collections;
 
 namespace SomeGame.Behaviors.HealthSystem
 {
-    public partial class BurstDamageInRange : Node3D
+    public partial class BurstDamageInRange : Node3D, IBurstDamage
     {
         // ================================
         // Export
