@@ -27,10 +27,13 @@ namespace SomeGame.Player.Type1
 
         [ExportGroup("Attack Data")]
         [Export] private float _chopDuration;
+        [Export] private float _chopDamageTriggerTime;
         [Export] private PackedScene _chopDamage;
         [Export] private float _dualSliceDuration;
+        [Export] private float _dualSliceDamageTriggerTime;
         [Export] private PackedScene _dualSliceDamage;
         [Export] private float _sliceDuration;
+        [Export] private float _sliceDamageTriggerTime;
         [Export] private PackedScene _sliceDamage;
 
         // Sequence Data
@@ -39,9 +42,8 @@ namespace SomeGame.Player.Type1
         // Attack Data
         private float _currentResetTime; // Once this hits 0, the sequence is reset to SequenceState.Chop
         private float _currentAttackDuration;
-
-        // Animation Control
-        private float _currentAnimationResetTime;
+        private float _currentDamageTriggerTime;
+        private BurstDamageController _currentDamageController;
 
         // ================================
         // Ability Functions
@@ -56,7 +58,6 @@ namespace SomeGame.Player.Type1
             abilityProcessor.AnimationTree.Set(AbilityActiveParam, 1);
             abilityProcessor.AnimationTree.Set(AbilitySelectorParam, (int)AbilityDisplay.abilityType);
 
-            _ResetAnimations();
             _ValidateAndUpdateNextState();
         }
 
@@ -74,19 +75,21 @@ namespace SomeGame.Player.Type1
         {
             base.Update(delta);
 
-            if (_currentAnimationResetTime > 0)
-            {
-                _currentAnimationResetTime -= delta;
-                if (_currentAnimationResetTime <= 0)
-                {
-                    _ResetAnimations();
-                }
-            }
-
             _currentAttackDuration -= delta;
             if (_currentAttackDuration <= 0)
             {
                 _ValidateAndUpdateNextState();
+            }
+
+            if (_currentDamageTriggerTime > 0)
+            {
+                _currentDamageTriggerTime -= delta;
+                if (_currentDamageTriggerTime <= 0)
+                {
+                    AddChild(_currentDamageController);
+                    _currentDamageController.ApplyDamage([abilityProcessor.Character.GetRid()]);
+                    _currentDamageController.QueueFree();
+                }
             }
         }
 
@@ -124,6 +127,8 @@ namespace SomeGame.Player.Type1
                 return;
             }
 
+            _ResetAnimations();
+
             // Set the duration for the animation
             _currentAttackDuration = _sequenceState switch
             {
@@ -133,35 +138,36 @@ namespace SomeGame.Player.Type1
                 _ => _currentAttackDuration
             };
 
-            _currentAnimationResetTime = _animationResetDuration;
-            BurstDamageController sequenceAttackInstance;
+            // Set the duration for when to trigger the damage
+            _currentDamageTriggerTime = _sequenceState switch
+            {
+                SequenceState.Chop => _chopDamageTriggerTime,
+                SequenceState.DualSlice => _dualSliceDamageTriggerTime,
+                SequenceState.Slice => _sliceDamageTriggerTime,
+                _ => _currentDamageTriggerTime
+            };
 
             // Play the animation
             switch (_sequenceState)
             {
                 case SequenceState.Chop:
                     abilityProcessor.AnimationTree.Set(ChopAnimParam, true);
-                    sequenceAttackInstance = (BurstDamageController)_chopDamage.Instantiate();
+                    _currentDamageController = (BurstDamageController)_chopDamage.Instantiate();
                     break;
 
                 case SequenceState.DualSlice:
                     abilityProcessor.AnimationTree.Set(DualSliceAnimParam, true);
-                    sequenceAttackInstance = (BurstDamageController)_dualSliceDamage.Instantiate();
+                    _currentDamageController = (BurstDamageController)_dualSliceDamage.Instantiate();
                     break;
 
                 case SequenceState.Slice:
                     abilityProcessor.AnimationTree.Set(SliceAnimParam, true);
-                    sequenceAttackInstance = (BurstDamageController)_sliceDamage.Instantiate();
+                    _currentDamageController = (BurstDamageController)_sliceDamage.Instantiate();
                     break;
 
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
-            // Apply Damage
-            AddChild(sequenceAttackInstance);
-            sequenceAttackInstance.ApplyDamage([abilityProcessor.Character.GetRid()]);
-            sequenceAttackInstance.QueueFree();
 
             // Go to the next state
             _sequenceState = _sequenceState switch
