@@ -122,10 +122,7 @@ namespace SomeGame.Behaviors.Abilities.Base
             return true;
         }
 
-        public virtual bool NeedsToEnd()
-        {
-            return markedForEnd;
-        }
+        public virtual bool NeedsToEnd() => markedForEnd;
 
         // ================================
         // Override Functions
@@ -147,23 +144,25 @@ namespace SomeGame.Behaviors.Abilities.Base
             if (currentStackCount < _abilityDisplay.stackCount && currentCooldownDuration > 0)
             {
                 currentCooldownDuration -= (float)delta * cooldownMultiplier;
-                if (currentCooldownDuration <= 0)
+                if (currentCooldownDuration > 0)
                 {
-                    if (currentStackCount < _abilityDisplay.stackCount)
-                    {
-                        currentStackCount += 1;
-                        EmitSignal(SignalName.OnAbilityStackUpdated, this);
-                    }
+                    return;
+                }
 
-                    if (currentStackCount < _abilityDisplay.stackCount)
-                    {
-                        currentCooldownDuration = _abilityDisplay.cooldownDuration;
-                    }
-                    else
-                    {
-                        currentCooldownDuration = 0;
-                        EmitSignal(SignalName.OnAbilityCooldownComplete, this);
-                    }
+                if (currentStackCount < _abilityDisplay.stackCount)
+                {
+                    currentStackCount += 1;
+                    EmitSignal(SignalName.OnAbilityStackUpdated, this);
+                }
+
+                if (currentStackCount < _abilityDisplay.stackCount)
+                {
+                    currentCooldownDuration = _abilityDisplay.cooldownDuration;
+                }
+                else
+                {
+                    currentCooldownDuration = 0;
+                    EmitSignal(SignalName.OnAbilityCooldownComplete, this);
                 }
             }
         }

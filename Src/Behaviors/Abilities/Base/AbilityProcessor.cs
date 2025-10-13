@@ -108,31 +108,34 @@ namespace SomeGame.Behaviors.Abilities.Base
             {
                 var newAbilityDisplay = newAbility.AbilityDisplay;
                 var canStartNewAbility = newAbility.CanStart(_activeAbilities);
-
-                if (canStartNewAbility)
+                if (!canStartNewAbility)
                 {
-                    for (var i = _activeAbilities.Count - 1; i >= 0; i--)
-                    {
-                        var activeAbility = _activeAbilities[i];
-                        var activeAbilityDisplay = activeAbility.AbilityDisplay;
+                    continue;
+                }
 
-                        if (newAbilityDisplay.disallowedAbilities.Contains(activeAbilityDisplay.abilityEnum))
-                        {
-                            // This means that the new ability is more important
-                            // So we need to kill the existing invalid one and then start the new one
-                            if (newAbilityDisplay.abilityPriorityIndex > activeAbilityDisplay.abilityPriorityIndex)
-                            {
-                                activeAbility.End();
-                                _activeAbilities.RemoveAt(i);
-                                EmitSignal(SignalName.OnAbilityEnded, activeAbility);
-                            }
-                        }
+                for (var i = _activeAbilities.Count - 1; i >= 0; i--)
+                {
+                    var activeAbility = _activeAbilities[i];
+                    var activeAbilityDisplay = activeAbility.AbilityDisplay;
+
+                    if (!newAbilityDisplay.disallowedAbilities.Contains(activeAbilityDisplay.abilityEnum))
+                    {
+                        continue;
                     }
 
-                    newAbility.Start();
-                    _activeAbilities.Add(newAbility);
-                    EmitSignal(SignalName.OnAbilityStarted, newAbility);
+                    // This means that the new ability is more important
+                    // So we need to kill the existing invalid one and then start the new one
+                    if (newAbilityDisplay.abilityPriorityIndex > activeAbilityDisplay.abilityPriorityIndex)
+                    {
+                        activeAbility.End();
+                        _activeAbilities.RemoveAt(i);
+                        EmitSignal(SignalName.OnAbilityEnded, activeAbility);
+                    }
                 }
+
+                newAbility.Start();
+                _activeAbilities.Add(newAbility);
+                EmitSignal(SignalName.OnAbilityStarted, newAbility);
             }
         }
     }
