@@ -22,6 +22,11 @@ PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_came
 
 project/assembly_name="SomeGame"
 
+[editor]
+
+version_control/plugin_name="GitPlugin"
+version_control/autoload_on_startup=true
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/mixamo_animation_retargeter/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/wakatime/plugin.cfg")

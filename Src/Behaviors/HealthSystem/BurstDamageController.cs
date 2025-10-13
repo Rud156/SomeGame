@@ -11,6 +11,15 @@ namespace SomeGame.Behaviors.HealthSystem
         // Public Functions
         // ================================
 
+        public void ApplyDamage(Array<Rid> excludeObjects)
+        {
+            foreach (var burstDamageNode in _burstDamageNodes)
+            {
+                var burstDamage = (IBurstDamage)burstDamageNode;
+                burstDamage.ApplyDamage(excludeObjects);
+            }
+        }
+
         public void ApplyDamage(Vector3 position, Array<Rid> excludeObjects)
         {
             foreach (var burstDamageNode in _burstDamageNodes)

@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://g2qvxhjpoc35"]
+
+[ext_resource type="Script" uid="uid://b0wyowmw4s846" path="res://Src/Behaviors/HealthSystem/BurstDamageController.cs" id="1_eoxv8"]
+[ext_resource type="Script" uid="uid://idoha2n7g44c" path="res://Src/Behaviors/HealthSystem/AoeBurstDamage.cs" id="2_prbxm"]
+[ext_resource type="Shape3D" uid="uid://vuqf2ux5r2ka" path="res://prefabs/player/type_1/primary/ability_sequence_dual_slice_collider.tres" id="2_qvwb5"]
+
+[node name="AbilitySequenceDualSlice" type="Node3D" node_paths=PackedStringArray("_burstDamageNodes")]
+script = ExtResource("1_eoxv8")
+_burstDamageNodes = [NodePath("Left"), NodePath("Right")]
+
+[node name="Left" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, 1)
+script = ExtResource("2_prbxm")
+_damageAmount = 15.0
+_collisionShape = ExtResource("2_qvwb5")
+_hitStopDuration = 0.15
+
+[node name="Right" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.5, 1)
+script = ExtResource("2_prbxm")
+_damageAmount = 15.0
+_collisionShape = ExtResource("2_qvwb5")
+_hitStopDuration = 0.15

@@ -46,7 +46,7 @@ namespace SomeGame.Player.Type1
                 _tickDamageInstance = tickDamageInstance;
             }
 
-            _tickDamageInstance.Enable(abilityProcessor.Character.Position, [abilityProcessor.Character.GetRid()]);
+            _tickDamageInstance.Enable(abilityProcessor.Character.GlobalPosition, [abilityProcessor.Character.GetRid()]);
 
             abilityProcessor.AnimationTree.Set(AbilityActiveParam, 1);
             abilityProcessor.AnimationTree.Set(AbilitySelectorParam, (int)AbilityDisplay.abilityType);
@@ -60,7 +60,7 @@ namespace SomeGame.Player.Type1
 
             var burstDamage = (BurstDamageInRange)_endingAoeDamage.Instantiate();
             AddChild(burstDamage);
-            burstDamage.ApplyDamage(abilityProcessor.Character.Position, [abilityProcessor.Character.GetRid()]);
+            burstDamage.ApplyDamage(abilityProcessor.Character.GlobalPosition, [abilityProcessor.Character.GetRid()]);
             burstDamage.QueueFree();
 
             _tickDamageInstance.Disable();

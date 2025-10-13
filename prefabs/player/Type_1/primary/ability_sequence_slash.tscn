@@ -1,0 +1,19 @@
+[gd_scene load_steps=6 format=3 uid="uid://b5kbeshxt2d5j"]
+
+[ext_resource type="Script" uid="uid://cpkk5pmsqbjgi" path="res://Src/Player/Type1/AbilitySequenceSlashType1.cs" id="1_vy6kj"]
+[ext_resource type="Resource" uid="uid://sf1j2mnwmwyy" path="res://prefabs/player/type_1/primary/ability_sequence_slash_data.tres" id="2_5kw4w"]
+[ext_resource type="PackedScene" uid="uid://couy58xw72igm" path="res://prefabs/player/type_1/primary/ability_sequence_chop.tscn" id="2_nvipc"]
+[ext_resource type="PackedScene" uid="uid://g2qvxhjpoc35" path="res://prefabs/player/type_1/primary/ability_sequence_dual_slice.tscn" id="3_d0eyf"]
+[ext_resource type="PackedScene" uid="uid://snufqtwxrdmj" path="res://prefabs/player/type_1/primary/ability_sequence_slice.tscn" id="4_w2k4v"]
+
+[node name="AblitySequenceSlash" type="Node3D"]
+script = ExtResource("1_vy6kj")
+_resetStateDuration = 7.0
+_animationResetDuration = 0.5
+_chopDuration = 1.067
+_chopDamage = ExtResource("2_nvipc")
+_dualSliceDuration = 1.167
+_dualSliceDamage = ExtResource("3_d0eyf")
+_sliceDuration = 1.0
+_sliceDamage = ExtResource("4_w2k4v")
+_abilityDisplay = ExtResource("2_5kw4w")

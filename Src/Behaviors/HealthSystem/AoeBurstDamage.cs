@@ -4,7 +4,7 @@ using Godot.Collections;
 
 namespace SomeGame.Behaviors.HealthSystem
 {
-    public partial class AoeBurstDamage : Area3D, IBurstDamage
+    public partial class AoeBurstDamage : Node3D, IBurstDamage
     {
         // ================================
         // Export
@@ -12,6 +12,7 @@ namespace SomeGame.Behaviors.HealthSystem
 
         [ExportGroup("Damage")]
         [Export] private float _damageAmount;
+        [Export] private Shape3D _collisionShape;
 
         [ExportGroup("HitStop")]
         [Export] private float _hitStopDuration;
@@ -20,15 +21,18 @@ namespace SomeGame.Behaviors.HealthSystem
         // Public Functions
         // ================================
 
+        public void ApplyDamage(Array<Rid> excludeObjects)
+        {
+            var position = GlobalPosition;
+            ApplyDamage(position, excludeObjects);
+        }
+
         public void ApplyDamage(Vector3 position, Array<Rid> excludeObjects)
         {
             var damageLocation = new Transform3D(Basis.Identity, position);
-            var areaShape = GetRid();
-
-            // TODO: Fix this...
             var queryParams = new PhysicsShapeQueryParameters3D
             {
-                ShapeRid = areaShape,
+                Shape = _collisionShape,
                 Transform = damageLocation,
                 Exclude = excludeObjects,
                 CollideWithAreas = true,
@@ -38,7 +42,6 @@ namespace SomeGame.Behaviors.HealthSystem
             var world = GetWorld3D();
             var spaceState = GetWorld3D().DirectSpaceState;
             var result = spaceState.IntersectShape(queryParams);
-            PhysicsServer3D.FreeRid(areaShape);
 
             foreach (var intersectResult in result)
             {
@@ -46,7 +49,7 @@ namespace SomeGame.Behaviors.HealthSystem
                 if (collider is DamageHitStopPropagator damageHitStopPropagator)
                 {
                     damageHitStopPropagator.TakeDamage(_damageAmount);
-                    // damageHitStopPropagator.EnableHitStop(_hitStopDuration);
+                    damageHitStopPropagator.EnableHitStop(_hitStopDuration);
                 }
             }
         }

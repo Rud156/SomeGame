@@ -1,0 +1,14 @@
+[gd_scene load_steps=5 format=3 uid="uid://bc7kng21yxc72"]
+
+[ext_resource type="Script" uid="uid://drwsvlf8ah2t6" path="res://Src/Player/Type1/AbilitySpinAttackType1.cs" id="1_bdf3n"]
+[ext_resource type="Resource" uid="uid://cenpm8xkqc1d2" path="res://prefabs/player/type_1/secondary/ability_spin_data.tres" id="2_yoibc"]
+[ext_resource type="PackedScene" uid="uid://c4fdt6syeid55" path="res://prefabs/player/type_1/secondary/spin_rotating_damage.tscn" id="2_yv3e2"]
+[ext_resource type="PackedScene" uid="uid://diacdtsi1aj2k" path="res://prefabs/player/type_1/secondary/spin_attack_end_aoe.tscn" id="3_00u4b"]
+
+[node name="AbilitySpin" type="Node3D"]
+script = ExtResource("1_bdf3n")
+_spinAttackMaxDuration = 5.0
+_spinMovementSpeed = 20.0
+_weaponRotatingDamage = ExtResource("2_yv3e2")
+_endingAoeDamage = ExtResource("3_00u4b")
+_abilityDisplay = ExtResource("2_yoibc")

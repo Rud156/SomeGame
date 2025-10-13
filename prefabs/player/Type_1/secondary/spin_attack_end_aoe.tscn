@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://diacdtsi1aj2k"]
+
+[ext_resource type="Script" uid="uid://cn02tmce7l704" path="res://Src/Behaviors/HealthSystem/BurstDamageInRange.cs" id="1_cyioh"]
+
+[node name="SpinAttackEndAoe" type="Node3D"]
+script = ExtResource("1_cyioh")
+_damageRadius = 10.0
+_damageAmount = 20.0
+_hitStopDuration = 0.15

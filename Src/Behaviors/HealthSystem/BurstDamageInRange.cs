@@ -21,6 +21,12 @@ namespace SomeGame.Behaviors.HealthSystem
         // Public Functions
         // ================================
 
+        public void ApplyDamage(Array<Rid> excludeObjects)
+        {
+            var position = GlobalPosition;
+            ApplyDamage(position, excludeObjects);
+        }
+
         public void ApplyDamage(Vector3 position, Array<Rid> excludeObjects)
         {
             var damageLocation = new Transform3D(Basis.Identity, position);

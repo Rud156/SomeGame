@@ -6,9 +6,9 @@
 [ext_resource type="Script" uid="uid://efmawra8mgd8" path="res://Src/Behaviors/HitStop/HitStopParticleSystem.cs" id="3_8fpqd"]
 [ext_resource type="Script" uid="uid://c4r48qmuggd3q" path="res://Src/Behaviors/Abilities/Base/AbilityProcessor.cs" id="4_ao338"]
 [ext_resource type="Script" uid="uid://d3yopcb7mclfe" path="res://Src/Behaviors/HitStop/HitStopAnimator.cs" id="4_n1uah"]
-[ext_resource type="PackedScene" uid="uid://bc7kng21yxc72" path="res://prefabs/player/type_1/ability_spin.tscn" id="7_q4q30"]
+[ext_resource type="PackedScene" uid="uid://bc7kng21yxc72" path="res://prefabs/player/type_1/secondary/ability_spin.tscn" id="7_q4q30"]
 [ext_resource type="Script" uid="uid://oofdr4kb1l2m" path="res://Src/Behaviors/HealthSystem/HealthAndDamage.cs" id="8_3hfor"]
-[ext_resource type="PackedScene" uid="uid://b5kbeshxt2d5j" path="res://prefabs/player/type_1/ability_sequence_slash.tscn" id="8_q4q30"]
+[ext_resource type="PackedScene" uid="uid://b5kbeshxt2d5j" path="res://prefabs/player/type_1/primary/ability_sequence_slash.tscn" id="8_q4q30"]
 [ext_resource type="PackedScene" uid="uid://cx7ytose4mwxv" path="res://prefabs/player/type_1/barbarian.tscn" id="10_q4q30"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3khpg"]
