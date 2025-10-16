@@ -1,7 +1,8 @@
 ﻿using Godot;
+using SomeGame.Behaviors.HealthSystem;
 using SomeGame.Behaviors.HitStop;
 
-namespace SomeGame.Behaviors.HealthSystem
+namespace SomeGame.Behaviors.Common
 {
     public partial class DamageHitStopPropagator : CharacterBody3D
     {

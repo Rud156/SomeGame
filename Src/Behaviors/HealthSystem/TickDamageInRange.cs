@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Godot;
 using Godot.Collections;
+using SomeGame.Behaviors.Common;
 
 namespace SomeGame.Behaviors.HealthSystem
 {

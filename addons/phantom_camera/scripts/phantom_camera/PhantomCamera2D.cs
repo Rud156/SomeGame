@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Godot;
 using Godot.Collections;
 using PhantomCamera.Noise;
@@ -232,6 +233,7 @@ public class PhantomCamera2D : PhantomCamera
         Node2D.Disconnect(SignalName.NoiseEmitted, _callableNoiseEmitted);
     }
 
+    [Obsolete("Obsolete")]
     public void SetLimitTarget(TileMap tileMap)
     {
         Node2D.Call(MethodName.SetLimitTarget, tileMap.GetPath());
@@ -334,6 +336,7 @@ public class LimitTargetQueryResult(GodotObject godotObject)
 
     public bool IsCollisionShape2D => godotObject.IsClass("CollisionShape2D");
 
+    [Obsolete("Obsolete")]
     public TileMap? AsTileMap()
     {
         return IsTileMap ? (TileMap)godotObject : null;
