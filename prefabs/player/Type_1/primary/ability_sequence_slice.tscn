@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b0wyowmw4s846" path="res://Src/Behaviors/HealthSystem/BurstDamageController.cs" id="1_hqdmm"]
 [ext_resource type="Script" uid="uid://idoha2n7g44c" path="res://Src/Behaviors/HealthSystem/AoeBurstDamage.cs" id="2_7edw0"]
-[ext_resource type="Shape3D" uid="uid://b8o6uffak48qr" path="res://prefabs/player/type_1/primary/ability_sequence_slice_collider.tres" id="3_pfgar"]
+[ext_resource type="Shape3D" uid="uid://b8o6uffak48qr" path="res://prefabs/player/Type_1/primary/ability_sequence_slice_collider.tres" id="3_pfgar"]
 
 [node name="AbilitySequenceSlice" type="Node3D" node_paths=PackedStringArray("_burstDamageNodes")]
 script = ExtResource("1_hqdmm")
@@ -13,3 +13,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 3.5)
 script = ExtResource("2_7edw0")
 _damageAmount = 25.0
 _collisionShape = ExtResource("3_pfgar")
+_collisionMask = 1

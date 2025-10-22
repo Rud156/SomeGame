@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Godot;
 using SomeGame.Behaviors.Abilities.Base;
 using SomeGame.Behaviors.Common;
-using SomeGame.Behaviors.HealthSystem;
 using SomeGame.Camera;
+using SomeGame.Enemies.Core;
 using SomeGame.UI.Player;
 
 namespace SomeGame.Player
@@ -334,6 +334,6 @@ namespace SomeGame.Player
     {
         Normal,
         Falling,
-        CustomMovement,
+        CustomMovement
     }
 }

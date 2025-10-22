@@ -12,10 +12,10 @@ _playerIcon = NodePath("PlayerBackground/PlayerIcon")
 
 [node name="PlayerBackground" type="NinePatchRect" parent="."]
 layout_mode = 1
-offset_left = 11.995
-offset_top = -24.93
-offset_right = 75.995
-offset_bottom = 39.07
+offset_left = 12.0
+offset_top = -25.0
+offset_right = 76.0
+offset_bottom = 39.0
 rotation = 0.0977384
 texture = ExtResource("3_o4wlo")
 patch_margin_left = 10

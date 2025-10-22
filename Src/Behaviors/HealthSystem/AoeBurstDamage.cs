@@ -14,6 +14,7 @@ namespace SomeGame.Behaviors.HealthSystem
         [ExportGroup("Damage")]
         [Export] private float _damageAmount;
         [Export] private Shape3D _collisionShape;
+        [Export(PropertyHint.Layers3DPhysics)] private uint _collisionMask;
 
         [ExportGroup("HitStop")]
         [Export] private float _hitStopDuration;
@@ -36,6 +37,7 @@ namespace SomeGame.Behaviors.HealthSystem
                 Shape = _collisionShape,
                 Transform = damageLocation,
                 Exclude = excludeObjects,
+                CollisionMask = _collisionMask,
                 CollideWithAreas = true,
                 CollideWithBodies = true
             };
