@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bgnguke0yisax"]
+[gd_scene load_steps=22 format=3 uid="uid://bgnguke0yisax"]
 
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_7yhar"]
 [ext_resource type="PackedScene" uid="uid://dc31drmlrfvh5" path="res://prefabs/player/player_base.tscn" id="2_mb4n0"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="7_5dv0b"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_8ylla"]
 [ext_resource type="Script" uid="uid://dppd2k61cjr2v" path="res://Src/Camera/CameraDeadZoneFollower.cs" id="8_juesv"]
+[ext_resource type="Script" uid="uid://du4xaw64bh2fw" path="res://Src/Global/GameManager.cs" id="10_q0p5s"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j5px3"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -115,6 +116,11 @@ _lerpRate = 7.0
 [node name="CollisionShape" type="CollisionShape3D" parent="GlobalControllers/CameraDeadzoneDetector"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -2.5)
 shape = SubResource("BoxShape3D_qlfll")
+
+[node name="GlobalManagers" type="Node3D" parent="."]
+
+[node name="GameManager" type="Node3D" parent="GlobalManagers"]
+script = ExtResource("10_q0p5s")
 
 [node name="HUD" type="Control" parent="."]
 layout_mode = 3

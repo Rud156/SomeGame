@@ -12,6 +12,18 @@ namespace SomeGame.Player
         private static CustomInputController _instance;
         public static CustomInputController Instance => _instance;
 
+        public override void _EnterTree()
+        {
+            if (_instance != null)
+            {
+                QueueFree();
+                return;
+            }
+
+            _instance = this;
+        }
+
+
         // ================================
         // Constants
         // ================================
@@ -74,18 +86,6 @@ namespace SomeGame.Player
         // ================================
         // Override Functions
         // ================================
-
-        // This method is called when the node enters the scene tree for the first time.
-        public override void _EnterTree()
-        {
-            if (_instance != null)
-            {
-                QueueFree();
-                return;
-            }
-
-            _instance = this;
-        }
 
         public override void _Input(InputEvent @event)
         {

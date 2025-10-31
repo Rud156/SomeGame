@@ -5,6 +5,7 @@ using SomeGame.Behaviors.Abilities.Base;
 using SomeGame.Behaviors.Common;
 using SomeGame.Camera;
 using SomeGame.Enemies.Core;
+using SomeGame.Global;
 using SomeGame.UI.Player;
 
 namespace SomeGame.Player
@@ -77,8 +78,7 @@ namespace SomeGame.Player
 
             _playerAnimationController.SetPlayerController(this);
 
-            // Maybe move this to a GameManager or something...
-            CameraDeadZoneFollower.Instance.SetTarget(this);
+            GameManager.Instance.RegisterMainTarget(this);
             PlayerInfoDisplay.Instance.SetPlayerInfo(_playerInfoDataDisplay.playerName, _playerInfoDataDisplay.playerIcon);
             PlayerHealthDisplay.Instance.RegisterHealthAndDamage(HealthAndDamage);
         }

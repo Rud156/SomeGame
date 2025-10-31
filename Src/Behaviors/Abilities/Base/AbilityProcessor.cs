@@ -118,24 +118,30 @@ namespace SomeGame.Behaviors.Abilities.Base
                     var activeAbility = _activeAbilities[i];
                     var activeAbilityDisplay = activeAbility.AbilityDisplay;
 
-                    if (!newAbilityDisplay.disallowedAbilities.Contains(activeAbilityDisplay.abilityEnum))
+                    if (newAbilityDisplay.disallowedAbilities.Contains(activeAbilityDisplay.abilityEnum))
                     {
-                        continue;
-                    }
-
-                    // This means that the new ability is more important
-                    // So we need to kill the existing invalid one and then start the new one
-                    if (newAbilityDisplay.abilityPriorityIndex > activeAbilityDisplay.abilityPriorityIndex)
-                    {
-                        activeAbility.End();
-                        _activeAbilities.RemoveAt(i);
-                        EmitSignal(SignalName.OnAbilityEnded, activeAbility);
+                        // This means that the new ability is more important
+                        // So we need to kill the existing invalid one and then start the new one
+                        if (newAbilityDisplay.abilityPriorityIndex > activeAbilityDisplay.abilityPriorityIndex)
+                        {
+                            activeAbility.End();
+                            _activeAbilities.RemoveAt(i);
+                            EmitSignal(SignalName.OnAbilityEnded, activeAbility);
+                        }
+                        else
+                        {
+                            canStartNewAbility = false;
+                            break;
+                        }
                     }
                 }
 
-                newAbility.Start();
-                _activeAbilities.Add(newAbility);
-                EmitSignal(SignalName.OnAbilityStarted, newAbility);
+                if (canStartNewAbility)
+                {
+                    newAbility.Start();
+                    _activeAbilities.Add(newAbility);
+                    EmitSignal(SignalName.OnAbilityStarted, newAbility);
+                }
             }
         }
     }
