@@ -23,8 +23,12 @@ namespace SomeGame.Enemies.Core
         [Export] protected float detectionRadius;
         [Export(PropertyHint.Layers3DPhysics)] protected uint detectionMask;
 
+        [ExportGroup("Data")]
+        [Export] protected CoreEnemyType enemyType;
+
         [ExportGroup("Components")]
         [Export] protected AbilityProcessor abilityProcessor;
+        [Export] protected EnemyAnimationController animationController;
 
         // ================================
         // Signals
@@ -57,7 +61,7 @@ namespace SomeGame.Enemies.Core
 
         public override void _Process(double delta)
         {
-            float deltaTime = (float)delta;
+            var deltaTime = (float)delta;
 
             if (HitStopBehavior is { IsActive: false })
             {

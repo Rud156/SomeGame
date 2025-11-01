@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Godot;
 using Godot.Collections;
 
@@ -122,7 +121,7 @@ namespace SomeGame.Behaviors.Abilities.Base
                     {
                         // This means that the new ability is more important
                         // So we need to kill the existing invalid one and then start the new one
-                        if (newAbilityDisplay.abilityPriorityIndex > activeAbilityDisplay.abilityPriorityIndex)
+                        if (newAbilityDisplay.abilityPriorityIndex >= activeAbilityDisplay.abilityPriorityIndex)
                         {
                             activeAbility.End();
                             _activeAbilities.RemoveAt(i);

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bgnguke0yisax"]
+[gd_scene load_steps=21 format=3 uid="uid://bgnguke0yisax"]
 
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_7yhar"]
 [ext_resource type="PackedScene" uid="uid://dc31drmlrfvh5" path="res://prefabs/player/player_base.tscn" id="2_mb4n0"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://bn3d7gutc3bln" path="res://prefabs/ui/player/abilities_display.tscn" id="4_wk0fx"]
 [ext_resource type="PackedScene" uid="uid://ufxsbqnfq3wa" path="res://prefabs/ui/player/player_info_display.tscn" id="5_mb4n0"]
 [ext_resource type="PackedScene" uid="uid://bhwsltjqeqih2" path="res://prefabs/ui/player/player_health.tscn" id="6_7yhar"]
-[ext_resource type="Script" uid="uid://bxbdeqcc4kxsp" path="res://Src/Enemies/Core/EnemyController.cs" id="6_hvqn6"]
 [ext_resource type="Script" uid="uid://bvvs0tdkg5ttr" path="res://Src/Camera/PhantomCameraController.cs" id="6_qlfll"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="7_5dv0b"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_8ylla"]
@@ -97,7 +96,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_jh1ax")
 shape = SubResource("BoxShape3D_j5px3")
 
 [node name="GlobalControllers" type="Node3D" parent="."]
-script = ExtResource("6_hvqn6")
 
 [node name="CustomCameraController" type="Node3D" parent="GlobalControllers" node_paths=PackedStringArray("_phantomCamera", "_phantomCameraShaker")]
 script = ExtResource("6_qlfll")
