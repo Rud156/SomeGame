@@ -16,6 +16,7 @@ namespace SomeGame.Player.Type1
         private const string ChopAnimParam = "parameters/Type1SequenceSlash/conditions/chop";
         private const string DualSliceAnimParam = "parameters/Type1SequenceSlash/conditions/dual_slice";
         private const string SliceAnimParam = "parameters/Type1SequenceSlash/conditions/slice";
+        private const string AnimationSpeedParam = "parameters/AnimatorSpeed/scale";
 
         // ================================
         // Export
@@ -27,12 +28,15 @@ namespace SomeGame.Player.Type1
 
         [ExportGroup("Attack Data")]
         [Export] private float _chopDuration;
+        [Export] private float _chopAnimationSpeed;
         [Export] private float _chopDamageTriggerTime;
         [Export] private PackedScene _chopDamage;
         [Export] private float _dualSliceDuration;
+        [Export] private float _dualSliceAnimationSpeed;
         [Export] private float _dualSliceDamageTriggerTime;
         [Export] private PackedScene _dualSliceDamage;
         [Export] private float _sliceDuration;
+        [Export] private float _sliceAnimationSpeed;
         [Export] private float _sliceDamageTriggerTime;
         [Export] private PackedScene _sliceDamage;
 
@@ -44,6 +48,9 @@ namespace SomeGame.Player.Type1
         private float _currentAttackDuration;
         private float _currentDamageTriggerTime;
         private BurstDamageController _currentDamageController;
+
+        // Animation Data
+        private float _previousAnimationSpeed;
 
         // ================================
         // Ability Functions
@@ -128,6 +135,42 @@ namespace SomeGame.Player.Type1
             }
 
             _ResetAnimations();
+            _previousAnimationSpeed = (float)abilityProcessor.AnimationTree.Get(AnimationSpeedParam);
+
+            // Play the animation
+            float animationSpeed;
+            switch (_sequenceState)
+            {
+                case SequenceState.Chop:
+                    {
+                        animationSpeed = _chopAnimationSpeed;
+                        abilityProcessor.AnimationTree.Set(AnimationSpeedParam, _chopAnimationSpeed);
+                        abilityProcessor.AnimationTree.Set(ChopAnimParam, true);
+                        _currentDamageController = (BurstDamageController)_chopDamage.Instantiate();
+                    }
+                    break;
+
+                case SequenceState.DualSlice:
+                    {
+                        animationSpeed = _dualSliceAnimationSpeed;
+                        abilityProcessor.AnimationTree.Set(AnimationSpeedParam, _dualSliceAnimationSpeed);
+                        abilityProcessor.AnimationTree.Set(DualSliceAnimParam, true);
+                        _currentDamageController = (BurstDamageController)_dualSliceDamage.Instantiate();
+                    }
+                    break;
+
+                case SequenceState.Slice:
+                    {
+                        animationSpeed = _sliceAnimationSpeed;
+                        abilityProcessor.AnimationTree.Set(AnimationSpeedParam, _sliceAnimationSpeed);
+                        abilityProcessor.AnimationTree.Set(SliceAnimParam, true);
+                        _currentDamageController = (BurstDamageController)_sliceDamage.Instantiate();
+                    }
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
             // Set the duration for the animation
             _currentAttackDuration = _sequenceState switch
@@ -137,6 +180,7 @@ namespace SomeGame.Player.Type1
                 SequenceState.Slice => _sliceDuration,
                 _ => _currentAttackDuration
             };
+            _currentAttackDuration /= animationSpeed;
 
             // Set the duration for when to trigger the damage
             _currentDamageTriggerTime = _sequenceState switch
@@ -146,28 +190,7 @@ namespace SomeGame.Player.Type1
                 SequenceState.Slice => _sliceDamageTriggerTime,
                 _ => _currentDamageTriggerTime
             };
-
-            // Play the animation
-            switch (_sequenceState)
-            {
-                case SequenceState.Chop:
-                    abilityProcessor.AnimationTree.Set(ChopAnimParam, true);
-                    _currentDamageController = (BurstDamageController)_chopDamage.Instantiate();
-                    break;
-
-                case SequenceState.DualSlice:
-                    abilityProcessor.AnimationTree.Set(DualSliceAnimParam, true);
-                    _currentDamageController = (BurstDamageController)_dualSliceDamage.Instantiate();
-                    break;
-
-                case SequenceState.Slice:
-                    abilityProcessor.AnimationTree.Set(SliceAnimParam, true);
-                    _currentDamageController = (BurstDamageController)_sliceDamage.Instantiate();
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            _currentDamageTriggerTime /= animationSpeed;
 
             // Go to the next state
             _sequenceState = _sequenceState switch
@@ -181,6 +204,7 @@ namespace SomeGame.Player.Type1
 
         private void _ResetAnimations()
         {
+            abilityProcessor.AnimationTree.Set(AnimationSpeedParam, _previousAnimationSpeed);
             abilityProcessor.AnimationTree.Set(ChopAnimParam, false);
             abilityProcessor.AnimationTree.Set(DualSliceAnimParam, false);
             abilityProcessor.AnimationTree.Set(SliceAnimParam, false);
